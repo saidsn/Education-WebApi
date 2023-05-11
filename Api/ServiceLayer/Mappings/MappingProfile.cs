@@ -15,11 +15,10 @@ namespace ServiceLayer.Mappings
             CreateMap<Slider, SliderListDto>().ReverseMap();
             CreateMap<Slider, SliderCreateDto>().ReverseMap();
             CreateMap<Slider, SliderUpdateDto>().ReverseMap();
-           
-
 
             CreateMap<Title, TitleDto>().ReverseMap();
-
+            CreateMap<Title, TitleListDto>().ReverseMap();
+            CreateMap<Title, TitleCreateDto>().ReverseMap();
 
             CreateMap<Header, HeaderDto>().ReverseMap();
             CreateMap<Header, HeaderListDto>().ReverseMap();

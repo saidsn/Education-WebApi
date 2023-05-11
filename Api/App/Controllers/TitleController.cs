@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.DTOs.Title;
 using ServiceLayer.Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
@@ -47,7 +48,29 @@ namespace App.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] TitleCreateDto titleCreateDto)
+        {
+            await _service.CreateAsync(titleCreateDto);
 
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([Required] int id)
+        {
+            try
+            {
+                await _service.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+
+                return NotFound();
+            }
+        }
 
     }
 }
