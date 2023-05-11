@@ -63,7 +63,7 @@ namespace App.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromBody] [FromRoute] int id, HeaderUpdateDto headerUpdateDto)
+        public async Task<IActionResult> Update([Required][FromRoute] int id, HeaderUpdateDto headerUpdateDto)
         {
             try
             {
@@ -78,6 +78,6 @@ namespace App.Controllers
             }
         }
 
-      
+
     }
 }
