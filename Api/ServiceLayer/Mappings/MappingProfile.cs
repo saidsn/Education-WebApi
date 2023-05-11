@@ -11,17 +11,21 @@ namespace ServiceLayer.Mappings
     {
         public MappingProfile()
         {
+            CreateMap<Slider, SliderDto>().ReverseMap();
             CreateMap<Slider, SliderListDto>().ReverseMap();
             CreateMap<Slider, SliderCreateDto>().ReverseMap();
             CreateMap<Slider, SliderUpdateDto>().ReverseMap();
-            CreateMap<Slider, SliderDto>().ReverseMap();
+           
 
 
             CreateMap<Title, TitleDto>().ReverseMap();
 
 
             CreateMap<Header, HeaderDto>().ReverseMap();
+            CreateMap<Header, HeaderListDto>().ReverseMap();
             CreateMap<Header, HeaderCreateDto>().ReverseMap();
+            CreateMap<Header, HeaderUpdateDto>().ReverseMap();
+
         }
     }
 }

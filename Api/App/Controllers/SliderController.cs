@@ -18,21 +18,45 @@ namespace App.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> Get([Required] int id)
+        {
+            try
+            {
+                var slider = await _service.GetAsync(id);
+
+                return Ok(slider);
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
+            try
+            {
+                var result = await _service.GetAllAsync();
+                return Ok(result);
+            }
+            catch (NullReferenceException)
+            {
+
+                return NotFound();
+            }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]SliderCreateDto sliderCreateDto)
         {
             await _service.CreateAsync(sliderCreateDto);
-
             return Ok();
         }
+
 
         [HttpDelete]
         public async Task<IActionResult> Delete([Required] int id)
@@ -65,20 +89,7 @@ namespace App.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get([Required] int id)
-        {
-            try
-            {
-                var slider = await _service.GetAsync(id);
-
-                return Ok(slider);
-            }
-            catch (NullReferenceException)
-            {
-                return NotFound();
-            }
-        }
+   
 
     }
 }

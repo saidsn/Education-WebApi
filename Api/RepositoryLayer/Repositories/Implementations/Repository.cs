@@ -37,7 +37,6 @@ namespace RepositoryLayer.Repositories.Implementations
             _entities.Remove(entity);
 
             await _context.SaveChangesAsync();
-
         }
 
         public async Task<T> Get(int id)

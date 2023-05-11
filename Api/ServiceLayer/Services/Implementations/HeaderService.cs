@@ -30,10 +30,17 @@ namespace ServiceLayer.Services.Implementations
             await _repo.Create(mapData);
         }
 
-        public async Task<List<HeaderDto>> GetAllAsync()
+        public async Task DeleteAsync(int id)
+        {
+            var header = await _repo.Get(id);
+
+            await _repo.Delete(header);
+        }
+
+        public async Task<List<HeaderListDto>> GetAllAsync()
         {
             var model = await _repo.GetAll();
-            var mapData = _mapper.Map<List<HeaderDto>>(model);
+            var mapData = _mapper.Map<List<HeaderListDto>>(model);
             return mapData;
         }
 
@@ -44,6 +51,15 @@ namespace ServiceLayer.Services.Implementations
             var mapData = _mapper.Map<HeaderDto>(header);
 
             return mapData;
+        }
+
+        public async Task UpdateAsync(int id, HeaderUpdateDto headerUpdateDto)
+        {
+            var dbHeader = await _repo.Get(id);
+
+            _mapper.Map(headerUpdateDto, dbHeader);
+
+            await _repo.Update(dbHeader);
         }
     }
 }
