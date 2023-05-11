@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.DTOs.Title;
 using ServiceLayer.Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
@@ -45,6 +46,14 @@ namespace App.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] TitleCreateDto titleCreateDto)
+        {
+            await _service.CreateAsync(titleCreateDto);
+
+            return Ok();
         }
 
 

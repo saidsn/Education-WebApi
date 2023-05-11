@@ -31,15 +31,20 @@ namespace ServiceLayer.Services.Implementations
             return mapData;
         }
 
-        public async Task<List<TitleDto>> GetAllAsync()
+        public async Task<List<TitleListDto>> GetAllAsync()
         {
             var model = await _repo.GetAll();
 
-            var mapData = _mapper.Map<List<TitleDto>>(model);
+            var mapData = _mapper.Map<List<TitleListDto>>(model);
 
             return mapData;
         }
 
-      
+        public async Task CreateAsync(TitleCreateDto titleCreateDto)
+        {
+            var mapData = _mapper.Map<Title>(titleCreateDto);
+
+            await _repo.Create(mapData);
+        }
     }
 }
