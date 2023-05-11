@@ -10,6 +10,7 @@ namespace ServiceLayer.Services.Interfaces
 {
     public interface ITitleService
     {
+        Task<TitleDto> GetAsync(int id);
         Task<List<TitleDto>> GetAllAsync();
     }
 }

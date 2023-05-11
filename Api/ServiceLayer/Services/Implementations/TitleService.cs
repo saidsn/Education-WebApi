@@ -22,11 +22,24 @@ namespace ServiceLayer.Services.Implementations
             _mapper = mapper;
         }
 
+        public async Task<TitleDto> GetAsync(int id)
+        {
+            var title = await _repo.Get(id);
+
+            var mapData = _mapper.Map<TitleDto>(title);
+
+            return mapData;
+        }
+
         public async Task<List<TitleDto>> GetAllAsync()
         {
             var model = await _repo.GetAll();
+
             var mapData = _mapper.Map<List<TitleDto>>(model);
+
             return mapData;
         }
+
+      
     }
 }

@@ -16,16 +16,9 @@ namespace App.Controllers
             _env = env;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var result = await _service.GetAllAsync();
-
-            return Ok(result);
-        }
 
         [HttpGet]
-        public async Task<IActionResult> Get([Required]int id)
+        public async Task<IActionResult> Get([Required] int id)
         {
             try
             {
@@ -35,8 +28,16 @@ namespace App.Controllers
             }
             catch (NullReferenceException)
             {
-                return NotFound();  
+                return NotFound();
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _service.GetAllAsync();
+
+            return Ok(result);
         }
 
         [HttpPost]
@@ -73,11 +74,8 @@ namespace App.Controllers
             }
             catch (NullReferenceException)
             {
-
                 return NotFound();
             }
         }
-
-
     }
 }

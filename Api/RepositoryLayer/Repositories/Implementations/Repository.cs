@@ -21,6 +21,17 @@ namespace RepositoryLayer.Repositories.Implementations
             _entities = _context.Set<T>();
         }
 
+        public async Task<T> Get(int id)
+        {
+            var res = await _entities.FindAsync(id) ?? throw new NotImplementedException();
+            return res;
+        }
+
+        public async Task<List<T>> GetAll()
+        {
+            return await _entities.ToListAsync();
+        }
+
         public async Task Create(T entity)
         {
             if (entity == null) throw new ArgumentNullException();
@@ -37,17 +48,6 @@ namespace RepositoryLayer.Repositories.Implementations
             _entities.Remove(entity);
 
             await _context.SaveChangesAsync();
-        }
-
-        public async Task<T> Get(int id)
-        {  
-            var res = await _entities.FindAsync(id) ?? throw new NotImplementedException();
-            return res;
-        }
-
-        public async Task<List<T>> GetAll()
-        {
-            return await _entities.ToListAsync();
         }
 
         public async Task Update(T entity)
