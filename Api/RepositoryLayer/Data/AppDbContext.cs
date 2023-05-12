@@ -8,7 +8,7 @@ namespace RepositoryLayer.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,6 +16,7 @@ namespace RepositoryLayer.Data
             modelBuilder.ApplyConfiguration(new SliderConfiguration());
             modelBuilder.ApplyConfiguration(new TitleConfiguration());
             modelBuilder.ApplyConfiguration(new HeaderConfiguration());
+            modelBuilder.ApplyConfiguration(new AboutConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

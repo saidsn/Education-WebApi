@@ -16,6 +16,7 @@ namespace App.Controllers
             _env = env;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Get([Required] int id)
         {
@@ -46,14 +47,6 @@ namespace App.Controllers
             {
                 return NotFound();
             }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TitleCreateDto titleCreateDto)
-        {
-            await _service.CreateAsync(titleCreateDto);
-
-            return Ok();
         }
 
 
