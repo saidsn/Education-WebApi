@@ -48,6 +48,7 @@ namespace App.Controllers
 
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AboutCreateDto aboutCreateDto)
         {
@@ -70,5 +71,6 @@ namespace App.Controllers
                 return NotFound();
             }
         }
+
     }
 }

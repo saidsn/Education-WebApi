@@ -1,4 +1,4 @@
-﻿namespace ServiceLayer.DTOs.About
+﻿namespace ServiceLayer.DTOs.about
 {
     public class AboutUpdateDto
     {
