@@ -24,9 +24,16 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task CreateAsync(SliderCreateDto sliderCreateDto)
         {
-            var mapData = _mapper.Map<Slider>(sliderCreateDto);
+            if (!await _repo.IsExsist(s => s.Title == sliderCreateDto.Title))
+            {
+                var mapData = _mapper.Map<Slider>(sliderCreateDto);
 
-            await _repo.Create(mapData);
+                await _repo.Create(mapData);
+            }
+            else
+            {
+                throw new Exception("Title is already exsist");
+            }
         }
 
 

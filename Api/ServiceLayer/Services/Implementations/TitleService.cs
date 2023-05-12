@@ -45,7 +45,7 @@ namespace ServiceLayer.Services.Implementations
             }
             else
             {
-                throw new Exception("Name already exsist");
+                throw new Exception("Name is already exsist");
             }
         }
 

@@ -3,11 +3,6 @@ using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTOs.Header;
 using ServiceLayer.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.Services.Implementations
 {
@@ -25,9 +20,16 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task CreateAsync(HeaderCreateDto headerCreateDto)
         {
-            var mapData = _mapper.Map<Header>(headerCreateDto);
-            
-            await _repo.Create(mapData);
+            if (!await _repo.IsExsist(h => h.Title == headerCreateDto.Title))
+            {
+                var mapData = _mapper.Map<Header>(headerCreateDto);
+
+                await _repo.Create(mapData);
+            }
+            else
+            {
+                throw new Exception("Title is already exsist");
+            }
         }
 
         public async Task DeleteAsync(int id)
