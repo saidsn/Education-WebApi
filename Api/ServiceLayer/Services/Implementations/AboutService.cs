@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTOs.about;
 using ServiceLayer.Services.Interfaces;
@@ -7,7 +8,6 @@ namespace ServiceLayer.Services.Implementations
 {
     public class AboutService : IAboutService
     {
-
         private readonly IAboutRepository _repo;
         private readonly IMapper _mapper;
 
@@ -15,6 +15,29 @@ namespace ServiceLayer.Services.Implementations
         {
             _repo = repo;
             _mapper = mapper;
+        }
+
+        public async Task CreateAsync(AboutCreateDto aboutCreateDto)
+        {
+            if (!await _repo.IsExsist(a => a.Title == aboutCreateDto.Title))
+            {
+                var mapData = _mapper.Map<About>(aboutCreateDto);
+
+                await _repo.Create(mapData);
+            }
+            else
+            {
+                throw new Exception("Title is already exsist");
+            }
+        }
+
+        public async Task<List<AboutListDto>> GetAllAsync()
+        {
+            var abouts = await _repo.GetAll();
+
+            var mapDatas = _mapper.Map<List<AboutListDto>>(abouts);
+
+            return mapDatas;
         }
 
         public async Task<AboutDto> GetAsync(int id)

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.DTOs.Product;
 using ServiceLayer.DTOs.Slider;
 using ServiceLayer.Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
@@ -51,7 +50,7 @@ namespace App.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]SliderCreateDto sliderCreateDto)
+        public async Task<IActionResult> Create([FromBody] SliderCreateDto sliderCreateDto)
         {
             await _service.CreateAsync(sliderCreateDto);
             return Ok();
@@ -66,7 +65,7 @@ namespace App.Controllers
                 await _service.DeleteAsync(id);
                 return Ok();
             }
-            catch (NullReferenceException) 
+            catch (NullReferenceException)
             {
                 return NotFound();
             }
@@ -74,7 +73,7 @@ namespace App.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute][Required]int id, SliderUpdateDto sliderUpdateDto)
+        public async Task<IActionResult> Update([FromRoute][Required] int id, SliderUpdateDto sliderUpdateDto)
         {
             try
             {
@@ -88,8 +87,5 @@ namespace App.Controllers
                 return NotFound();
             }
         }
-
-   
-
     }
 }

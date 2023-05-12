@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.DTOs.about;
 using ServiceLayer.Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
@@ -29,6 +30,30 @@ namespace App.Controllers
 
                 return NotFound();
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var abouts = await _service.GetAllAsync();
+
+                return Ok(abouts);
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] AboutCreateDto aboutCreateDto)
+        {
+            await _service.CreateAsync(aboutCreateDto);
+
+            return Ok();
         }
     }
 }
