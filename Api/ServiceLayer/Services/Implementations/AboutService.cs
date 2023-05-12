@@ -17,6 +17,7 @@ namespace ServiceLayer.Services.Implementations
             _mapper = mapper;
         }
 
+
         public async Task CreateAsync(AboutCreateDto aboutCreateDto)
         {
             if (!await _repo.IsExsist(a => a.Title == aboutCreateDto.Title))
@@ -38,6 +39,7 @@ namespace ServiceLayer.Services.Implementations
             await _repo.Delete(about);
         }
 
+
         public async Task<List<AboutListDto>> GetAllAsync()
         {
             var abouts = await _repo.GetAll();
@@ -54,6 +56,16 @@ namespace ServiceLayer.Services.Implementations
             var mapData = _mapper.Map<AboutDto>(about);
 
             return mapData;
+        }
+
+        public async Task UpdateAsync(int id, AboutUpdateDto aboutUpdateDto)
+        {
+            var dbAbout = await _repo.Get(id);
+
+            _mapper.Map(aboutUpdateDto, dbAbout);
+
+            await _repo.Update(dbAbout);
+
         }
     }
 }

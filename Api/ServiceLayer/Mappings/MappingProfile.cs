@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DomainLayer.Entities;
 using ServiceLayer.DTOs.about;
-using ServiceLayer.DTOs.About;
 using ServiceLayer.DTOs.Header;
 using ServiceLayer.DTOs.Product;
 using ServiceLayer.DTOs.Slider;

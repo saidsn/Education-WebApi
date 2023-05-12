@@ -48,6 +48,7 @@ namespace App.Controllers
 
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AboutCreateDto aboutCreateDto)
         {
@@ -70,5 +71,15 @@ namespace App.Controllers
                 return NotFound();
             }
         }
+
+
+        [HttpPut, Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute][Required] int id, AboutUpdateDto aboutUpdateDto)
+        {
+            await _service.UpdateAsync(id, aboutUpdateDto);
+
+            return Ok();
+        }
+
     }
 }
