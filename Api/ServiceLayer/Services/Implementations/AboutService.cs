@@ -31,6 +31,13 @@ namespace ServiceLayer.Services.Implementations
             }
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var about = await _repo.Get(id);
+
+            await _repo.Delete(about);
+        }
+
         public async Task<List<AboutListDto>> GetAllAsync()
         {
             var abouts = await _repo.GetAll();
