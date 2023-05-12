@@ -41,9 +41,11 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<List<HeaderListDto>> GetAllAsync()
         {
-            var model = await _repo.GetAll();
-            var mapData = _mapper.Map<List<HeaderListDto>>(model);
-            return mapData;
+            var headers = await _repo.GetAll();
+
+            var mapDatas = _mapper.Map<List<HeaderListDto>>(headers);
+
+            return mapDatas;
         }
 
         public async Task<HeaderDto> GetAsync(int id)

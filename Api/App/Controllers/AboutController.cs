@@ -30,5 +30,21 @@ namespace App.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var abouts = await _service.GetAllAsync();
+
+                return Ok(abouts);
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+
+        }
     }
 }

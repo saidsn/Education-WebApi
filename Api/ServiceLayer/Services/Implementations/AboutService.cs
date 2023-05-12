@@ -17,6 +17,15 @@ namespace ServiceLayer.Services.Implementations
             _mapper = mapper;
         }
 
+        public async Task<List<AboutListDto>> GetAllAsync()
+        {
+            var abouts = await _repo.GetAll();
+
+            var mapDatas = _mapper.Map<List<AboutListDto>>(abouts);
+
+            return mapDatas;
+        }
+
         public async Task<AboutDto> GetAsync(int id)
         {
             var about = await _repo.Get(id);

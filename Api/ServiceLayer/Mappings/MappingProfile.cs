@@ -28,6 +28,7 @@ namespace ServiceLayer.Mappings
             CreateMap<Header, HeaderUpdateDto>().ReverseMap();
 
             CreateMap<About, AboutDto>().ReverseMap();
+            CreateMap<About, AboutListDto>().ReverseMap();
         }
     }
 }
