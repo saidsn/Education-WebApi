@@ -48,6 +48,14 @@ namespace App.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] TitleCreateDto titleCreateDto)
+        {
+            await _service.CreateAsync(titleCreateDto);
+
+            return Ok();
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TitleCreateDto titleCreateDto)

@@ -37,6 +37,7 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task CreateAsync(TitleCreateDto titleCreateDto)
         {
+<<<<<<< HEAD
             if (!await _repo.IsExsist(t => t.Name == titleCreateDto.Name))
             {
                 var mapData = _mapper.Map<Title>(titleCreateDto);
@@ -63,6 +64,11 @@ namespace ServiceLayer.Services.Implementations
             var mapData = _mapper.Map(titleUpdateDto, dbTitle);
 
             await _repo.Update(mapData);
+=======
+            var mapData = _mapper.Map<Title>(titleCreateDto);
+
+            await _repo.Create(mapData);
+>>>>>>> 44390bf0eff2aded80d32a3e84ecc86dfb4ff0a7
         }
     }
 }
