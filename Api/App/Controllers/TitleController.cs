@@ -48,6 +48,7 @@ namespace App.Controllers
             }
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TitleCreateDto titleCreateDto)
         {
@@ -55,6 +56,7 @@ namespace App.Controllers
 
             return Ok();
         }
+
 
         [HttpDelete]
         public async Task<IActionResult> Delete([Required] int id)
@@ -68,6 +70,23 @@ namespace App.Controllers
             catch (NullReferenceException)
             {
 
+                return NotFound();
+            }
+        }
+
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([Required][FromRoute] int id, TitleUpdateDto titleUpdateDto)
+        {
+            try
+            {
+                await _service.UpdateAsync(id, titleUpdateDto);
+
+                return Ok(titleUpdateDto);
+            }
+            catch (NullReferenceException)
+            {
                 return NotFound();
             }
         }

@@ -9,11 +9,11 @@ namespace DomainLayer.Configurations
     {
         public void Configure(EntityTypeBuilder<Slider> builder)
         {
-            builder.Property(m => m.Image).IsRequired();
-            builder.Property(m => m.Title).IsRequired().HasMaxLength(300);
-            builder.Property(m => m.SoftDeleted).HasDefaultValue(false);
-            builder.Property(m => m.CreateDate).HasDefaultValue(DateTime.Now);
-            builder.Property(m => m.UpdateDate).HasDefaultValue(DateTime.Now);
+            builder.Property(s => s.Image).IsRequired();
+            builder.Property(s => s.Title).IsRequired().HasMaxLength(300);
+            builder.Property(s => s.SoftDeleted).HasDefaultValue(false);
+            builder.Property(s => s.CreateDate).HasDefaultValue(DateTime.Now);
+            builder.Property(s => s.UpdateDate).HasDefaultValue(DateTime.Now);
 
         }
     }

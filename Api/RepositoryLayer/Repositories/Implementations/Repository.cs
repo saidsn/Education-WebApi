@@ -2,11 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Data;
 using RepositoryLayer.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace RepositoryLayer.Repositories.Implementations
 {
@@ -57,6 +53,11 @@ namespace RepositoryLayer.Repositories.Implementations
             _entities.Update(entity);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExsist(Expression<Func<T, bool>> expression)
+        {
+            return await _entities.AnyAsync(expression);
         }
     }
 

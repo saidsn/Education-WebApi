@@ -3,11 +3,6 @@ using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTOs.Title;
 using ServiceLayer.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.Services.Implementations
 {
@@ -42,9 +37,16 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task CreateAsync(TitleCreateDto titleCreateDto)
         {
-            var mapData = _mapper.Map<Title>(titleCreateDto);
+            if (!await _repo.IsExsist(t => t.Name == titleCreateDto.Name))
+            {
+                var mapData = _mapper.Map<Title>(titleCreateDto);
 
-            await _repo.Create(mapData);
+                await _repo.Create(mapData);
+            }
+            else
+            {
+                throw new Exception("Name already exsist");
+            }
         }
 
         public async Task DeleteAsync(int id)
@@ -52,6 +54,15 @@ namespace ServiceLayer.Services.Implementations
             var title = await _repo.Get(id);
 
             await _repo.Delete(title);
+        }
+
+        public async Task UpdateAsync(int id, TitleUpdateDto titleUpdateDto)
+        {
+            var dbTitle = await _repo.Get(id);
+
+            var mapData = _mapper.Map(titleUpdateDto, dbTitle);
+
+            await _repo.Update(mapData);
         }
     }
 }

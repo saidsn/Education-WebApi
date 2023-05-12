@@ -19,6 +19,7 @@ namespace ServiceLayer.Mappings
             CreateMap<Title, TitleDto>().ReverseMap();
             CreateMap<Title, TitleListDto>().ReverseMap();
             CreateMap<Title, TitleCreateDto>().ReverseMap();
+            CreateMap<Title, TitleUpdateDto>().ReverseMap();
 
             CreateMap<Header, HeaderDto>().ReverseMap();
             CreateMap<Header, HeaderListDto>().ReverseMap();

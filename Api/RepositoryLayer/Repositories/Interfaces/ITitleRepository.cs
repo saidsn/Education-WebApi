@@ -1,14 +1,10 @@
-﻿ using DomainLayer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DomainLayer.Entities;
 
 namespace RepositoryLayer.Repositories.Interfaces
 {
+
     public interface ITitleRepository : IRepository<Title>
     {
-
+        //Task<bool> IsExsist(Expression<Func<Title, bool>> expression);
     }
 }

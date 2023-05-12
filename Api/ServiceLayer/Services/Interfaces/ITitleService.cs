@@ -14,6 +14,7 @@ namespace ServiceLayer.Services.Interfaces
         Task<List<TitleListDto>> GetAllAsync();
         Task CreateAsync(TitleCreateDto titleCreateDto);
         Task DeleteAsync(int id);
+        Task UpdateAsync(int id, TitleUpdateDto titleUpdateDto);
 
     }
 }

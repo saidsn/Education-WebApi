@@ -1,9 +1,5 @@
 ﻿using DomainLayer.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace RepositoryLayer.Repositories.Interfaces
 {
@@ -14,5 +10,6 @@ namespace RepositoryLayer.Repositories.Interfaces
         Task Create(T entity);
         Task Delete(T entity);
         Task Update(T entity);
+        Task<bool> IsExsist(Expression<Func<T, bool>> expression);
     }
 }
