@@ -17,6 +17,7 @@ namespace RepositoryLayer.Data
             modelBuilder.ApplyConfiguration(new TitleConfiguration());
             modelBuilder.ApplyConfiguration(new HeaderConfiguration());
             modelBuilder.ApplyConfiguration(new AboutConfiguration());
+            modelBuilder.ApplyConfiguration(new BannerConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DomainLayer.Entities;
+using ServiceLayer.DTO_s.Banner;
 using ServiceLayer.DTOs.about;
 using ServiceLayer.DTOs.Header;
 using ServiceLayer.DTOs.Product;
@@ -16,6 +17,8 @@ namespace ServiceLayer.Mappings
             CreateMap<Slider, SliderListDto>().ReverseMap();
             CreateMap<Slider, SliderCreateDto>().ReverseMap();
             CreateMap<Slider, SliderUpdateDto>().ReverseMap();
+
+            CreateMap<Banner, BannerDto>().ReverseMap();
 
             CreateMap<Title, TitleDto>().ReverseMap();
             CreateMap<Title, TitleListDto>().ReverseMap();
