@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
+using ServiceLayer.DTO_s.Banner;
 using ServiceLayer.Services.Interfaces;
 
 namespace ServiceLayer.Services.Implementations
@@ -16,13 +17,15 @@ namespace ServiceLayer.Services.Implementations
             _mapper = mapper;
         }
 
+
+        public async Task<List<BannerListDto>> GetAllAsync()
+        {
+            return _mapper.Map<List<BannerListDto>>(await _repo.GetAll());
+        }
+
         public async Task<Banner> GetAsync(int id)
         {
-            var banner = await _repo.Get(id);
-
-            var mapData = _mapper.Map<Banner>(banner);
-
-            return mapData;
+            return _mapper.Map<Banner>(await _repo.Get(id));
         }
     }
 }

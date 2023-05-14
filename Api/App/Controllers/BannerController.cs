@@ -20,9 +20,20 @@ namespace App.Controllers
         {
             try
             {
-                var banner = await _service.GetAsync(id);
+                return Ok(await _service.GetAsync(id));
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+        }
 
-                return Ok(banner);
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                return Ok(await _service.GetAllAsync());
             }
             catch (NullReferenceException)
             {
