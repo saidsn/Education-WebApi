@@ -49,5 +49,36 @@ namespace App.Controllers
 
             return Ok();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([Required] int id)
+        {
+            try
+            {
+                await _service.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut, Route("{id}")]
+        public async Task<IActionResult> Update([Required][FromRoute] int id, BannerUpdateDto bannerUpdateDto)
+        {
+            try
+            {
+                await _service.UpdateAsync(id, bannerUpdateDto);
+
+                return Ok(bannerUpdateDto);
+
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+        }
     }
 }

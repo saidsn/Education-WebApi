@@ -29,6 +29,11 @@ namespace ServiceLayer.Services.Implementations
             }
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            await _repo.Delete(await _repo.Get(id));
+        }
+
         public async Task<List<BannerListDto>> GetAllAsync()
         {
             return _mapper.Map<List<BannerListDto>>(await _repo.GetAll());
@@ -37,6 +42,15 @@ namespace ServiceLayer.Services.Implementations
         public async Task<BannerDto> GetAsync(int id)
         {
             return _mapper.Map<BannerDto>(await _repo.Get(id));
+        }
+
+        public async Task UpdateAsync(int id, BannerUpdateDto bannerUpdateDto)
+        {
+            var dbbanner = await _repo.Get(id);
+
+            _mapper.Map(bannerUpdateDto, dbbanner);
+
+            await _repo.Update(dbbanner);
         }
     }
 }
