@@ -20,6 +20,7 @@ namespace ServiceLayer.Mappings
 
             CreateMap<Banner, BannerDto>().ReverseMap();
             CreateMap<Banner, BannerListDto>().ReverseMap();
+            CreateMap<Banner, BannerCreateDto>().ReverseMap();
 
             CreateMap<Title, TitleDto>().ReverseMap();
             CreateMap<Title, TitleListDto>().ReverseMap();
