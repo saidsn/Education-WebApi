@@ -65,6 +65,19 @@ namespace App.Controllers
             }
         }
 
+        [HttpPut, Route("{id}")]
+        public async Task<IActionResult> Update([Required][FromRoute] int id, ServiceUpdateDto serviceUpdateDto)
+        {
+            try
+            {
+                await _service.UpdateAsync(id, serviceUpdateDto);
 
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
+        }
     }
 }

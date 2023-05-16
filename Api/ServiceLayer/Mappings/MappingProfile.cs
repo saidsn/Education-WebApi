@@ -42,6 +42,7 @@ namespace ServiceLayer.Mappings
             CreateMap<Service, ServiceDto>().ReverseMap();
             CreateMap<Service, ServiceListDto>().ReverseMap();
             CreateMap<Service, ServiceCreateDto>().ReverseMap();
+            CreateMap<Service, ServiceUpdateDto>().ReverseMap();
         }
     }
 }

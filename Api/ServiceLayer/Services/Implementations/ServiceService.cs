@@ -42,5 +42,14 @@ namespace ServiceLayer.Services.Implementations
         {
             await _repo.Delete(await _repo.Get(id));
         }
+
+        public async Task UpdateAsync(int id, ServiceUpdateDto serviceUpdateDto)
+        {
+            var dbService = await _repo.Get(id);
+
+            _mapper.Map(serviceUpdateDto, dbService);
+
+            await _repo.Update(dbService);
+        }
     }
 }
