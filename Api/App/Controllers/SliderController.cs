@@ -22,9 +22,7 @@ namespace App.Controllers
         {
             try
             {
-                var slider = await _service.GetAsync(id);
-
-                return Ok(slider);
+                return Ok(await _service.GetAsync(id));
             }
             catch (NullReferenceException)
             {
@@ -38,12 +36,10 @@ namespace App.Controllers
         {
             try
             {
-                var result = await _service.GetAllAsync();
-                return Ok(result);
+                return Ok(await _service.GetAllAsync());
             }
             catch (NullReferenceException)
             {
-
                 return NotFound();
             }
         }
@@ -53,6 +49,7 @@ namespace App.Controllers
         public async Task<IActionResult> Create([FromBody] SliderCreateDto sliderCreateDto)
         {
             await _service.CreateAsync(sliderCreateDto);
+
             return Ok();
         }
 
@@ -63,6 +60,7 @@ namespace App.Controllers
             try
             {
                 await _service.DeleteAsync(id);
+
                 return Ok();
             }
             catch (NullReferenceException)
@@ -71,8 +69,7 @@ namespace App.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("{id}")]
+        [HttpPut, Route("{id}")]
         public async Task<IActionResult> Update([FromRoute][Required] int id, SliderUpdateDto sliderUpdateDto)
         {
             try

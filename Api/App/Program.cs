@@ -41,6 +41,9 @@ builder.Services.AddScoped<IHeaderService, HeaderService>();
 builder.Services.AddScoped<IAboutRepository, AboutRepository>();
 builder.Services.AddScoped<IAboutService, AboutService>();
 
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "mycors",

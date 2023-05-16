@@ -19,29 +19,19 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<TitleDto> GetAsync(int id)
         {
-            var title = await _repo.Get(id);
-
-            var mapData = _mapper.Map<TitleDto>(title);
-
-            return mapData;
+            return _mapper.Map<TitleDto>(await _repo.Get(id));
         }
 
         public async Task<List<TitleListDto>> GetAllAsync()
         {
-            var model = await _repo.GetAll();
-
-            var mapData = _mapper.Map<List<TitleListDto>>(model);
-
-            return mapData;
+            return _mapper.Map<List<TitleListDto>>(await _repo.GetAll());
         }
 
         public async Task CreateAsync(TitleCreateDto titleCreateDto)
         {
             if (!await _repo.IsExsist(t => t.Name == titleCreateDto.Name))
             {
-                var mapData = _mapper.Map<Title>(titleCreateDto);
-
-                await _repo.Create(mapData);
+                await _repo.Create(_mapper.Map<Title>(titleCreateDto));
             }
             else
             {
@@ -51,9 +41,7 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task DeleteAsync(int id)
         {
-            var title = await _repo.Get(id);
-
-            await _repo.Delete(title);
+            await _repo.Delete(await _repo.Get(id));
         }
 
         public async Task UpdateAsync(int id, TitleUpdateDto titleUpdateDto)

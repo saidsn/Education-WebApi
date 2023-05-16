@@ -22,13 +22,10 @@ namespace App.Controllers
         {
             try
             {
-                var title = await _service.GetAsync(id);
-
-                return Ok(title);
+                return Ok(await _service.GetAsync(id));
             }
             catch (NullReferenceException)
             {
-
                 return NotFound();
             }
         }
@@ -39,9 +36,7 @@ namespace App.Controllers
         {
             try
             {
-                var result = await _service.GetAllAsync();
-
-                return Ok(result);
+                return Ok(await _service.GetAllAsync());
             }
             catch (NullReferenceException)
             {
@@ -70,15 +65,13 @@ namespace App.Controllers
             }
             catch (NullReferenceException)
             {
-
                 return NotFound();
             }
         }
 
 
-        [HttpPut]
-        [Route("{id}")]
-        public async Task<IActionResult> Update([Required][FromRoute] int id, TitleUpdateDto titleUpdateDto)
+        [HttpPut, Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute][Required] int id, TitleUpdateDto titleUpdateDto)
         {
             try
             {

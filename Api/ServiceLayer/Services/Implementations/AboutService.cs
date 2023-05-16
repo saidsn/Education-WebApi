@@ -22,9 +22,7 @@ namespace ServiceLayer.Services.Implementations
         {
             if (!await _repo.IsExsist(a => a.Title == aboutCreateDto.Title))
             {
-                var mapData = _mapper.Map<About>(aboutCreateDto);
-
-                await _repo.Create(mapData);
+                await _repo.Create(_mapper.Map<About>(aboutCreateDto));
             }
             else
             {
@@ -34,28 +32,18 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task DeleteAsync(int id)
         {
-            var about = await _repo.Get(id);
-
-            await _repo.Delete(about);
+            await _repo.Delete(await _repo.Get(id));
         }
 
 
         public async Task<List<AboutListDto>> GetAllAsync()
         {
-            var abouts = await _repo.GetAll();
-
-            var mapDatas = _mapper.Map<List<AboutListDto>>(abouts);
-
-            return mapDatas;
+            return _mapper.Map<List<AboutListDto>>(await _repo.GetAll());
         }
 
         public async Task<AboutDto> GetAsync(int id)
         {
-            var about = await _repo.Get(id);
-
-            var mapData = _mapper.Map<AboutDto>(about);
-
-            return mapData;
+            return _mapper.Map<AboutDto>(await _repo.Get(id));
         }
 
         public async Task UpdateAsync(int id, AboutUpdateDto aboutUpdateDto)

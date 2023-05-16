@@ -22,9 +22,7 @@ namespace ServiceLayer.Services.Implementations
         {
             if (!await _repo.IsExsist(h => h.Title == headerCreateDto.Title))
             {
-                var mapData = _mapper.Map<Header>(headerCreateDto);
-
-                await _repo.Create(mapData);
+                await _repo.Create(_mapper.Map<Header>(headerCreateDto));
             }
             else
             {
@@ -34,27 +32,17 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task DeleteAsync(int id)
         {
-            var header = await _repo.Get(id);
-
-            await _repo.Delete(header);
+            await _repo.Delete(await _repo.Get(id));
         }
 
         public async Task<List<HeaderListDto>> GetAllAsync()
         {
-            var headers = await _repo.GetAll();
-
-            var mapDatas = _mapper.Map<List<HeaderListDto>>(headers);
-
-            return mapDatas;
+            return _mapper.Map<List<HeaderListDto>>(await _repo.GetAll());
         }
 
         public async Task<HeaderDto> GetAsync(int id)
         {
-            var header = await _repo.Get(id);
-
-            var mapData = _mapper.Map<HeaderDto>(header);
-
-            return mapData;
+            return _mapper.Map<HeaderDto>(await _repo.Get(id));
         }
 
         public async Task UpdateAsync(int id, HeaderUpdateDto headerUpdateDto)

@@ -19,8 +19,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
         public async Task<T> Get(int id)
         {
-            var res = await _entities.FindAsync(id) ?? throw new NotImplementedException();
-            return res;
+            return await _entities.FindAsync(id) ?? throw new NotImplementedException();
         }
 
         public async Task<List<T>> GetAll()
@@ -60,6 +59,4 @@ namespace RepositoryLayer.Repositories.Implementations
             return await _entities.AnyAsync(expression);
         }
     }
-
-
 }

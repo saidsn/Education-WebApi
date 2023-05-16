@@ -21,9 +21,7 @@ namespace App.Controllers
         {
             try
             {
-                var about = await _service.GetAsync(id);
-
-                return Ok(about);
+                return Ok(await _service.GetAsync(id));
             }
             catch (NullReferenceException)
             {
@@ -37,9 +35,7 @@ namespace App.Controllers
         {
             try
             {
-                var abouts = await _service.GetAllAsync();
-
-                return Ok(abouts);
+                return Ok(await _service.GetAllAsync());
             }
             catch (NullReferenceException)
             {

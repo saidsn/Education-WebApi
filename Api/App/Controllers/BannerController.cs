@@ -66,7 +66,7 @@ namespace App.Controllers
         }
 
         [HttpPut, Route("{id}")]
-        public async Task<IActionResult> Update([Required][FromRoute] int id, BannerUpdateDto bannerUpdateDto)
+        public async Task<IActionResult> Update([FromRoute][Required] int id, BannerUpdateDto bannerUpdateDto)
         {
             try
             {

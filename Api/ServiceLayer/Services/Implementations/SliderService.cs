@@ -13,8 +13,6 @@ namespace ServiceLayer.Services.Implementations
         private readonly ISliderRepository _repo;
         private readonly IMapper _mapper;
 
-
-
         public SliderService(ISliderRepository repo, IMapper mapper)
         {
             _repo = repo;
@@ -26,43 +24,30 @@ namespace ServiceLayer.Services.Implementations
         {
             if (!await _repo.IsExsist(s => s.Title == sliderCreateDto.Title))
             {
-                var mapData = _mapper.Map<Slider>(sliderCreateDto);
-
-                await _repo.Create(mapData);
+                await _repo.Create(_mapper.Map<Slider>(sliderCreateDto));
             }
             else
             {
-                throw new Exception("Title is already exsist");
+                throw new Exception("Slider is already exsist");
             }
         }
 
 
-
         public async Task DeleteAsync(int id)
         {
-            var slider = await _repo.Get(id);
-
-            await _repo.Delete(slider);
+            await _repo.Delete(await _repo.Get(id));
         }
 
 
         public async Task<List<SliderListDto>> GetAllAsync()
         {
-            var sliders = await _repo.GetAll();
-
-            var mapData = _mapper.Map<List<SliderListDto>>(sliders);
-
-            return mapData;
+            return _mapper.Map<List<SliderListDto>>(await _repo.GetAll());
         }
 
 
         public async Task<SliderDto> GetAsync(int id)
         {
-            var slider = await _repo.Get(id);
-
-            var mapData = _mapper.Map<SliderDto>(slider);
-
-            return mapData;
+            return _mapper.Map<SliderDto>(await _repo.Get(id));
         }
 
         public async Task UpdateAsync(int id, SliderUpdateDto sliderUpdateDto)

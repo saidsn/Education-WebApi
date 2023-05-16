@@ -22,9 +22,7 @@ namespace App.Controllers
         {
             try
             {
-                var header = await _service.GetAsync(id);
-
-                return Ok(header);
+                return Ok(await _service.GetAsync(id));
             }
             catch (NullReferenceException)
             {
@@ -37,9 +35,7 @@ namespace App.Controllers
         {
             try
             {
-                var result = await _service.GetAllAsync();
-
-                return Ok(result);
+                return Ok(await _service.GetAllAsync());
             }
             catch (NullReferenceException)
             {
@@ -69,9 +65,8 @@ namespace App.Controllers
             }
         }
 
-        [HttpPut]
-        [Route("{id}")]
-        public async Task<IActionResult> Update([Required][FromRoute] int id, HeaderUpdateDto headerUpdateDto)
+        [HttpPut, Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute][Required] int id, HeaderUpdateDto headerUpdateDto)
         {
             try
             {
