@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTO_s.Service;
 using ServiceLayer.Services.Interfaces;
@@ -25,6 +26,16 @@ namespace ServiceLayer.Services.Implementations
             return _mapper.Map<List<ServiceListDto>>(await _repo.GetAll());
         }
 
-
+        public async Task CreateAsync(ServiceCreateDto serviceCreateDto)
+        {
+            if (!await _repo.IsExsist(s => s.Title == serviceCreateDto.Title))
+            {
+                await _repo.Create(_mapper.Map<Service>(serviceCreateDto));
+            }
+            else
+            {
+                throw new Exception("Service is already exsist");
+            }
+        }
     }
 }
