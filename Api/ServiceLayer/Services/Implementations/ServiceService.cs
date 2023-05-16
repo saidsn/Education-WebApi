@@ -37,5 +37,10 @@ namespace ServiceLayer.Services.Implementations
                 throw new Exception("Service is already exsist");
             }
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _repo.Delete(await _repo.Get(id));
+        }
     }
 }
