@@ -1,6 +1,13 @@
-﻿namespace DomainLayer.Entities
+﻿using DomainLayer.Common;
+
+namespace DomainLayer.Entities
 {
-    internal class Course
+    public class Course : BaseEntity
     {
+        public byte[]? Image { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public decimal Price { get; set; }
+        public ICollection<CourseAuthor>? CourseAuthors { get; set; }
     }
 }

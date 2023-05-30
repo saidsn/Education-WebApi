@@ -20,6 +20,9 @@ namespace RepositoryLayer.Data
             modelBuilder.ApplyConfiguration(new BannerConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceConfiguration());
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseConfiguration());
+            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseAuthorCongiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
