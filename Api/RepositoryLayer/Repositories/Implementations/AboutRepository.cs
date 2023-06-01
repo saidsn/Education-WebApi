@@ -8,7 +8,6 @@ namespace RepositoryLayer.Repositories.Implementations
     {
         public AboutRepository(AppDbContext context) : base(context)
         {
-
         }
     }
 }
