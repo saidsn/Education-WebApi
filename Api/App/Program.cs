@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Data;
 using RepositoryLayer.Repositories.Implementations;
@@ -5,12 +6,15 @@ using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.Mappings;
 using ServiceLayer.Services.Implementations;
 using ServiceLayer.Services.Interfaces;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddFluentValidation(f => f.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,7 +26,6 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
@@ -43,6 +46,9 @@ builder.Services.AddScoped<IAboutService, AboutService>();
 
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
+
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 builder.Services.AddCors(options =>
 {

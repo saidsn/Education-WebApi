@@ -8,6 +8,7 @@ namespace RepositoryLayer.Repositories.Implementations
     {
         public ContactRepository(AppDbContext context) : base(context)
         {
+
         }
     }
 }

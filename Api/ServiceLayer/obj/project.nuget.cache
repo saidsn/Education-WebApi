@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "RiQYu6Y7Ch1DFOxlcmuHydyxb4tdk2yBWX7/ddt2SnRgLzB5nfhZLimOJBqXGN/e52gbj+pFk57oIjv7oJYB0g==",
+  "dgSpecHash": "ZI6eRz2bmUXTBqybNrv64XUEV0yrvxi/Z5rv5uhDkXdiuN1JA0TqgriBTf3m/HCEFPdl//4iVKkeLeTYJVMxxA==",
   "success": true,
   "projectFilePath": "C:\\Users\\OMEN\\Desktop\\Code-Academy\\API-React\\Api-Project\\Api\\ServiceLayer\\ServiceLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OMEN\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\OMEN\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\OMEN\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\OMEN\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",

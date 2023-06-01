@@ -47,6 +47,7 @@ namespace ServiceLayer.Mappings
 
             CreateMap<Contact, ContactDto>().ReverseMap();
             CreateMap<Contact, ContactListDto>().ReverseMap();
+            CreateMap<Contact, ContactCreateDto>().ReverseMap();
             CreateMap<Contact, ContactUpdateDto>().ReverseMap();
 
         }
