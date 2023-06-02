@@ -10,6 +10,8 @@ namespace ServiceLayer.Validations.Contact
             RuleFor(c => c.Name).NotNull().NotEmpty().MaximumLength(50);
             RuleFor(c => c.Email).NotNull().NotEmpty().EmailAddress();
             RuleFor(c => c.Message).NotNull().NotEmpty().MaximumLength(524288)/*.Must(c => c.ToUpper().Contains("Salam") == true).WithMessage("Salam olmalidir")*/;
+            RuleFor(c => c.CreateDate).Must(date => date <= DateTime.Now);
         }
     }
 }
+

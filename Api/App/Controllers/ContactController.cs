@@ -31,6 +31,7 @@ namespace App.Controllers
             }
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -45,31 +46,16 @@ namespace App.Controllers
             }
         }
 
-        [HttpPut, Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute][Required] int id, ContactUpdateDto contactUpdateDto)
-        {
-            try
-            {
-                await _service.UpdateAsync(id, contactUpdateDto);
-
-                return Ok();
-            }
-            catch (NullReferenceException)
-            {
-
-                return NotFound();
-            }
-        }
 
         [HttpPost]
-        public async Task<IActionResult> SendMessage([FromBody] ContactCreateDto contactCreateDto)
+        public async Task<IActionResult> Create([FromBody] ContactCreateDto contactCreateDto)
         {
             ContactCreateDtoValidator validator = new();
             var validationResult = validator.Validate(contactCreateDto);
 
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                return BadRequest(new { ErrorMessage = "Error! Please enter valid data." });
             }
 
             try
@@ -78,9 +64,32 @@ namespace App.Controllers
 
                 return Ok();
             }
+            catch (NullReferenceException)
+            {
+                return BadRequest(new { ErrorMessage = "Not Created" });
+            }
+        }
+
+
+        [HttpPut, Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute][Required] int id, ContactUpdateDto contactUpdateDto)
+        {
+            ContactUpdateDtoValidator validator = new();
+            var validationResult = validator.Validate(contactUpdateDto);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new { ErrorMessage = "Error! Please enter valid data." });
+            }
+            try
+            {
+                await _service.UpdateAsync(id, contactUpdateDto);
+
+                return Ok();
+            }
             catch (Exception)
             {
-                return new ObjectResult("Bir hata oluştu.") { StatusCode = 500 };
+                return BadRequest(new { ErrorMessage = "Not Updated" });
             }
         }
     }
