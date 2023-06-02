@@ -1,4 +1,5 @@
-﻿using DomainLayer.Configurations;
+﻿using DomainLayer.Common;
+using DomainLayer.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -25,6 +26,29 @@ namespace RepositoryLayer.Data
             modelBuilder.ApplyConfiguration(new CourseAuthorCongiguration());
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             base.OnModelCreating(modelBuilder);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (var entity in ChangeTracker.Entries<BaseEntity>())
+            {
+                switch (entity.State)
+                {
+                    case EntityState.Added:
+                        entity.Entity.CreateDate = DateTime.UtcNow.AddHours(4);
+                        break;
+                    case EntityState.Modified:
+                        entity.Entity.UpdateDate = DateTime.UtcNow.AddHours(4);
+                        break;
+                    case EntityState.Deleted:
+                        entity.Entity.SoftDeleted = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }
