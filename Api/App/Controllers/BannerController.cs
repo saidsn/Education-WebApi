@@ -8,12 +8,10 @@ namespace App.Controllers
     public class BannerController : AppController
     {
         private readonly IBannerService _service;
-        private readonly IWebHostEnvironment _env;
 
-        public BannerController(IBannerService service, IWebHostEnvironment env)
+        public BannerController(IBannerService service)
         {
             _service = service;
-            _env = env;
         }
 
         [HttpGet]
@@ -45,9 +43,16 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] BannerCreateDto bannerCreateDto)
         {
-            await _service.CreateAsync(bannerCreateDto);
+            try
+            {
+                await _service.CreateAsync(bannerCreateDto);
 
-            return Ok();
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(new { ErrorMessage = "Not Created" });
+            }
         }
 
         [HttpDelete]
@@ -77,7 +82,7 @@ namespace App.Controllers
             }
             catch (NullReferenceException)
             {
-                return NotFound();
+                return BadRequest(new { ErrorMessage = "Not Updated" });
             }
         }
     }

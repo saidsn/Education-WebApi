@@ -8,7 +8,7 @@ namespace DomainLayer.Entities
         public string? Title { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
-        public ICollection<Student>? Students { get; set; }
-        public ICollection<CourseAuthor>? CourseAuthors { get; set; }
+        public List<Student>? Students { get; set; }
+        public List<CourseAuthor>? CourseAuthors { get; set; }
     }
 }

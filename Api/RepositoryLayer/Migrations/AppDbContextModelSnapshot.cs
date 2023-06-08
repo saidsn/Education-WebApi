@@ -31,13 +31,12 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 940, DateTimeKind.Local).AddTicks(6084));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -54,9 +53,12 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 940, DateTimeKind.Local).AddTicks(6389));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -72,9 +74,7 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 950, DateTimeKind.Local).AddTicks(1430));
+                        .HasColumnType("datetime2");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -96,9 +96,12 @@ namespace RepositoryLayer.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 950, DateTimeKind.Local).AddTicks(1659));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -114,9 +117,7 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 941, DateTimeKind.Local).AddTicks(3513));
+                        .HasColumnType("datetime2");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -133,9 +134,12 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 941, DateTimeKind.Local).AddTicks(3716));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -151,9 +155,7 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 942, DateTimeKind.Local).AddTicks(9711));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -162,8 +164,8 @@ namespace RepositoryLayer.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -176,9 +178,12 @@ namespace RepositoryLayer.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 942, DateTimeKind.Local).AddTicks(9973));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -194,14 +199,12 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 950, DateTimeKind.Local).AddTicks(295));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -218,13 +221,16 @@ namespace RepositoryLayer.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 950, DateTimeKind.Local).AddTicks(514));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -246,9 +252,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 950, DateTimeKind.Local).AddTicks(2378));
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("SoftDeleted")
                         .ValueGeneratedOnAdd()
@@ -256,9 +260,12 @@ namespace RepositoryLayer.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 950, DateTimeKind.Local).AddTicks(2599));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -278,9 +285,7 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 939, DateTimeKind.Local).AddTicks(7732));
+                        .HasColumnType("datetime2");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -297,9 +302,12 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 939, DateTimeKind.Local).AddTicks(7964));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -315,13 +323,12 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 942, DateTimeKind.Local).AddTicks(1592));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -338,9 +345,12 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 942, DateTimeKind.Local).AddTicks(1790));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -356,9 +366,7 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 938, DateTimeKind.Local).AddTicks(3849));
+                        .HasColumnType("datetime2");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -371,13 +379,16 @@ namespace RepositoryLayer.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 938, DateTimeKind.Local).AddTicks(4076));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -399,9 +410,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 950, DateTimeKind.Local).AddTicks(3768));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -428,9 +437,12 @@ namespace RepositoryLayer.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 950, DateTimeKind.Local).AddTicks(3980));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -448,9 +460,7 @@ namespace RepositoryLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 939, DateTimeKind.Local).AddTicks(291));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -463,9 +473,12 @@ namespace RepositoryLayer.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 1, 15, 2, 24, 939, DateTimeKind.Local).AddTicks(540));
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 

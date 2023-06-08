@@ -10,10 +10,10 @@ namespace DomainLayer.Configurations
         {
             builder.Property(a => a.Image).IsRequired();
             builder.Property(a => a.Title).IsRequired().HasMaxLength(50);
-            builder.Property(a => a.Description).IsRequired();
+            builder.Property(a => a.Description).IsRequired().HasMaxLength(1000);
             builder.Property(a => a.SoftDeleted).HasDefaultValue(false);
-            builder.Property(a => a.CreateDate).HasDefaultValue(DateTime.Now);
-            builder.Property(a => a.UpdateDate).HasDefaultValue(DateTime.Now);
+            builder.Property(a => a.isDeleted).HasDefaultValue(false);
+
         }
     }
 }

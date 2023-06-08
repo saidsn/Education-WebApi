@@ -58,5 +58,10 @@ namespace RepositoryLayer.Repositories.Implementations
         {
             return await _entities.AnyAsync(expression);
         }
+
+        public async Task<List<T>> FindAllByExpression(Expression<Func<T, bool>> expression)
+        {
+            return await _entities.Where(expression).ToListAsync();
+        }
     }
 }

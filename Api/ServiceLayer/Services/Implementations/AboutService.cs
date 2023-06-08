@@ -17,7 +17,6 @@ namespace ServiceLayer.Services.Implementations
             _mapper = mapper;
         }
 
-
         public async Task CreateAsync(AboutCreateDto aboutCreateDto)
         {
             if (!await _repo.IsExsist(a => a.Title == aboutCreateDto.Title))

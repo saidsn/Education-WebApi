@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZI6eRz2bmUXTBqybNrv64XUEV0yrvxi/Z5rv5uhDkXdiuN1JA0TqgriBTf3m/HCEFPdl//4iVKkeLeTYJVMxxA==",
+  "dgSpecHash": "50yty//998gaZQOQ27aXnNv739D9YGJCvBrHKeUKy5Fp6Wc4vADoOT9vJve9vw/jqBDLF1Nd7Gc8azVoFEbt1w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\OMEN\\Desktop\\Code-Academy\\API-React\\Api-Project\\Api\\ServiceLayer\\ServiceLayer.csproj",
+  "projectFilePath": "C:\\Users\\OMEN\\Desktop\\Programming\\Code-Academy\\API-React\\Api-Project\\Api\\ServiceLayer\\ServiceLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OMEN\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

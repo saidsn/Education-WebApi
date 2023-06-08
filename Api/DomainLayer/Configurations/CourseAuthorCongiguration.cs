@@ -11,8 +11,7 @@ namespace DomainLayer.Configurations
             builder.Property(ca => ca.CourseId).IsRequired();
             builder.Property(ca => ca.AuthorId).IsRequired();
             builder.Property(ca => ca.SoftDeleted).HasDefaultValue(false);
-            builder.Property(ca => ca.CreateDate).HasDefaultValue(DateTime.Now);
-            builder.Property(ca => ca.UpdateDate).HasDefaultValue(DateTime.Now);
+            builder.Property(ca => ca.isDeleted).HasDefaultValue(false);
         }
     }
 }

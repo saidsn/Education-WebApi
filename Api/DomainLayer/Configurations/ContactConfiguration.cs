@@ -10,10 +10,9 @@ namespace DomainLayer.Configurations
         {
             builder.Property(c => c.Name).IsRequired().HasMaxLength(50);
             builder.Property(c => c.Email).IsRequired().HasMaxLength(50);
-            builder.Property(c => c.Message).IsRequired().HasMaxLength(50);
+            builder.Property(c => c.Message).IsRequired().HasMaxLength(500);
             builder.Property(c => c.SoftDeleted).HasDefaultValue(false);
-            builder.Property(c => c.CreateDate).HasDefaultValue(DateTime.Now);
-            builder.Property(c => c.UpdateDate).HasDefaultValue(DateTime.Now);
+            builder.Property(c => c.isDeleted).HasDefaultValue(false);
         }
     }
 }

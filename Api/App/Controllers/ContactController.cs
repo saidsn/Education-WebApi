@@ -87,7 +87,7 @@ namespace App.Controllers
 
                 return Ok();
             }
-            catch (Exception)
+            catch (NullReferenceException)
             {
                 return BadRequest(new { ErrorMessage = "Not Updated" });
             }

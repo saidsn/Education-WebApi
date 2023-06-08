@@ -11,8 +11,7 @@ namespace DomainLayer.Configurations
         {
             builder.Property(t => t.Name).IsRequired().HasMaxLength(50);
             builder.Property(t => t.SoftDeleted).HasDefaultValue(false);
-            builder.Property(t => t.CreateDate).HasDefaultValue(DateTime.Now);
-            builder.Property(t => t.UpdateDate).HasDefaultValue(DateTime.Now);
+            builder.Property(t => t.isDeleted).HasDefaultValue(false);
         }
     }
 }

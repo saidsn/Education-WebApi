@@ -8,12 +8,10 @@ namespace App.Controllers
     public class HeaderController : AppController
     {
         private readonly IHeaderService _service;
-        private readonly IWebHostEnvironment _env;
 
-        public HeaderController(IHeaderService service, IWebHostEnvironment env)
+        public HeaderController(IHeaderService service)
         {
             _service = service;
-            _env = env;
         }
 
 
@@ -46,9 +44,16 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] HeaderCreateDto headerCreateDto)
         {
-            await _service.CreateAsync(headerCreateDto);
+            try
+            {
+                await _service.CreateAsync(headerCreateDto);
 
-            return Ok();
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(new { ErrorMessage = "Not Created" });
+            }
         }
 
         [HttpDelete]
@@ -76,7 +81,7 @@ namespace App.Controllers
             }
             catch (NullReferenceException)
             {
-                return NotFound();
+                return BadRequest(new { ErrorMessage = "Not Updated" });
             }
         }
     }

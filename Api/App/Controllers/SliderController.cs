@@ -8,12 +8,10 @@ namespace App.Controllers
     public class SliderController : AppController
     {
         private readonly ISliderService _service;
-        private readonly IWebHostEnvironment _env;
 
-        public SliderController(ISliderService service, IWebHostEnvironment env)
+        public SliderController(ISliderService service)
         {
             _service = service;
-            _env = env;
         }
 
 
@@ -48,9 +46,16 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SliderCreateDto sliderCreateDto)
         {
-            await _service.CreateAsync(sliderCreateDto);
+            try
+            {
+                await _service.CreateAsync(sliderCreateDto);
 
-            return Ok();
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(new { ErrorMessage = "Not Created" });
+            }
         }
 
 
@@ -81,7 +86,7 @@ namespace App.Controllers
             catch (NullReferenceException)
             {
 
-                return NotFound();
+                return BadRequest(new { ErrorMessage = "Not Updated" });
             }
         }
     }

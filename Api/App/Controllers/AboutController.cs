@@ -8,12 +8,10 @@ namespace App.Controllers
     public class AboutController : AppController
     {
         private readonly IAboutService _service;
-        private readonly IWebHostEnvironment _env;
 
-        public AboutController(IAboutService service, IWebHostEnvironment env)
+        public AboutController(IAboutService service)
         {
             _service = service;
-            _env = env;
         }
 
         [HttpGet]
@@ -48,9 +46,16 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AboutCreateDto aboutCreateDto)
         {
-            await _service.CreateAsync(aboutCreateDto);
+            try
+            {
+                await _service.CreateAsync(aboutCreateDto);
 
-            return Ok();
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(new { ErrorMessage = "Not Created" });
+            }
         }
 
         [HttpDelete]
@@ -81,7 +86,7 @@ namespace App.Controllers
             }
             catch (NullReferenceException)
             {
-                return NotFound();
+                return BadRequest(new { ErrorMessage = "Not Updated" });
             }
         }
     }

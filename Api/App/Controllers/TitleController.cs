@@ -8,12 +8,10 @@ namespace App.Controllers
     public class TitleController : AppController
     {
         private readonly ITitleService _service;
-        private readonly IWebHostEnvironment _env;
 
-        public TitleController(ITitleService service, IWebHostEnvironment env)
+        public TitleController(ITitleService service)
         {
             _service = service;
-            _env = env;
         }
 
 
@@ -48,9 +46,16 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TitleCreateDto titleCreateDto)
         {
-            await _service.CreateAsync(titleCreateDto);
+            try
+            {
+                await _service.CreateAsync(titleCreateDto);
 
-            return Ok();
+                return Ok();
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest(new { ErrorMessage = "Not Created" });
+            }
         }
 
 
@@ -81,7 +86,7 @@ namespace App.Controllers
             }
             catch (NullReferenceException)
             {
-                return NotFound();
+                return BadRequest(new { ErrorMessage = "Not Updated" });
             }
         }
 
