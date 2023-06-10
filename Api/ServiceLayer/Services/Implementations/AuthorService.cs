@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTO_s.Author;
 using ServiceLayer.Services.Interfaces;
@@ -7,18 +8,48 @@ namespace ServiceLayer.Services.Implementations
 {
     public class AuthorService : IAuthorService
     {
-        private readonly IAuthorRepository _repo;
+        private readonly IAuthorRepository _authorRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
 
-        public AuthorService(IAuthorRepository repo, IMapper mapper)
+        public AuthorService(IAuthorRepository authorRepository, ICourseRepository courseRepository, IMapper mapper)
         {
-            _repo = repo;
+            _authorRepository = authorRepository;
+            _courseRepository = courseRepository;
             _mapper = mapper;
         }
 
-        public async Task<List<AuthorListDto>> GetAllAsync()
+        public async Task CreateAsync(AuthorCreateDto authorCreateDto)
         {
-            return _mapper.Map<List<AuthorListDto>>(await _repo.GetAllAuthor());
+            if (authorCreateDto.CourseIds != null && authorCreateDto.CourseIds.Any())
+            {
+                var courses = await _courseRepository.FindAllByExpression(c => authorCreateDto.CourseIds.Contains(c.Id));
+
+                var mapAuthor = _mapper.Map<Author>(authorCreateDto);
+
+                mapAuthor.CourseAuthors = new List<CourseAuthor>();
+
+                foreach (var course in courses)
+                {
+                    var courseAuthor = new CourseAuthor
+                    {
+                        Course = course,
+                        Author = mapAuthor
+                    };
+                    mapAuthor.CourseAuthors.Add(courseAuthor);
+                }
+
+                await _authorRepository.Create(mapAuthor);
+            }
+            else
+            {
+                throw new Exception("You must select at least one course.");
+            }
         }
+
+        //public async Task<List<AuthorListDto>> GetAllAsync()
+        //{
+        //    return _mapper.Map<List<AuthorListDto>>(await _repo.GetAllAuthor());
+        //}
     }
 }

@@ -13,19 +13,6 @@ namespace App.Controllers
             _service = service;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    try
-        //    {
-        //        return Ok(await _service.GetAllAsync());
-        //    }
-        //    catch (NullReferenceException)
-        //    {
-
-        //        return NotFound();
-        //    }
-        //}
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CourseCreateDto courseCreateDto)
@@ -41,5 +28,19 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    try
+        //    {
+        //        return Ok(await _service.GetAllAsync());
+        //    }
+        //    catch (NullReferenceException)
+        //    {
+
+        //        return NotFound();
+        //    }
+        //}
     }
 }

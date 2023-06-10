@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.DTO_s.Author;
 using ServiceLayer.Services.Interfaces;
 
 namespace App.Controllers
@@ -12,17 +13,32 @@ namespace App.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpPost]
+        public async Task<IActionResult> Create(AuthorCreateDto authorCreateDto)
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                await _service.CreateAsync(authorCreateDto);
+
+                return Ok();
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
-                return NotFound();
+                return BadRequest(new { ErrorMessage = "Not Created" });
             }
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    try
+        //    {
+        //        return Ok(await _service.GetAllAsync());
+        //    }
+        //    catch (NullReferenceException)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
     }
 }
