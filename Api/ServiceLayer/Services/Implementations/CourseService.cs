@@ -8,23 +8,123 @@ namespace ServiceLayer.Services.Implementations
 {
     public class CourseService : ICourseService
     {
-        private readonly ICourseRepository _repo;
+        private readonly ICourseRepository _courseRepository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public CourseService(ICourseRepository repo, IMapper mapper)
+        public CourseService(ICourseRepository courseRepository, IAuthorRepository authorRepository, IMapper mapper)
         {
-            _repo = repo;
+            _courseRepository = courseRepository;
+            _authorRepository = authorRepository;
             _mapper = mapper;
         }
 
+
+        //public async Task CreateAsync(CourseCreateDto courseCreateDto)
+        //{
+        //    var mapCourse = _mapper.Map<Course>(courseCreateDto);
+
+        //    mapCourse.CourseAuthors = new List<CourseAuthor>();
+
+        //    if (courseCreateDto.authorIds != null && courseCreateDto.authorIds.Any())
+        //    {
+        //        foreach (var authorId in courseCreateDto.authorIds)
+        //        {
+        //            var author = await _authorRepository.Get(authorId);
+        //            if (author != null)
+        //            {
+        //                var courseAuthor = new CourseAuthor
+        //                {
+        //                    Course = mapCourse,
+        //                    Author = author
+        //                };
+        //                mapCourse.CourseAuthors.Add(courseAuthor);
+        //            }
+        //        }
+        //    }
+
+        //    await _courseRepository.Create(mapCourse);
+        //}
+
+
         public async Task CreateAsync(CourseCreateDto courseCreateDto)
         {
-            var mapData = _mapper.Map<Course>(courseCreateDto);
+            if (courseCreateDto.AuthorIds != null && courseCreateDto.AuthorIds.Any())
+            {
+                var authors = await _authorRepository.FindAllByExpression(a => courseCreateDto.AuthorIds.Contains(a.Id));
 
-            await _repo.Create(mapData);
+                var mapCourse = _mapper.Map<Course>(courseCreateDto);
 
-            await _repo.CreateCourse(mapData, courseCreateDto.authorIds);
+                mapCourse.CourseAuthors = new List<CourseAuthor>();
+
+                foreach (var author in authors)
+                {
+                    CourseAuthor courseAuthor = new CourseAuthor
+                    {
+                        Course = mapCourse,
+                        Author = author
+                    };
+                    mapCourse.CourseAuthors.Add(courseAuthor);
+                }
+
+                await _courseRepository.Create(mapCourse);
+            }
+            else
+            {
+                throw new Exception("You must select at least one author.");
+            }
+
+
+
+
+            //public async Task CreateCourse(Course course, int[] authorIds)
+            //{
+            //    var authors = await _authorRepo.FindAllByExpression(a => authorIds.Contains(a.Id));
+
+            //    course.CourseAuthors = new List<CourseAuthor>();
+
+            //    foreach (var author in authors)
+            //    {
+            //        course.CourseAuthors.Add(new CourseAuthor
+            //        {
+            //            AuthorId = author.Id,
+            //            CourseId = course.Id,
+            //        });
+            //    }
+
+            //    await _context.SaveChangesAsync();
+            //}
+
+
+
         }
+
+
+
+
+        //public async Task CreateAsync(StudentCreateDto studentCreateDto)
+        //{
+        //    var course = await _courseRepository.Get(studentCreateDto.CourseId);
+
+        //    var mapData = _mapper.Map<Student>(studentCreateDto);
+
+        //    mapData.Course = course;
+
+        //    await _studentRepository.Create(mapData);
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //public async Task<List<CourseListDto>> GetAllAsync()
         //{

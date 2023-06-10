@@ -21,22 +21,6 @@ namespace RepositoryLayer.Repositories.Implementations
         //    return await _courses.Include(c => c.CourseAuthors).ThenInclude(c => c.Author).ToListAsync();
         //}
 
-        public async Task CreateCourse(Course course, int[] authorIds)
-        {
-            var authors = await _authorRepo.FindAllByExpression(a => authorIds.Contains(a.Id));
 
-            course.CourseAuthors = new List<CourseAuthor>();
-
-            foreach (var author in authors)
-            {
-                course.CourseAuthors.Add(new CourseAuthor
-                {
-                    AuthorId = author.Id,
-                    CourseId = course.Id,
-                });
-            }
-
-            await _context.SaveChangesAsync();
-        }
     }
 }

@@ -12,7 +12,7 @@ namespace ServiceLayer.Services.Implementations
         private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
 
-        public StudentService(IStudentRepository studentRepository, IMapper mapper, ICourseRepository courseRepository)
+        public StudentService(IStudentRepository studentRepository, ICourseRepository courseRepository, IMapper mapper)
         {
             _studentRepository = studentRepository;
             _courseRepository = courseRepository;
