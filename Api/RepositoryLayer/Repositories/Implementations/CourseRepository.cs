@@ -1,19 +1,18 @@
 ﻿using DomainLayer.Entities;
-using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Data;
 using RepositoryLayer.Repositories.Interfaces;
 
 namespace RepositoryLayer.Repositories.Implementations
 {
-    public class CourseRrepository : Repository<Course>, ICourseRepository
+    public class CourseRepository : Repository<Course>, ICourseRepository
     {
         private readonly IAuthorRepository _authorRepo;
         private readonly AppDbContext _context;
         //private readonly DbSet<Course> _courses;
-        public CourseRrepository(AppDbContext context, IAuthorRepository authorRepo) : base(context)
+        public CourseRepository(AppDbContext context, IAuthorRepository authorRepo) : base(context)
         {
-            _authorRepo = authorRepo;
             _context = context;
+            _authorRepo = authorRepo;
             //_courses = _context.Set<Course>();
         }
 
@@ -26,7 +25,7 @@ namespace RepositoryLayer.Repositories.Implementations
         {
             var authors = await _authorRepo.FindAllByExpression(a => authorIds.Contains(a.Id));
 
-            course.CourseAuthors = new();
+            course.CourseAuthors = new List<CourseAuthor>();
 
             foreach (var author in authors)
             {
@@ -39,6 +38,5 @@ namespace RepositoryLayer.Repositories.Implementations
 
             await _context.SaveChangesAsync();
         }
-
     }
 }

@@ -11,7 +11,7 @@ namespace ServiceLayer.DTO_s.Course
         public decimal Price { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-        public ICollection<Student>? Students { get; set; }
+        public ICollection<DomainLayer.Entities.Student>? Students { get; set; }
         public ICollection<CourseAuthor>? CourseAuthors { get; set; }
     }
 }

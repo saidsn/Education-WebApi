@@ -5,6 +5,7 @@ using ServiceLayer.DTO_s.Banner;
 using ServiceLayer.DTO_s.Contact;
 using ServiceLayer.DTO_s.Course;
 using ServiceLayer.DTO_s.Service;
+using ServiceLayer.DTO_s.Student;
 using ServiceLayer.DTOs.about;
 using ServiceLayer.DTOs.Header;
 using ServiceLayer.DTOs.Product;
@@ -57,6 +58,8 @@ namespace ServiceLayer.Mappings
             CreateMap<Course, CourseCreateDto>().ReverseMap();
 
             CreateMap<Author, AuthorListDto>().ReverseMap();
+
+            CreateMap<Student, StudentCreateDto>().ReverseMap();
 
 
         }

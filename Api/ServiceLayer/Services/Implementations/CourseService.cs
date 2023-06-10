@@ -20,7 +20,9 @@ namespace ServiceLayer.Services.Implementations
         public async Task CreateAsync(CourseCreateDto courseCreateDto)
         {
             var mapData = _mapper.Map<Course>(courseCreateDto);
+
             await _repo.Create(mapData);
+
             await _repo.CreateCourse(mapData, courseCreateDto.authorIds);
         }
 
