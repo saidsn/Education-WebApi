@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DTO_s.Course;
 using ServiceLayer.Services.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Controllers
 {
@@ -11,6 +12,20 @@ namespace App.Controllers
         public CourseController(ICourseService service)
         {
             _service = service;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetById([Required] int id)
+        {
+            try
+            {
+                var result = await _service.GetAsync(id);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return NotFound("Please enter a valid Id!");
+            }
         }
 
 

@@ -8,7 +8,7 @@ namespace ServiceLayer.DTO_s.Course
         public string? Title { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
-        public ICollection<DomainLayer.Entities.Student>? Students { get; set; }
-        public ICollection<CourseAuthor>? CourseAuthors { get; set; }
+        public List<DomainLayer.Entities.Student>? Students { get; set; }
+        public List<CourseAuthor>? CourseAuthors { get; set; }
     }
 }
