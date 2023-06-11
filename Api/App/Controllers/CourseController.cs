@@ -29,6 +29,20 @@ namespace App.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                return Ok(await _service.GetAllAsync());
+            }
+            catch (Exception)
+            {
+                return NotFound("No records found!");
+            }
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CourseCreateDto courseCreateDto)
         {
