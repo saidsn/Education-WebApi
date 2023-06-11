@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DTO_s.Student;
 using ServiceLayer.Services.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Controllers
 {
@@ -12,6 +13,20 @@ namespace App.Controllers
         {
             _service = service;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetById([Required] int id)
+        {
+            try
+            {
+                return Ok(await _service.GetAsync(id));
+            }
+            catch (Exception)
+            {
+                return NotFound("Please enter a valid Id!");
+            }
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] StudentCreateDto studentCreateDto)
@@ -27,5 +42,7 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
         }
+
+
     }
 }

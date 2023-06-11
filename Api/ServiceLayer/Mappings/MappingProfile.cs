@@ -60,9 +60,10 @@ namespace ServiceLayer.Mappings
             CreateMap<Author, AuthorListDto>().ReverseMap();
             CreateMap<Author, AuthorCreateDto>().ReverseMap();
 
+            CreateMap<Student, StudentDto>().ReverseMap();
+            CreateMap<Student, StudentListDto>().ReverseMap();
             CreateMap<Student, StudentCreateDto>().ReverseMap();
-
-
+            CreateMap<Student, StudentUpdateDto>().ReverseMap();
         }
     }
 }

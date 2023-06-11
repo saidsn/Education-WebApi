@@ -29,5 +29,10 @@ namespace ServiceLayer.Services.Implementations
 
             await _studentRepository.Create(mapData);
         }
+
+        public async Task<StudentDto> GetAsync(int id)
+        {
+            return _mapper.Map<StudentDto>(await _studentRepository.Get(id));
+        }
     }
 }
