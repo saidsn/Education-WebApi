@@ -20,22 +20,12 @@ namespace RepositoryLayer.Repositories.Implementations
         public async Task<List<Course>> GetAllWithAuthorsAndStudentsAsync()
         {
             var courses = await _courses
+                 .Where(c => !c.isDeleted)
                  .Include(c => c.Students)
                  .Include(c => c.CourseAuthors)
                  .ThenInclude(c => c.Author)
                  .ToListAsync();
             return courses;
         }
-
-        //public async Task<List<Course>> GetAllWithAuthorsAndStudentsAsync()
-        //{
-        //    var courses = await _courses
-        //         .Include(c => c.Students)
-        //         .Include("CourseAuthors")
-        //         .Include("CourseAuthors.Author")
-        //         .ToListAsync();
-        //    return courses;
-        //}
-
     }
 }

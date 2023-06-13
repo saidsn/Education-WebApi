@@ -1,6 +1,4 @@
-﻿using DomainLayer.Entities;
-
-namespace ServiceLayer.DTO_s.Course
+﻿namespace ServiceLayer.DTO_s.Course
 {
     public class CourseListDto
     {
@@ -11,7 +9,9 @@ namespace ServiceLayer.DTO_s.Course
         public decimal Price { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-        public List<DomainLayer.Entities.Student>? Students { get; set; }
-        public List<CourseAuthor>? CourseAuthors { get; set; }
+        //public List<DomainLayer.Entities.Student>? Students { get; set; }
+        //public List<CourseAuthor>? CourseAuthors { get; set; }
+        public List<string>? StudentFullName { get; set; }
+        public List<string>? AuthorName { get; set; }
     }
 }

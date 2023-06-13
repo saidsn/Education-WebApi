@@ -54,7 +54,10 @@ namespace ServiceLayer.Mappings
             CreateMap<Contact, ContactUpdateDto>().ReverseMap();
 
             CreateMap<Course, CourseDto>().ReverseMap();
-            CreateMap<Course, CourseListDto>().ReverseMap();
+            CreateMap<Course, CourseListDto>()
+                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.CourseAuthors.Where(c => c.CourseId == src.Id).Select(m => m.Author.Name)))
+                .ForMember(dest => dest.StudentFullName, opt => opt.MapFrom(src => src.Students.Select(s => s.FullName)));
+
             CreateMap<Course, CourseCreateDto>().ReverseMap();
 
             CreateMap<Author, AuthorDto>().ReverseMap();
