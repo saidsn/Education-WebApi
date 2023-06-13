@@ -38,7 +38,7 @@ namespace App.Controllers
 
                 return Ok(result);
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return NotFound("No records found!");
             }

@@ -15,12 +15,12 @@ namespace RepositoryLayer.Repositories.Implementations
             _authors = _context.Set<Author>();
         }
 
-        public async Task<List<Author>> GetAllWithAuthorsAndStudentsAsync()
+        public async Task<List<Author>> GetAllWithCoursesAsync()
         {
             var authors = await _authors
                 .Where(a => !a.isDeleted)
                 .Include(a => a.CourseAuthors)
-                .ThenInclude(a => a.Author)
+                .ThenInclude(a => a.Course)
                 .ToListAsync();
 
             return authors;

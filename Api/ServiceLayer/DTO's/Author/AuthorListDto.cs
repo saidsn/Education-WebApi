@@ -1,6 +1,4 @@
-﻿using DomainLayer.Entities;
-
-namespace ServiceLayer.DTO_s.Author
+﻿namespace ServiceLayer.DTO_s.Author
 {
     public class AuthorListDto
     {
@@ -10,6 +8,6 @@ namespace ServiceLayer.DTO_s.Author
         public string? Position { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-        public List<CourseAuthor>? CourseAuthors { get; set; }
+        public List<string>? CourseTitle { get; set; }
     }
 }

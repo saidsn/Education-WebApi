@@ -6,11 +6,24 @@ namespace App.Controllers
 {
     public class AuthorController : AppController
     {
-        private readonly IAuthorService _service;
+        private readonly IAuthorService _authorService;
 
         public AuthorController(IAuthorService service)
         {
-            _service = service;
+            _authorService = service;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                return Ok(await _authorService.GetAllAsync());
+            }
+            catch (Exception)
+            {
+                return NotFound("No records found!");
+            }
         }
 
         [HttpPost]
@@ -18,7 +31,7 @@ namespace App.Controllers
         {
             try
             {
-                await _service.CreateAsync(authorCreateDto);
+                await _authorService.CreateAsync(authorCreateDto);
 
                 return Ok();
             }
@@ -27,18 +40,5 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
         }
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    try
-        //    {
-        //        return Ok(await _service.GetAllAsync());
-        //    }
-        //    catch (NullReferenceException)
-        //    {
-        //        return NotFound();
-        //    }
-        //}
     }
 }

@@ -19,6 +19,14 @@ namespace ServiceLayer.Services.Implementations
             _mapper = mapper;
         }
 
+
+        public async Task<List<AuthorListDto>> GetAllAsync()
+        {
+            var authors = await _authorRepository.GetAllWithCoursesAsync();
+
+            return _mapper.Map<List<AuthorListDto>>(authors);
+        }
+
         public async Task CreateAsync(AuthorCreateDto authorCreateDto)
         {
             if (authorCreateDto.CourseIds != null && authorCreateDto.CourseIds.Any())
@@ -46,10 +54,5 @@ namespace ServiceLayer.Services.Implementations
                 throw new Exception("You must select at least one course.");
             }
         }
-
-        //public async Task<List<AuthorListDto>> GetAllAsync()
-        //{
-        //    return _mapper.Map<List<AuthorListDto>>(await _repo.GetAllAuthor());
-        //}
     }
 }
