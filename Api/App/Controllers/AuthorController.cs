@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DTO_s.Author;
 using ServiceLayer.Services.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Controllers
 {
@@ -8,9 +9,22 @@ namespace App.Controllers
     {
         private readonly IAuthorService _authorService;
 
-        public AuthorController(IAuthorService service)
+        public AuthorController(IAuthorService authorService)
         {
-            _authorService = service;
+            _authorService = authorService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetById([Required] int id)
+        {
+            try
+            {
+                return Ok(await _authorService.GetAsync(id));
+            }
+            catch (Exception)
+            {
+                return NotFound("Please enter a valid Id!");
+            }
         }
 
         [HttpGet]
