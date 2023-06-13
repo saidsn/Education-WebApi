@@ -7,11 +7,11 @@ namespace App.Controllers
 {
     public class CourseController : AppController
     {
-        private readonly ICourseService _service;
+        private readonly ICourseService _courseService;
 
-        public CourseController(ICourseService service)
+        public CourseController(ICourseService courseService)
         {
-            _service = service;
+            _courseService = courseService;
         }
 
         [HttpGet]
@@ -19,7 +19,7 @@ namespace App.Controllers
         {
             try
             {
-                var result = await _service.GetAsync(id);
+                var result = await _courseService.GetAsync(id);
                 return Ok(result);
             }
             catch (Exception)
@@ -34,9 +34,11 @@ namespace App.Controllers
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                var result = await _courseService.GetAllAsync();
+
+                return Ok(result);
             }
-            catch (Exception)
+            catch (NullReferenceException)
             {
                 return NotFound("No records found!");
             }
@@ -48,7 +50,7 @@ namespace App.Controllers
         {
             try
             {
-                await _service.CreateAsync(courseCreateDto);
+                await _courseService.CreateAsync(courseCreateDto);
 
                 return Ok();
             }
@@ -57,19 +59,5 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
         }
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    try
-        //    {
-        //        return Ok(await _service.GetAllAsync());
-        //    }
-        //    catch (NullReferenceException)
-        //    {
-
-        //        return NotFound();
-        //    }
-        //}
     }
 }

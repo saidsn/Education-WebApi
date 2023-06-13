@@ -28,7 +28,11 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<List<CourseListDto>> GetAllAsync()
         {
-            return _mapper.Map<List<CourseListDto>>(await _courseRepository.GetAll());
+            //return _mapper.Map<List<CourseListDto>>(await _courseRepository.GetAll());
+
+            var courses = await _courseRepository.GetAllWithAuthorsAndStudentsAsync();
+            var result = _mapper.Map<List<CourseListDto>>(courses);
+            return result;
         }
 
 

@@ -10,6 +10,6 @@ namespace ServiceLayer.DTO_s.Author
         public string? Position { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-        public ICollection<CourseAuthor>? CourseAuthors { get; set; }
+        public List<CourseAuthor>? CourseAuthors { get; set; }
     }
 }

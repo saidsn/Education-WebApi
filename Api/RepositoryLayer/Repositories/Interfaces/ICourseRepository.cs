@@ -5,6 +5,6 @@ namespace RepositoryLayer.Repositories.Interfaces
 {
     public interface ICourseRepository : IRepository<Course>
     {
-
+        Task<List<Course>> GetAllWithAuthorsAndStudentsAsync();
     }
 }

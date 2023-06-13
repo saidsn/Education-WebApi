@@ -19,12 +19,12 @@ namespace RepositoryLayer.Repositories.Implementations
 
         public async Task<T> Get(int id)
         {
-            return await _entities.FindAsync(id) ?? throw new NotImplementedException();
+            return await _entities.FindAsync(id) ?? throw new NullReferenceException();
         }
 
         public async Task<List<T>> GetAll()
         {
-            return await _entities.ToListAsync();
+            return await _entities.Where(m => !m.isDeleted).ToListAsync();
         }
 
         public async Task Create(T entity)
