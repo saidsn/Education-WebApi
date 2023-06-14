@@ -1,8 +1,10 @@
-﻿namespace ServiceLayer.DTOs.Header
+﻿using Microsoft.AspNetCore.Http;
+
+namespace ServiceLayer.DTOs.Header
 {
     public class HeaderCreateDto
     {
-        public byte[]? Image { get; set; }
+        public IFormFile? Photo { get; set; }
         public string? Title { get; set; }
     }
 }

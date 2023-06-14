@@ -14,8 +14,6 @@ namespace DomainLayer.Configurations
             builder.Property(s => s.Info).IsRequired().HasMaxLength(255);
             builder.Property(s => s.IsGraduated).IsRequired().HasDefaultValue(false);
             builder.Property(s => s.CourseId).IsRequired();
-            builder.Property(s => s.SoftDeleted).HasDefaultValue(false);
-            builder.Property(s => s.isDeleted).HasDefaultValue(false);
         }
     }
 }

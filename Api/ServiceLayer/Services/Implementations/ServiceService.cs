@@ -2,6 +2,7 @@
 using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTO_s.Service;
+using ServiceLayer.Helpers;
 using ServiceLayer.Services.Interfaces;
 
 namespace ServiceLayer.Services.Implementations
@@ -30,7 +31,11 @@ namespace ServiceLayer.Services.Implementations
         {
             if (!await _repo.IsExsist(s => s.Title == serviceCreateDto.Title))
             {
-                await _repo.Create(_mapper.Map<Service>(serviceCreateDto));
+                var mapService = _mapper.Map<Service>(serviceCreateDto);
+
+                mapService.Image = await serviceCreateDto.Photo.GetBytes();
+
+                await _repo.Create(mapService);
             }
             else
             {
@@ -47,7 +52,9 @@ namespace ServiceLayer.Services.Implementations
         {
             var dbService = await _repo.Get(id);
 
-            _mapper.Map(serviceUpdateDto, dbService);
+            var mapService = _mapper.Map(serviceUpdateDto, dbService);
+
+            mapService.Image = await serviceUpdateDto.Photo.GetBytes();
 
             await _repo.Update(dbService);
         }

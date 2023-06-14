@@ -1,8 +1,10 @@
-﻿namespace ServiceLayer.DTO_s.Banner
+﻿using Microsoft.AspNetCore.Http;
+
+namespace ServiceLayer.DTO_s.Banner
 {
     public class BannerCreateDto
     {
-        public byte[]? Image { get; set; }
+        public IFormFile? Photo { get; set; }
         public string? Title { get; set; }
     }
 }

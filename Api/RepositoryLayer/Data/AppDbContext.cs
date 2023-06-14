@@ -41,7 +41,8 @@ namespace RepositoryLayer.Data
                         entity.Entity.UpdateDate = DateTime.UtcNow.AddHours(4);
                         break;
                     case EntityState.Deleted:
-                        entity.Entity.SoftDeleted = true;
+                        entity.Entity.SoftDeleted = false;
+                        entity.Entity.isDeleted = false;
                         break;
                     default:
                         break;

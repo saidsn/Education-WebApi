@@ -2,6 +2,7 @@
 using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTO_s.Student;
+using ServiceLayer.Helpers;
 using ServiceLayer.Services.Interfaces;
 
 namespace ServiceLayer.Services.Implementations
@@ -33,11 +34,13 @@ namespace ServiceLayer.Services.Implementations
         {
             var course = await _courseRepository.Get(studentCreateDto.CourseId);
 
-            var mapData = _mapper.Map<Student>(studentCreateDto);
+            var mapStudent = _mapper.Map<Student>(studentCreateDto);
 
-            mapData.Course = course;
+            mapStudent.Image = await studentCreateDto.Photo.GetBytes();
 
-            await _studentRepository.Create(mapData);
+            mapStudent.Course = course;
+
+            await _studentRepository.Create(mapStudent);
         }
     }
 }

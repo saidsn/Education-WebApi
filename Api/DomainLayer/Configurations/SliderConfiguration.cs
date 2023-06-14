@@ -11,8 +11,6 @@ namespace DomainLayer.Configurations
         {
             builder.Property(s => s.Image).IsRequired();
             builder.Property(s => s.Title).IsRequired().HasMaxLength(100);
-            builder.Property(s => s.SoftDeleted).HasDefaultValue(false);
-            builder.Property(s => s.isDeleted).HasDefaultValue(false);
         }
     }
 }

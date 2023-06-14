@@ -12,8 +12,6 @@ namespace DomainLayer.Configurations
             builder.Property(c => c.Title).IsRequired().HasMaxLength(100);
             builder.Property(c => c.Description).IsRequired().HasMaxLength(500);
             builder.Property(c => c.Price).IsRequired().HasPrecision(18, 2);
-            builder.Property(c => c.SoftDeleted).HasDefaultValue(false);
-            builder.Property(c => c.isDeleted).HasDefaultValue(false);
         }
     }
 }

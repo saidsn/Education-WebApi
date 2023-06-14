@@ -43,9 +43,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -56,9 +54,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -91,17 +87,13 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -124,9 +116,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -137,9 +127,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -173,17 +161,13 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -215,9 +199,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -228,9 +210,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -255,17 +235,13 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -292,9 +268,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -305,9 +279,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -335,9 +307,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -348,9 +318,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -373,9 +341,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -386,9 +352,7 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -432,17 +396,13 @@ namespace RepositoryLayer.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -468,17 +428,13 @@ namespace RepositoryLayer.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("SoftDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

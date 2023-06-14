@@ -2,6 +2,7 @@
 using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTO_s.Author;
+using ServiceLayer.Helpers;
 using ServiceLayer.Services.Interfaces;
 
 namespace ServiceLayer.Services.Implementations
@@ -22,7 +23,7 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<AuthorDto> GetAsync(int id)
         {
-            return _mapper.Map<AuthorDto>(await _authorRepository.Get(id));
+            return _mapper.Map<AuthorDto>(await _authorRepository.GetWithCoursesAsync(id));
         }
 
 
@@ -40,6 +41,8 @@ namespace ServiceLayer.Services.Implementations
                 var courses = await _courseRepository.FindAllByExpression(c => authorCreateDto.CourseIds.Contains(c.Id));
 
                 var mapAuthor = _mapper.Map<Author>(authorCreateDto);
+
+                mapAuthor.Image = await authorCreateDto.Photo.GetBytes();
 
                 mapAuthor.CourseAuthors = new List<CourseAuthor>();
 
@@ -60,6 +63,5 @@ namespace ServiceLayer.Services.Implementations
                 throw new Exception("You must select at least one course.");
             }
         }
-
     }
 }

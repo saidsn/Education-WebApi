@@ -10,8 +10,6 @@ namespace DomainLayer.Configurations
         public void Configure(EntityTypeBuilder<Title> builder)
         {
             builder.Property(t => t.Name).IsRequired().HasMaxLength(50);
-            builder.Property(t => t.SoftDeleted).HasDefaultValue(false);
-            builder.Property(t => t.isDeleted).HasDefaultValue(false);
         }
     }
 }

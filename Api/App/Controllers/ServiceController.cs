@@ -21,7 +21,7 @@ namespace App.Controllers
             {
                 return Ok(await _service.GetAsync(id));
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return NotFound();
             }
@@ -34,14 +34,14 @@ namespace App.Controllers
             {
                 return Ok(await _service.GetAllAsync());
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return NotFound();
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ServiceCreateDto serviceCreateDto)
+        public async Task<IActionResult> Create([FromForm] ServiceCreateDto serviceCreateDto)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace App.Controllers
 
                 return Ok();
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
@@ -64,14 +64,14 @@ namespace App.Controllers
 
                 return Ok();
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return NotFound();
             }
         }
 
         [HttpPut, Route("{id}")]
-        public async Task<IActionResult> Update([Required][FromRoute] int id, ServiceUpdateDto serviceUpdateDto)
+        public async Task<IActionResult> Update([Required][FromRoute] int id, [FromForm] ServiceUpdateDto serviceUpdateDto)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace App.Controllers
 
                 return Ok();
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return BadRequest(new { ErrorMessage = "Not Updated" });
             }

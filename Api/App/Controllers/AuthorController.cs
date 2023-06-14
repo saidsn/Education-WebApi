@@ -41,7 +41,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AuthorCreateDto authorCreateDto)
+        public async Task<IActionResult> Create([FromForm] AuthorCreateDto authorCreateDto)
         {
             try
             {

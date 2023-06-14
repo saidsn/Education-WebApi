@@ -1,9 +1,10 @@
-﻿namespace ServiceLayer.DTOs.Slider
+﻿using Microsoft.AspNetCore.Http;
+
+namespace ServiceLayer.DTOs.Slider
 {
     public class SliderCreateDto
     {
-        public byte[]? Image { get; set; }
+        public IFormFile? Photo { get; set; }
         public string? Title { get; set; }
-
     }
 }
