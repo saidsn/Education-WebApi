@@ -7,45 +7,48 @@ namespace App.Controllers
 {
     public class BannerController : AppController
     {
-        private readonly IBannerService _service;
+        private readonly IBannerService _bannerService;
 
-        public BannerController(IBannerService service)
+        public BannerController(IBannerService bannerService)
         {
-            _service = service;
+            _bannerService = bannerService;
         }
 
+
         [HttpGet]
-        public async Task<IActionResult> Get([Required] int id)
+        public async Task<IActionResult> GetById([Required] int id)
         {
             try
             {
-                return Ok(await _service.GetAsync(id));
+                return Ok(await _bannerService.GetAsync(id));
             }
             catch (Exception)
             {
-                return NotFound();
+                return NotFound("Please enter a valid Id!");
             }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                return Ok(await _bannerService.GetAllAsync());
             }
             catch (Exception)
             {
-                return NotFound();
+                return NotFound("No records found!");
             }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] BannerCreateDto bannerCreateDto)
         {
             try
             {
-                await _service.CreateAsync(bannerCreateDto);
+                await _bannerService.CreateAsync(bannerCreateDto);
 
                 return Ok();
             }
@@ -55,12 +58,13 @@ namespace App.Controllers
             }
         }
 
+
         [HttpDelete]
         public async Task<IActionResult> Delete([Required] int id)
         {
             try
             {
-                await _service.DeleteAsync(id);
+                await _bannerService.DeleteAsync(id);
 
                 return Ok();
             }
@@ -70,12 +74,13 @@ namespace App.Controllers
             }
         }
 
+
         [HttpPut, Route("{id}")]
         public async Task<IActionResult> Update([FromRoute][Required] int id, [FromForm] BannerUpdateDto bannerUpdateDto)
         {
             try
             {
-                await _service.UpdateAsync(id, bannerUpdateDto);
+                await _bannerService.UpdateAsync(id, bannerUpdateDto);
 
                 return Ok(bannerUpdateDto);
 

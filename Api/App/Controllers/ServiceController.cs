@@ -7,45 +7,48 @@ namespace App.Controllers
 {
     public class ServiceController : AppController
     {
-        private readonly IServiceService _service;
+        private readonly IServiceService _serviceService;
 
-        public ServiceController(IServiceService service)
+        public ServiceController(IServiceService serviceService)
         {
-            _service = service;
+            _serviceService = serviceService;
         }
 
+
         [HttpGet]
-        public async Task<IActionResult> Get([Required] int id)
+        public async Task<IActionResult> GetById([Required] int id)
         {
             try
             {
-                return Ok(await _service.GetAsync(id));
+                return Ok(await _serviceService.GetAsync(id));
             }
             catch (Exception)
             {
-                return NotFound();
+                return NotFound("Please enter a valid Id!");
             }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                return Ok(await _serviceService.GetAllAsync());
             }
             catch (Exception)
             {
-                return NotFound();
+                return NotFound("No records found!");
             }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] ServiceCreateDto serviceCreateDto)
         {
             try
             {
-                await _service.CreateAsync(serviceCreateDto);
+                await _serviceService.CreateAsync(serviceCreateDto);
 
                 return Ok();
             }
@@ -55,12 +58,13 @@ namespace App.Controllers
             }
         }
 
+
         [HttpDelete]
         public async Task<IActionResult> Delete([Required] int id)
         {
             try
             {
-                await _service.DeleteAsync(id);
+                await _serviceService.DeleteAsync(id);
 
                 return Ok();
             }
@@ -70,12 +74,13 @@ namespace App.Controllers
             }
         }
 
+
         [HttpPut, Route("{id}")]
         public async Task<IActionResult> Update([Required][FromRoute] int id, [FromForm] ServiceUpdateDto serviceUpdateDto)
         {
             try
             {
-                await _service.UpdateAsync(id, serviceUpdateDto);
+                await _serviceService.UpdateAsync(id, serviceUpdateDto);
 
                 return Ok();
             }

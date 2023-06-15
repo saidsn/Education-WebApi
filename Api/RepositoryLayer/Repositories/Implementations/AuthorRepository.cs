@@ -26,6 +26,7 @@ namespace RepositoryLayer.Repositories.Implementations
             return author;
         }
 
+
         public async Task<List<Author>> GetAllWithCoursesAsync()
         {
             var authors = await _author

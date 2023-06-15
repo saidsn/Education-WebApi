@@ -9,7 +9,7 @@
         public decimal Price { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-        public List<string>? StudentFullName { get; set; }
         public List<string>? AuthorName { get; set; }
+        public List<string>? StudentFullName { get; set; }
     }
 }

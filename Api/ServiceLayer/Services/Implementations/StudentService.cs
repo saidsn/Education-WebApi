@@ -20,15 +20,18 @@ namespace ServiceLayer.Services.Implementations
             _mapper = mapper;
         }
 
+
         public async Task<StudentDto> GetAsync(int id)
         {
-            return _mapper.Map<StudentDto>(await _studentRepository.Get(id));
+            return _mapper.Map<StudentDto>(await _studentRepository.GetWithCoursesAsync(id));
         }
+
 
         public async Task<List<StudentListDto>> GetAllAsync()
         {
-            return _mapper.Map<List<StudentListDto>>(await _studentRepository.GetAll());
+            return _mapper.Map<List<StudentListDto>>(await _studentRepository.GetAllWithCoursesAsync());
         }
+
 
         public async Task CreateAsync(StudentCreateDto studentCreateDto)
         {

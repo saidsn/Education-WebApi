@@ -7,24 +7,24 @@ namespace App.Controllers
 {
     public class SliderController : AppController
     {
-        private readonly ISliderService _service;
+        private readonly ISliderService _sliderService;
 
-        public SliderController(ISliderService service)
+        public SliderController(ISliderService sliderService)
         {
-            _service = service;
+            _sliderService = sliderService;
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Get([Required] int id)
+        public async Task<IActionResult> GetById([Required] int id)
         {
             try
             {
-                return Ok(await _service.GetAsync(id));
+                return Ok(await _sliderService.GetAsync(id));
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
-                return NotFound();
+                return NotFound("Please enter a valid Id!");
             }
         }
 
@@ -34,25 +34,25 @@ namespace App.Controllers
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                return Ok(await _sliderService.GetAllAsync());
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
-                return NotFound();
+                return NotFound("No records found!");
             }
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] SliderCreateDto sliderCreateDto)
+        public async Task<IActionResult> Create([FromForm] SliderCreateDto sliderCreateDto)
         {
             try
             {
-                await _service.CreateAsync(sliderCreateDto);
+                await _sliderService.CreateAsync(sliderCreateDto);
 
                 return Ok();
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
@@ -64,26 +64,27 @@ namespace App.Controllers
         {
             try
             {
-                await _service.DeleteAsync(id);
+                await _sliderService.DeleteAsync(id);
 
                 return Ok();
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return NotFound();
             }
         }
 
+
         [HttpPut, Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute][Required] int id, SliderUpdateDto sliderUpdateDto)
+        public async Task<IActionResult> Update([FromRoute][Required] int id, [FromForm] SliderUpdateDto sliderUpdateDto)
         {
             try
             {
-                await _service.UpdateAsync(id, sliderUpdateDto);
+                await _sliderService.UpdateAsync(id, sliderUpdateDto);
 
                 return Ok(sliderUpdateDto);
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
 
                 return BadRequest(new { ErrorMessage = "Not Updated" });

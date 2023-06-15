@@ -11,6 +11,5 @@ namespace DomainLayer.Entities
         public bool IsGraduated { get; set; }
         public int CourseId { get; set; }
         public Course? Course { get; set; }
-
     }
 }

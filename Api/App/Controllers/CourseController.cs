@@ -19,8 +19,7 @@ namespace App.Controllers
         {
             try
             {
-                var result = await _courseService.GetAsync(id);
-                return Ok(result);
+                return Ok(await _courseService.GetAsync(id));
             }
             catch (Exception)
             {

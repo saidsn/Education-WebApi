@@ -3,6 +3,7 @@ using DomainLayer.Entities;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.DTOs.Product;
 using ServiceLayer.DTOs.Slider;
+using ServiceLayer.Helpers;
 using ServiceLayer.Services.Interfaces;
 
 namespace ServiceLayer.Services.Implementations
@@ -22,7 +23,11 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task CreateAsync(SliderCreateDto sliderCreateDto)
         {
-            await _repo.Create(_mapper.Map<Slider>(sliderCreateDto));
+            var mapSlider = _mapper.Map<Slider>(sliderCreateDto);
+
+            mapSlider.Image = await sliderCreateDto.Photo.GetBytes();
+
+            await _repo.Create(mapSlider);
         }
 
 
@@ -47,7 +52,9 @@ namespace ServiceLayer.Services.Implementations
         {
             var dbSlider = await _repo.Get(id);
 
-            _mapper.Map(sliderUpdateDto, dbSlider);
+            var mapSlider = _mapper.Map(sliderUpdateDto, dbSlider);
+
+            mapSlider.Image = await sliderUpdateDto.Photo.GetBytes();
 
             await _repo.Update(dbSlider);
         }

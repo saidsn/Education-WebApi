@@ -7,24 +7,23 @@ namespace App.Controllers
 {
     public class AboutController : AppController
     {
-        private readonly IAboutService _service;
+        private readonly IAboutService _aboutService;
 
-        public AboutController(IAboutService service)
+        public AboutController(IAboutService aboutService)
         {
-            _service = service;
+            _aboutService = aboutService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([Required] int id)
+        public async Task<IActionResult> GetById([Required] int id)
         {
             try
             {
-                return Ok(await _service.GetAsync(id));
+                return Ok(await _aboutService.GetAsync(id));
             }
             catch (Exception)
             {
-
-                return NotFound();
+                return NotFound("Please enter a valid Id!");
             }
         }
 
@@ -33,11 +32,11 @@ namespace App.Controllers
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                return Ok(await _aboutService.GetAllAsync());
             }
             catch (Exception)
             {
-                return NotFound();
+                return NotFound("No records found!");
             }
 
         }
@@ -48,7 +47,7 @@ namespace App.Controllers
         {
             try
             {
-                await _service.CreateAsync(aboutCreateDto);
+                await _aboutService.CreateAsync(aboutCreateDto);
 
                 return Ok();
             }
@@ -63,7 +62,7 @@ namespace App.Controllers
         {
             try
             {
-                await _service.DeleteAsync(id);
+                await _aboutService.DeleteAsync(id);
 
                 return Ok();
             }
@@ -80,7 +79,7 @@ namespace App.Controllers
         {
             try
             {
-                await _service.UpdateAsync(id, aboutUpdateDto);
+                await _aboutService.UpdateAsync(id, aboutUpdateDto);
 
                 return Ok();
             }

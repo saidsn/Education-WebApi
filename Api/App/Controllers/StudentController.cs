@@ -7,11 +7,11 @@ namespace App.Controllers
 {
     public class StudentController : AppController
     {
-        private readonly IStudentService _service;
+        private readonly IStudentService _studentService;
 
-        public StudentController(IStudentService service)
+        public StudentController(IStudentService studentService)
         {
-            _service = service;
+            _studentService = studentService;
         }
 
 
@@ -20,7 +20,9 @@ namespace App.Controllers
         {
             try
             {
-                return Ok(await _service.GetAsync(id));
+                var data = await _studentService.GetAsync(id);
+
+                return Ok(data);
             }
             catch (Exception)
             {
@@ -34,7 +36,7 @@ namespace App.Controllers
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                return Ok(await _studentService.GetAllAsync());
             }
             catch (Exception)
             {
@@ -49,7 +51,7 @@ namespace App.Controllers
         {
             try
             {
-                await _service.CreateAsync(studentCreateDto);
+                await _studentService.CreateAsync(studentCreateDto);
 
                 return Ok();
             }

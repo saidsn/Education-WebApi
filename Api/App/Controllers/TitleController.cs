@@ -7,24 +7,24 @@ namespace App.Controllers
 {
     public class TitleController : AppController
     {
-        private readonly ITitleService _service;
+        private readonly ITitleService _titleService;
 
-        public TitleController(ITitleService service)
+        public TitleController(ITitleService titleService)
         {
-            _service = service;
+            _titleService = titleService;
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Get([Required] int id)
+        public async Task<IActionResult> GetById([Required] int id)
         {
             try
             {
-                return Ok(await _service.GetAsync(id));
+                return Ok(await _titleService.GetAsync(id));
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
-                return NotFound();
+                return NotFound("Please enter a valid Id!");
             }
         }
 
@@ -34,11 +34,11 @@ namespace App.Controllers
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                return Ok(await _titleService.GetAllAsync());
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
-                return NotFound();
+                return NotFound("No records found!");
             }
         }
 
@@ -48,11 +48,11 @@ namespace App.Controllers
         {
             try
             {
-                await _service.CreateAsync(titleCreateDto);
+                await _titleService.CreateAsync(titleCreateDto);
 
                 return Ok();
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
@@ -64,11 +64,11 @@ namespace App.Controllers
         {
             try
             {
-                await _service.DeleteAsync(id);
+                await _titleService.DeleteAsync(id);
 
                 return Ok();
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return NotFound();
             }
@@ -80,11 +80,11 @@ namespace App.Controllers
         {
             try
             {
-                await _service.UpdateAsync(id, titleUpdateDto);
+                await _titleService.UpdateAsync(id, titleUpdateDto);
 
                 return Ok(titleUpdateDto);
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return BadRequest(new { ErrorMessage = "Not Updated" });
             }

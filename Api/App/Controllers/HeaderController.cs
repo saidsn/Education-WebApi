@@ -7,46 +7,48 @@ namespace App.Controllers
 {
     public class HeaderController : AppController
     {
-        private readonly IHeaderService _service;
+        private readonly IHeaderService _headerService;
 
-        public HeaderController(IHeaderService service)
+        public HeaderController(IHeaderService headerService)
         {
-            _service = service;
+            _headerService = headerService;
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Get([Required] int id)
+        public async Task<IActionResult> GetById([Required] int id)
         {
             try
             {
-                return Ok(await _service.GetAsync(id));
+                return Ok(await _headerService.GetAsync(id));
             }
             catch (Exception)
             {
-                return NotFound();
+                return NotFound("Please enter a valid Id!");
             }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                return Ok(await _headerService.GetAllAsync());
             }
             catch (Exception)
             {
-                return NotFound();
+                return NotFound("No records found!");
             }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] HeaderCreateDto headerCreateDto)
         {
             try
             {
-                await _service.CreateAsync(headerCreateDto);
+                await _headerService.CreateAsync(headerCreateDto);
 
                 return Ok();
             }
@@ -56,12 +58,13 @@ namespace App.Controllers
             }
         }
 
+
         [HttpDelete]
         public async Task<IActionResult> Delete([Required] int id)
         {
             try
             {
-                await _service.DeleteAsync(id);
+                await _headerService.DeleteAsync(id);
                 return Ok();
             }
             catch (Exception)
@@ -70,12 +73,13 @@ namespace App.Controllers
             }
         }
 
+
         [HttpPut, Route("{id}")]
         public async Task<IActionResult> Update([FromRoute][Required] int id, [FromForm] HeaderUpdateDto headerUpdateDto)
         {
             try
             {
-                await _service.UpdateAsync(id, headerUpdateDto);
+                await _headerService.UpdateAsync(id, headerUpdateDto);
 
                 return Ok(headerUpdateDto);
             }

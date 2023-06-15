@@ -53,22 +53,36 @@ namespace ServiceLayer.Mappings
             CreateMap<Contact, ContactCreateDto>().ReverseMap();
             CreateMap<Contact, ContactUpdateDto>().ReverseMap();
 
-            CreateMap<Course, CourseDto>().ReverseMap();
+
+            CreateMap<Course, CourseDto>()
+                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(c => c.CourseAuthors.Where(ca => ca.CourseId == c.Id).Select(ca => ca.Author.Name)))
+                .ForMember(dest => dest.StudentFullName, opt => opt.MapFrom(c => c.Students.Select(s => s.FullName)))
+                .ReverseMap();
             CreateMap<Course, CourseListDto>()
                 .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(c => c.CourseAuthors.Where(ca => ca.CourseId == c.Id).Select(ca => ca.Author.Name)))
-                .ForMember(dest => dest.StudentFullName, opt => opt.MapFrom(src => src.Students.Select(s => s.FullName)));
-
+                .ForMember(dest => dest.StudentFullName, opt => opt.MapFrom(c => c.Students.Select(s => s.FullName)))
+                .ReverseMap();
             CreateMap<Course, CourseCreateDto>().ReverseMap();
 
-            CreateMap<Author, AuthorDto>().ReverseMap();
+
+            CreateMap<Author, AuthorDto>()
+                .ForMember(dest => dest.CourseTitle, opt => opt.MapFrom(a => a.CourseAuthors.Where(ca => ca.AuthorId == a.Id).Select(ca => ca.Course.Title)))
+                .ReverseMap();
             CreateMap<Author, AuthorListDto>()
-                .ForMember(dest => dest.CourseTitle, opt => opt.MapFrom(a => a.CourseAuthors.Where(ca => ca.CourseId == a.Id).Select(ca => ca.Course.Title)));
+                .ForMember(dest => dest.CourseTitle, opt => opt.MapFrom(a => a.CourseAuthors.Where(ca => ca.AuthorId == a.Id).Select(ca => ca.Course.Title)))
+                .ReverseMap();
             CreateMap<Author, AuthorCreateDto>().ReverseMap();
 
-            CreateMap<Student, StudentDto>().ReverseMap();
-            CreateMap<Student, StudentListDto>().ReverseMap();
+
+            CreateMap<Student, StudentDto>()
+                .ForMember(dest => dest.CourseTitle, opt => opt.MapFrom(s => s.Course.Title))
+                .ReverseMap();
+            CreateMap<Student, StudentListDto>()
+                .ForMember(dest => dest.CourseTitle, opt => opt.MapFrom(s => s.Course.Title))
+                .ReverseMap();
             CreateMap<Student, StudentCreateDto>().ReverseMap();
             CreateMap<Student, StudentUpdateDto>().ReverseMap();
         }
     }
 }
+

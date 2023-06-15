@@ -14,6 +14,7 @@ namespace App.Controllers
             _authorService = authorService;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetById([Required] int id)
         {
@@ -27,6 +28,7 @@ namespace App.Controllers
             }
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -39,6 +41,7 @@ namespace App.Controllers
                 return NotFound("No records found!");
             }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] AuthorCreateDto authorCreateDto)

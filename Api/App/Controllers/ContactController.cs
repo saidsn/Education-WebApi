@@ -9,25 +9,24 @@ namespace App.Controllers
     public class ContactController : AppController
     {
 
-        private readonly IContactService _service;
+        private readonly IContactService _contactService;
 
-        public ContactController(IContactService service)
+        public ContactController(IContactService contactService)
         {
-            _service = service;
+            _contactService = contactService;
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Get([Required] int id)
+        public async Task<IActionResult> GetById([Required] int id)
         {
             try
             {
-                return Ok(await _service.GetAsync(id));
+                return Ok(await _contactService.GetAsync(id));
             }
             catch (NullReferenceException)
             {
-
-                return NotFound();
+                return NotFound("Please enter a valid Id!");
             }
         }
 
@@ -37,12 +36,11 @@ namespace App.Controllers
         {
             try
             {
-                return Ok(await _service.GetAllAsync());
+                return Ok(await _contactService.GetAllAsync());
             }
             catch (NullReferenceException)
             {
-
-                return NotFound();
+                return NotFound("No records found!");
             }
         }
 
@@ -60,7 +58,7 @@ namespace App.Controllers
 
             try
             {
-                await _service.CreateAsync(contactCreateDto);
+                await _contactService.CreateAsync(contactCreateDto);
 
                 return Ok();
             }
@@ -83,7 +81,7 @@ namespace App.Controllers
             }
             try
             {
-                await _service.UpdateAsync(id, contactUpdateDto);
+                await _contactService.UpdateAsync(id, contactUpdateDto);
 
                 return Ok();
             }
