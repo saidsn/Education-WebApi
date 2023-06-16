@@ -21,7 +21,7 @@ namespace RepositoryLayer.Repositories.Implementations
                 .Where(a => !a.isDeleted)
                 .Include("CourseAuthors")
                 .Include("CourseAuthors.Course")
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == id) ?? throw new NullReferenceException();
 
             return author;
         }

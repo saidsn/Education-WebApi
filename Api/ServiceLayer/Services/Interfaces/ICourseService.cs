@@ -7,5 +7,6 @@ namespace ServiceLayer.Services.Interfaces
         Task<CourseDto> GetAsync(int id);
         Task<List<CourseListDto>> GetAllAsync();
         Task CreateAsync(CourseCreateDto courseCreateDto);
+        Task UpdateAsync(int id, CourseUpdateDto courseUpdateDto);
     }
 }

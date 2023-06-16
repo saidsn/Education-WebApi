@@ -24,7 +24,7 @@ namespace RepositoryLayer.Repositories.Implementations
               .Include("Students")
               .Include("CourseAuthors")
               .Include("CourseAuthors.Author")
-              .FirstOrDefaultAsync(c => c.Id == id);
+              .FirstOrDefaultAsync(c => c.Id == id) ?? throw new NullReferenceException();
 
             return course;
         }

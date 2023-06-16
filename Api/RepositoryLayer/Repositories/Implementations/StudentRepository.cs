@@ -21,7 +21,7 @@ namespace RepositoryLayer.Repositories.Implementations
             var student = await _student
                 .Where(a => !a.isDeleted)
                 .Include("Course")
-                .FirstOrDefaultAsync(s => s.Id == id);
+                .FirstOrDefaultAsync(s => s.Id == id) ?? throw new NullReferenceException();
 
             return student;
         }

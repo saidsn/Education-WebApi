@@ -13,7 +13,9 @@ namespace ServiceLayer.Services.Implementations
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public CourseService(ICourseRepository courseRepository, IAuthorRepository authorRepository, IMapper mapper)
+        public CourseService(ICourseRepository courseRepository,
+            IAuthorRepository authorRepository,
+            IMapper mapper)
         {
             _courseRepository = courseRepository;
             _authorRepository = authorRepository;
@@ -63,6 +65,11 @@ namespace ServiceLayer.Services.Implementations
             {
                 throw new Exception("You must select at least one author.");
             }
+        }
+
+        public Task UpdateAsync(int id, CourseUpdateDto courseUpdateDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }
