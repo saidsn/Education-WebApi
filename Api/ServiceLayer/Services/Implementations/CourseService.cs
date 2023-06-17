@@ -67,9 +67,49 @@ namespace ServiceLayer.Services.Implementations
             }
         }
 
-        public Task UpdateAsync(int id, CourseUpdateDto courseUpdateDto)
+
+        public async Task UpdateAsync(int id, CourseUpdateDto courseUpdateDto)
         {
-            throw new NotImplementedException();
+
+            if (courseUpdateDto.AuthorIds != null && courseUpdateDto.AuthorIds.Any())
+            {
+
+                var authors = await _authorRepository.FindAllByExpression(a => courseUpdateDto.AuthorIds.Contains(a.Id));
+
+                var mapCourse = _mapper.Map<Course>(courseUpdateDto);
+
+                mapCourse.Id = id;
+
+                mapCourse.Image = await courseUpdateDto.Photo.GetBytes();
+
+                var dbCourse = await _courseRepository.GetWithAuthorsAndStudentsAsync(id);
+
+                mapCourse.CourseAuthors = new List<CourseAuthor>();
+
+                await _courseRepository.DeleteCourseAuthor(dbCourse.CourseAuthors.ToList());
+
+                foreach (var author in authors)
+                {
+                    var courseAuthor = new CourseAuthor
+                    {
+                        CourseId = id,
+                        AuthorId = (await GetAsync(author.Id)).Id
+                    };
+
+                    mapCourse.CourseAuthors.Add(courseAuthor);
+                }
+                _mapper.Map(courseUpdateDto, mapCourse);
+                await _courseRepository.Update(mapCourse);
+            }
+            else
+            {
+                throw new Exception("You must select at least one author.");
+            }
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _courseRepository.Delete(await _courseRepository.Get(id));
         }
     }
 }

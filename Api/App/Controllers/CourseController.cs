@@ -58,5 +58,37 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
         }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([Required] int id)
+        {
+            try
+            {
+                await _courseService.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
+
+
+        [HttpPut, Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute][Required] int id, [FromForm] CourseUpdateDto courseUpdateDto)
+        {
+            try
+            {
+                await _courseService.UpdateAsync(id, courseUpdateDto);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { ErrorMessage = "Not Updated" });
+            }
+        }
     }
 }
