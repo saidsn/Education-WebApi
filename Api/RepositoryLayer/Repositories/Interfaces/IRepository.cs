@@ -12,5 +12,6 @@ namespace RepositoryLayer.Repositories.Interfaces
         Task Update(T entity);
         Task<List<T>> FindAllByExpression(Expression<Func<T, bool>> expression);
         Task<bool> IsExsist(Expression<Func<T, bool>> expression);
+        //Task DeleteList(List<T> entities);
     }
 }

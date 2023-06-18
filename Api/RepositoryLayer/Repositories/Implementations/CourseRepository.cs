@@ -32,7 +32,6 @@ namespace RepositoryLayer.Repositories.Implementations
             return course;
         }
 
-
         public async Task<List<Course>> GetAllWithAuthorsAndStudentsAsync()
         {
             var courses = await _course
@@ -49,9 +48,9 @@ namespace RepositoryLayer.Repositories.Implementations
             foreach (var courseAuthor in courseAuthors)
             {
                 _courseAuthors.Remove(courseAuthor);
-            }
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

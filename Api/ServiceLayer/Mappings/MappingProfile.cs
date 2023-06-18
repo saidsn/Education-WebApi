@@ -90,11 +90,8 @@ namespace ServiceLayer.Mappings
                 .ForMember(dest => dest.StudentFullName, opt => opt.MapFrom(c => c.Students.Select(s => s.FullName)))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(s => Convert.ToBase64String(s.Image)))
                 .ReverseMap();
-            CreateMap<Course, CourseCreateDto>()
-                .ReverseMap();
-            CreateMap<Course, CourseUpdateDto>()
-                .ReverseMap();
-
+            CreateMap<Course, CourseCreateDto>().ReverseMap();
+            CreateMap<Course, CourseUpdateDto>().ReverseMap();
 
 
             CreateMap<Author, AuthorDto>()
@@ -105,8 +102,8 @@ namespace ServiceLayer.Mappings
                 .ForMember(dest => dest.CourseTitle, opt => opt.MapFrom(a => a.CourseAuthors.Where(ca => ca.AuthorId == a.Id).Select(ca => ca.Course.Title)))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(s => Convert.ToBase64String(s.Image)))
                 .ReverseMap();
-            CreateMap<Author, AuthorCreateDto>()
-                .ReverseMap();
+            CreateMap<Author, AuthorCreateDto>().ReverseMap();
+            CreateMap<Author, AuthorUpdateDto>().ReverseMap();
 
 
             CreateMap<Student, StudentDto>()

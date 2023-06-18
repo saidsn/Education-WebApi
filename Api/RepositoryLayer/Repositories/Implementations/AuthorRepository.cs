@@ -21,6 +21,7 @@ namespace RepositoryLayer.Repositories.Implementations
                 .Where(a => !a.isDeleted)
                 .Include("CourseAuthors")
                 .Include("CourseAuthors.Course")
+                .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == id) ?? throw new NullReferenceException();
 
             return author;

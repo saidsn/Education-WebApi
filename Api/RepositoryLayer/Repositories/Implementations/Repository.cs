@@ -63,5 +63,17 @@ namespace RepositoryLayer.Repositories.Implementations
         {
             return await _entities.Where(expression).AsNoTracking().ToListAsync();
         }
+
+        //public async Task DeleteList(List<T> entities)
+        //{
+        //    foreach (var entity in entities)
+        //    {
+        //        if (entity == null) throw new ArgumentNullException();
+
+        //        _entities.Remove(entity);
+
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
     }
 }

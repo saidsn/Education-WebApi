@@ -57,5 +57,21 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
         }
+
+
+        [HttpPut, Route("{id}")]
+        public async Task<IActionResult> Update([Required][FromRoute] int id, [FromForm] AuthorUpdateDto authorUpdateDto)
+        {
+            try
+            {
+                await _authorService.UpdateAsync(id, authorUpdateDto);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { ErrorMessage = "Not Updated" });
+            }
+        }
     }
 }

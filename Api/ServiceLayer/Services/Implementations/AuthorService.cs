@@ -63,5 +63,43 @@ namespace ServiceLayer.Services.Implementations
                 throw new Exception("You must select at least one course.");
             }
         }
+
+        public async Task UpdateAsync(int id, AuthorUpdateDto authorUpdateDto)
+        {
+            if (authorUpdateDto.CourseIds != null && authorUpdateDto.CourseIds.Any())
+            {
+                var courses = await _authorRepository.FindAllByExpression(a => authorUpdateDto.CourseIds.Contains(a.Id));
+
+                var dbAuthor = await _authorRepository.GetWithCoursesAsync(id);
+
+                await _courseRepository.DeleteCourseAuthor(dbAuthor.CourseAuthors.ToList());
+
+                foreach (var course in courses)
+                {
+                    var courseAuthor = new CourseAuthor
+                    {
+                        AuthorId = id,
+                        CourseId = course.Id
+                    };
+
+                    dbAuthor.CourseAuthors.Add(courseAuthor);
+                }
+
+                var mapAuthor = _mapper.Map(authorUpdateDto, dbAuthor);
+
+                mapAuthor.Image = await authorUpdateDto.Photo.GetBytes();
+
+                await _authorRepository.Update(mapAuthor);
+            }
+            else
+            {
+                throw new Exception("You must select at least one author.");
+            }
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _authorRepository.Delete(await _authorRepository.Get(id));
+        }
     }
 }

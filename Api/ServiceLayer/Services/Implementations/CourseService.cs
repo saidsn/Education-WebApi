@@ -71,21 +71,18 @@ namespace ServiceLayer.Services.Implementations
         {
             if (courseUpdateDto.AuthorIds != null && courseUpdateDto.AuthorIds.Any())
             {
-                var authors = await _authorRepository.FindAllByExpression(a => courseUpdateDto.AuthorIds.Contains(a.Id));
+                var authors = await _courseRepository.FindAllByExpression(a => courseUpdateDto.AuthorIds.Contains(a.Id));
 
                 var dbCourse = await _courseRepository.GetWithAuthorsAndStudentsAsync(id);
 
-                if (dbCourse.CourseAuthors != null)
-                {
-                    await _courseRepository.DeleteCourseAuthor(dbCourse.CourseAuthors.ToList());
-                }
+                await _courseRepository.DeleteCourseAuthor(dbCourse.CourseAuthors.ToList());
 
                 foreach (var author in authors)
                 {
                     var courseAuthor = new CourseAuthor
                     {
                         CourseId = id,
-                        AuthorId = author.Id,
+                        AuthorId = author.Id
                     };
 
                     dbCourse.CourseAuthors?.Add(courseAuthor);
