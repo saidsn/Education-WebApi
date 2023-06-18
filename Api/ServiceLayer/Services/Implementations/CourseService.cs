@@ -67,38 +67,33 @@ namespace ServiceLayer.Services.Implementations
             }
         }
 
-
         public async Task UpdateAsync(int id, CourseUpdateDto courseUpdateDto)
         {
-
             if (courseUpdateDto.AuthorIds != null && courseUpdateDto.AuthorIds.Any())
             {
-
                 var authors = await _authorRepository.FindAllByExpression(a => courseUpdateDto.AuthorIds.Contains(a.Id));
-
-                var mapCourse = _mapper.Map<Course>(courseUpdateDto);
-
-                mapCourse.Id = id;
-
-                mapCourse.Image = await courseUpdateDto.Photo.GetBytes();
 
                 var dbCourse = await _courseRepository.GetWithAuthorsAndStudentsAsync(id);
 
-                mapCourse.CourseAuthors = new List<CourseAuthor>();
-
-                await _courseRepository.DeleteCourseAuthor(dbCourse.CourseAuthors.ToList());
+                if (dbCourse.CourseAuthors != null)
+                {
+                    await _courseRepository.DeleteCourseAuthor(dbCourse.CourseAuthors.ToList());
+                }
 
                 foreach (var author in authors)
                 {
                     var courseAuthor = new CourseAuthor
                     {
                         CourseId = id,
-                        AuthorId = (await GetAsync(author.Id)).Id
+                        AuthorId = author.Id,
                     };
 
-                    mapCourse.CourseAuthors.Add(courseAuthor);
+                    dbCourse.CourseAuthors?.Add(courseAuthor);
                 }
-                _mapper.Map(courseUpdateDto, mapCourse);
+                var mapCourse = _mapper.Map(courseUpdateDto, dbCourse);
+
+                mapCourse.Image = await courseUpdateDto.Photo.GetBytes();
+
                 await _courseRepository.Update(mapCourse);
             }
             else
@@ -106,7 +101,6 @@ namespace ServiceLayer.Services.Implementations
                 throw new Exception("You must select at least one author.");
             }
         }
-
         public async Task DeleteAsync(int id)
         {
             await _courseRepository.Delete(await _courseRepository.Get(id));
