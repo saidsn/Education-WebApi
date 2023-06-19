@@ -39,7 +39,7 @@ namespace ServiceLayer.Services.Implementations
         {
             if (authorCreateDto.CourseIds != null && authorCreateDto.CourseIds.Any())
             {
-                var courses = await _courseRepository.FindAllByExpression(c => authorCreateDto.CourseIds.Contains(c.Id));
+                var courses = await _authorRepository.FindAllByExpression(c => authorCreateDto.CourseIds.Contains(c.Id));
 
                 var mapAuthor = _mapper.Map<Author>(authorCreateDto);
 

@@ -73,5 +73,20 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Updated" });
             }
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([Required] int id)
+        {
+            try
+            {
+                await _authorService.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
     }
 }

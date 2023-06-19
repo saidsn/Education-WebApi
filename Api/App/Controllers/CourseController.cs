@@ -60,21 +60,6 @@ namespace App.Controllers
         }
 
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete([Required] int id)
-        {
-            try
-            {
-                await _courseService.DeleteAsync(id);
-
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
-        }
-
 
         [HttpPut, Route("{id}")]
         public async Task<IActionResult> Update([FromRoute][Required] int id, [FromForm] CourseUpdateDto courseUpdateDto)
@@ -88,6 +73,22 @@ namespace App.Controllers
             catch (Exception)
             {
                 return BadRequest(new { ErrorMessage = "Not Updated" });
+            }
+        }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([Required] int id)
+        {
+            try
+            {
+                await _courseService.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound();
             }
         }
     }
