@@ -34,6 +34,7 @@ namespace ServiceLayer.Services.Implementations
             return _mapper.Map<List<AuthorListDto>>(authors);
         }
 
+
         public async Task CreateAsync(AuthorCreateDto authorCreateDto)
         {
             if (authorCreateDto.CourseIds != null && authorCreateDto.CourseIds.Any())
@@ -50,8 +51,8 @@ namespace ServiceLayer.Services.Implementations
                 {
                     var courseAuthor = new CourseAuthor
                     {
-                        Course = course,
-                        Author = mapAuthor
+                        CourseId = course.Id,
+                        AuthorId = mapAuthor.Id
                     };
                     mapAuthor.CourseAuthors.Add(courseAuthor);
                 }
@@ -63,6 +64,7 @@ namespace ServiceLayer.Services.Implementations
                 throw new Exception("You must select at least one course.");
             }
         }
+
 
         public async Task UpdateAsync(int id, AuthorUpdateDto authorUpdateDto)
         {
@@ -96,6 +98,7 @@ namespace ServiceLayer.Services.Implementations
                 throw new Exception("You must select at least one author.");
             }
         }
+
 
         public async Task DeleteAsync(int id)
         {

@@ -53,8 +53,8 @@ namespace ServiceLayer.Services.Implementations
                 {
                     var courseAuthor = new CourseAuthor
                     {
-                        Course = mapCourse,
-                        Author = author
+                        AuthorId = author.Id,
+                        CourseId = mapCourse.Id
                     };
                     mapCourse.CourseAuthors.Add(courseAuthor);
                 }
