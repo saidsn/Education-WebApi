@@ -68,11 +68,11 @@ namespace ServiceLayer.Services.Implementations
         {
             if (authorUpdateDto.CourseIds != null && authorUpdateDto.CourseIds.Any())
             {
-                var courses = await _authorRepository.FindAllByExpression(a => authorUpdateDto.CourseIds.Contains(a.Id));
+                var courses = await _courseRepository.FindAllByExpression(c => authorUpdateDto.CourseIds.Contains(c.Id));
 
                 var dbAuthor = await _authorRepository.GetWithCoursesAsync(id);
 
-                await _courseRepository.DeleteCourseAuthor(dbAuthor.CourseAuthors.ToList());
+                await _authorRepository.DeleteCourseAuthor(dbAuthor.CourseAuthors.ToList());
 
                 foreach (var course in courses)
                 {
@@ -82,7 +82,7 @@ namespace ServiceLayer.Services.Implementations
                         CourseId = course.Id
                     };
 
-                    dbAuthor.CourseAuthors.Add(courseAuthor);
+                    dbAuthor.CourseAuthors?.Add(courseAuthor);
                 }
 
                 var mapAuthor = _mapper.Map(authorUpdateDto, dbAuthor);

@@ -67,6 +67,7 @@ namespace ServiceLayer.Services.Implementations
             }
         }
 
+
         public async Task UpdateAsync(int id, CourseUpdateDto courseUpdateDto)
         {
             if (courseUpdateDto.AuthorIds != null && courseUpdateDto.AuthorIds.Any())

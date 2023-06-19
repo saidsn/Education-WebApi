@@ -6,5 +6,6 @@ namespace RepositoryLayer.Repositories.Interfaces
     {
         Task<Author> GetWithCoursesAsync(int id);
         Task<List<Author>> GetAllWithCoursesAsync();
+        Task DeleteCourseAuthor(List<CourseAuthor> courseAuthors);
     }
 }

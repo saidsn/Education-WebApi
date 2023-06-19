@@ -9,10 +9,12 @@ namespace RepositoryLayer.Repositories.Implementations
     {
         private readonly AppDbContext _context;
         private readonly DbSet<Author> _author;
+        private readonly DbSet<CourseAuthor> _courseAuthors;
         public AuthorRepository(AppDbContext context) : base(context)
         {
             _context = context;
             _author = _context.Set<Author>();
+            _courseAuthors = _context.Set<CourseAuthor>();
         }
 
         public async Task<Author> GetWithCoursesAsync(int id)
@@ -37,6 +39,16 @@ namespace RepositoryLayer.Repositories.Implementations
                 .ToListAsync();
 
             return authors;
+        }
+
+        public async Task DeleteCourseAuthor(List<CourseAuthor> courseAuthors)
+        {
+            foreach (var courseAuthor in courseAuthors)
+            {
+                _courseAuthors.Remove(courseAuthor);
+
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
