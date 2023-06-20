@@ -9,14 +9,19 @@ namespace ServiceLayer.Services.Implementations
 {
     public class CourseService : ICourseService
     {
+        private readonly ICourseAuthorRepository _courseAuthorRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public CourseService(ICourseRepository courseRepository,
+
+        public CourseService(ICourseAuthorRepository courseAuthorRepository,
+            ICourseRepository courseRepository,
             IAuthorRepository authorRepository,
             IMapper mapper)
+
         {
+            _courseAuthorRepository = courseAuthorRepository;
             _courseRepository = courseRepository;
             _authorRepository = authorRepository;
             _mapper = mapper;
@@ -76,7 +81,7 @@ namespace ServiceLayer.Services.Implementations
 
                 var dbCourse = await _courseRepository.GetWithAuthorsAndStudentsAsync(id);
 
-                await _courseRepository.DeleteCourseAuthor(dbCourse.CourseAuthors.ToList());
+                await _courseAuthorRepository.DeleteList(dbCourse.CourseAuthors.ToList());
 
                 foreach (var author in authors)
                 {
@@ -99,6 +104,8 @@ namespace ServiceLayer.Services.Implementations
                 throw new Exception("You must select at least one author.");
             }
         }
+
+
         public async Task DeleteAsync(int id)
         {
             await _courseRepository.Delete(await _courseRepository.Get(id));

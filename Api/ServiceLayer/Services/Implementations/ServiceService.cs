@@ -9,33 +9,37 @@ namespace ServiceLayer.Services.Implementations
 {
     public class ServiceService : IServiceService
     {
-        private readonly IServiceRepository _repo;
+        private readonly IServiceRepository _serviceRepository;
         private readonly IMapper _mapper;
 
-        public ServiceService(IServiceRepository repo, IMapper mapper)
+        public ServiceService(IServiceRepository serviceRepository, IMapper mapper)
         {
-            _repo = repo;
+            _serviceRepository = serviceRepository;
             _mapper = mapper;
         }
 
+
         public async Task<ServiceDto> GetAsync(int id)
         {
-            return _mapper.Map<ServiceDto>(await _repo.Get(id));
+            return _mapper.Map<ServiceDto>(await _serviceRepository.Get(id));
         }
+
+
         public async Task<List<ServiceListDto>> GetAllAsync()
         {
-            return _mapper.Map<List<ServiceListDto>>(await _repo.GetAll());
+            return _mapper.Map<List<ServiceListDto>>(await _serviceRepository.GetAll());
         }
+
 
         public async Task CreateAsync(ServiceCreateDto serviceCreateDto)
         {
-            if (!await _repo.IsExsist(s => s.Title == serviceCreateDto.Title))
+            if (!await _serviceRepository.IsExsist(s => s.Title == serviceCreateDto.Title))
             {
                 var mapService = _mapper.Map<Service>(serviceCreateDto);
 
                 mapService.Image = await serviceCreateDto.Photo.GetBytes();
 
-                await _repo.Create(mapService);
+                await _serviceRepository.Create(mapService);
             }
             else
             {
@@ -43,20 +47,22 @@ namespace ServiceLayer.Services.Implementations
             }
         }
 
-        public async Task DeleteAsync(int id)
-        {
-            await _repo.Delete(await _repo.Get(id));
-        }
 
         public async Task UpdateAsync(int id, ServiceUpdateDto serviceUpdateDto)
         {
-            var dbService = await _repo.Get(id);
+            var dbService = await _serviceRepository.Get(id);
 
             var mapService = _mapper.Map(serviceUpdateDto, dbService);
 
             mapService.Image = await serviceUpdateDto.Photo.GetBytes();
 
-            await _repo.Update(dbService);
+            await _serviceRepository.Update(dbService);
+        }
+
+
+        public async Task DeleteAsync(int id)
+        {
+            await _serviceRepository.Delete(await _serviceRepository.Get(id));
         }
     }
 }

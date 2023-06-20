@@ -9,24 +9,25 @@ namespace ServiceLayer.Services.Implementations
 {
     public class AboutService : IAboutService
     {
-        private readonly IAboutRepository _repo;
+        private readonly IAboutRepository _aboutRepository;
         private readonly IMapper _mapper;
 
-        public AboutService(IAboutRepository repo, IMapper mapper)
+        public AboutService(IAboutRepository aboutRepository, IMapper mapper)
         {
-            _repo = repo;
+            _aboutRepository = aboutRepository;
             _mapper = mapper;
         }
 
+
         public async Task CreateAsync(AboutCreateDto aboutCreateDto)
         {
-            if (!await _repo.IsExsist(a => a.Title == aboutCreateDto.Title))
+            if (!await _aboutRepository.IsExsist(a => a.Title == aboutCreateDto.Title))
             {
                 var mapAbout = _mapper.Map<About>(aboutCreateDto);
 
                 mapAbout.Image = await aboutCreateDto.Photo.GetBytes();
 
-                await _repo.Create(mapAbout);
+                await _aboutRepository.Create(mapAbout);
             }
             else
             {
@@ -34,31 +35,34 @@ namespace ServiceLayer.Services.Implementations
             }
         }
 
+
         public async Task DeleteAsync(int id)
         {
-            await _repo.Delete(await _repo.Get(id));
+            await _aboutRepository.Delete(await _aboutRepository.Get(id));
         }
 
 
         public async Task<List<AboutListDto>> GetAllAsync()
         {
-            return _mapper.Map<List<AboutListDto>>(await _repo.GetAll());
+            return _mapper.Map<List<AboutListDto>>(await _aboutRepository.GetAll());
         }
+
 
         public async Task<AboutDto> GetAsync(int id)
         {
-            return _mapper.Map<AboutDto>(await _repo.Get(id));
+            return _mapper.Map<AboutDto>(await _aboutRepository.Get(id));
         }
+
 
         public async Task UpdateAsync(int id, AboutUpdateDto aboutUpdateDto)
         {
-            var dbAbout = await _repo.Get(id);
+            var dbAbout = await _aboutRepository.Get(id);
 
             var mapAbout = _mapper.Map(aboutUpdateDto, dbAbout);
 
             mapAbout.Image = await aboutUpdateDto.Photo.GetBytes();
 
-            await _repo.Update(dbAbout);
+            await _aboutRepository.Update(dbAbout);
         }
     }
 }

@@ -42,15 +42,5 @@ namespace RepositoryLayer.Repositories.Implementations
                  .ToListAsync();
             return courses;
         }
-
-        public async Task DeleteCourseAuthor(List<CourseAuthor> courseAuthors)
-        {
-            foreach (var courseAuthor in courseAuthors)
-            {
-                _courseAuthors.Remove(courseAuthor);
-
-                await _context.SaveChangesAsync();
-            }
-        }
     }
 }

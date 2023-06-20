@@ -9,12 +9,18 @@ namespace ServiceLayer.Services.Implementations
 {
     public class AuthorService : IAuthorService
     {
+        private readonly ICourseAuthorRepository _courseAuthorRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
 
-        public AuthorService(IAuthorRepository authorRepository, ICourseRepository courseRepository, IMapper mapper)
+        public AuthorService(ICourseAuthorRepository courseAuthorRepository,
+            IAuthorRepository authorRepository,
+            ICourseRepository courseRepository,
+            IMapper mapper)
+
         {
+            _courseAuthorRepository = courseAuthorRepository;
             _authorRepository = authorRepository;
             _courseRepository = courseRepository;
             _mapper = mapper;
@@ -74,7 +80,7 @@ namespace ServiceLayer.Services.Implementations
 
                 var dbAuthor = await _authorRepository.GetWithCoursesAsync(id);
 
-                await _authorRepository.DeleteCourseAuthor(dbAuthor.CourseAuthors.ToList());
+                await _courseAuthorRepository.DeleteList(dbAuthor.CourseAuthors.ToList());
 
                 foreach (var course in courses)
                 {

@@ -11,13 +11,25 @@ namespace ServiceLayer.Services.Implementations
     public class SliderService : ISliderService
     {
 
-        private readonly ISliderRepository _repo;
+        private readonly ISliderRepository _sliderRepository;
         private readonly IMapper _mapper;
 
-        public SliderService(ISliderRepository repo, IMapper mapper)
+        public SliderService(ISliderRepository sliderRepository, IMapper mapper)
         {
-            _repo = repo;
+            _sliderRepository = sliderRepository;
             _mapper = mapper;
+        }
+
+
+        public async Task<SliderDto> GetAsync(int id)
+        {
+            return _mapper.Map<SliderDto>(await _sliderRepository.Get(id));
+        }
+
+
+        public async Task<List<SliderListDto>> GetAllAsync()
+        {
+            return _mapper.Map<List<SliderListDto>>(await _sliderRepository.GetAll());
         }
 
 
@@ -27,36 +39,25 @@ namespace ServiceLayer.Services.Implementations
 
             mapSlider.Image = await sliderCreateDto.Photo.GetBytes();
 
-            await _repo.Create(mapSlider);
+            await _sliderRepository.Create(mapSlider);
         }
 
-
-        public async Task DeleteAsync(int id)
-        {
-            await _repo.Delete(await _repo.Get(id));
-        }
-
-
-        public async Task<List<SliderListDto>> GetAllAsync()
-        {
-            return _mapper.Map<List<SliderListDto>>(await _repo.GetAll());
-        }
-
-
-        public async Task<SliderDto> GetAsync(int id)
-        {
-            return _mapper.Map<SliderDto>(await _repo.Get(id));
-        }
 
         public async Task UpdateAsync(int id, SliderUpdateDto sliderUpdateDto)
         {
-            var dbSlider = await _repo.Get(id);
+            var dbSlider = await _sliderRepository.Get(id);
 
             var mapSlider = _mapper.Map(sliderUpdateDto, dbSlider);
 
             mapSlider.Image = await sliderUpdateDto.Photo.GetBytes();
 
-            await _repo.Update(dbSlider);
+            await _sliderRepository.Update(dbSlider);
+        }
+
+
+        public async Task DeleteAsync(int id)
+        {
+            await _sliderRepository.Delete(await _sliderRepository.Get(id));
         }
     }
 }

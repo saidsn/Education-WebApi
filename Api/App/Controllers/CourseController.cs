@@ -14,6 +14,7 @@ namespace App.Controllers
             _courseService = courseService;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetById([Required] int id)
         {
@@ -58,7 +59,6 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
         }
-
 
 
         [HttpPut, Route("{id}")]

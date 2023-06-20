@@ -9,37 +9,37 @@ namespace ServiceLayer.Services.Implementations
 {
     public class BannerService : IBannerService
     {
-        private readonly IBannerRepository _repo;
+        private readonly IBannerRepository _bannerRepository;
         private readonly IMapper _mapper;
 
-        public BannerService(IBannerRepository repo, IMapper mapper)
+        public BannerService(IBannerRepository bannerRepository, IMapper mapper)
         {
-            _repo = repo;
+            _bannerRepository = bannerRepository;
             _mapper = mapper;
         }
 
 
         public async Task<BannerDto> GetAsync(int id)
         {
-            return _mapper.Map<BannerDto>(await _repo.Get(id));
+            return _mapper.Map<BannerDto>(await _bannerRepository.Get(id));
         }
 
 
         public async Task<List<BannerListDto>> GetAllAsync()
         {
-            return _mapper.Map<List<BannerListDto>>(await _repo.GetAll());
+            return _mapper.Map<List<BannerListDto>>(await _bannerRepository.GetAll());
         }
 
 
         public async Task CreateAsync(BannerCreateDto bannerCreateDto)
         {
-            if (!await _repo.IsExsist(b => b.Title == bannerCreateDto.Title))
+            if (!await _bannerRepository.IsExsist(b => b.Title == bannerCreateDto.Title))
             {
                 var mapBanner = _mapper.Map<Banner>(bannerCreateDto);
 
                 mapBanner.Image = await bannerCreateDto.Photo.GetBytes();
 
-                await _repo.Create(mapBanner);
+                await _bannerRepository.Create(mapBanner);
             }
             else
             {
@@ -48,21 +48,21 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
-        public async Task DeleteAsync(int id)
-        {
-            await _repo.Delete(await _repo.Get(id));
-        }
-
-
         public async Task UpdateAsync(int id, BannerUpdateDto bannerUpdateDto)
         {
-            var dbbanner = await _repo.Get(id);
+            var dbbanner = await _bannerRepository.Get(id);
 
             var mapBanner = _mapper.Map(bannerUpdateDto, dbbanner);
 
             mapBanner.Image = await bannerUpdateDto.Photo.GetBytes();
 
-            await _repo.Update(dbbanner);
+            await _bannerRepository.Update(dbbanner);
+        }
+
+
+        public async Task DeleteAsync(int id)
+        {
+            await _bannerRepository.Delete(await _bannerRepository.Get(id));
         }
     }
 }

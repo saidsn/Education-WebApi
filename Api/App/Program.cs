@@ -55,6 +55,8 @@ builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 
+builder.Services.AddScoped<ICourseAuthorRepository, CourseAuthorRepository>();
+
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 

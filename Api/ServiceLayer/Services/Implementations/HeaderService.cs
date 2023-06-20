@@ -9,25 +9,38 @@ namespace ServiceLayer.Services.Implementations
 {
     public class HeaderService : IHeaderService
     {
-        private readonly IHeaderRepository _repo;
+        private readonly IHeaderRepository _headerRepository;
         private readonly IMapper _mapper;
 
 
-        public HeaderService(IHeaderRepository repo, IMapper mapper)
+        public HeaderService(IHeaderRepository headerRepository, IMapper mapper)
         {
-            _repo = repo;
+            _headerRepository = headerRepository;
             _mapper = mapper;
         }
 
+
+        public async Task<HeaderDto> GetAsync(int id)
+        {
+            return _mapper.Map<HeaderDto>(await _headerRepository.Get(id));
+        }
+
+
+        public async Task<List<HeaderListDto>> GetAllAsync()
+        {
+            return _mapper.Map<List<HeaderListDto>>(await _headerRepository.GetAll());
+        }
+
+
         public async Task CreateAsync(HeaderCreateDto headerCreateDto)
         {
-            if (!await _repo.IsExsist(h => h.Title == headerCreateDto.Title))
+            if (!await _headerRepository.IsExsist(h => h.Title == headerCreateDto.Title))
             {
                 var mapHeader = _mapper.Map<Header>(headerCreateDto);
 
                 mapHeader.Image = await headerCreateDto.Photo.GetBytes();
 
-                await _repo.Create(mapHeader);
+                await _headerRepository.Create(mapHeader);
             }
             else
             {
@@ -35,30 +48,22 @@ namespace ServiceLayer.Services.Implementations
             }
         }
 
-        public async Task DeleteAsync(int id)
-        {
-            await _repo.Delete(await _repo.Get(id));
-        }
-
-        public async Task<List<HeaderListDto>> GetAllAsync()
-        {
-            return _mapper.Map<List<HeaderListDto>>(await _repo.GetAll());
-        }
-
-        public async Task<HeaderDto> GetAsync(int id)
-        {
-            return _mapper.Map<HeaderDto>(await _repo.Get(id));
-        }
 
         public async Task UpdateAsync(int id, HeaderUpdateDto headerUpdateDto)
         {
-            var dbHeader = await _repo.Get(id);
+            var dbHeader = await _headerRepository.Get(id);
 
             var mapHeader = _mapper.Map(headerUpdateDto, dbHeader);
 
             mapHeader.Image = await headerUpdateDto.Photo.GetBytes();
 
-            await _repo.Update(dbHeader);
+            await _headerRepository.Update(dbHeader);
+        }
+
+
+        public async Task DeleteAsync(int id)
+        {
+            await _headerRepository.Delete(await _headerRepository.Get(id));
         }
     }
 }

@@ -7,7 +7,7 @@ namespace ServiceLayer.Services.Interfaces
         Task<HeaderDto> GetAsync(int id);
         Task<List<HeaderListDto>> GetAllAsync();
         Task CreateAsync(HeaderCreateDto headerCreateDto);
-        Task DeleteAsync(int id);
         Task UpdateAsync(int id, HeaderUpdateDto headerUpdateDto);
+        Task DeleteAsync(int id);
     }
 }

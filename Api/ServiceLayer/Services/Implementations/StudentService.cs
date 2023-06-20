@@ -48,5 +48,11 @@ namespace ServiceLayer.Services.Implementations
 
             await _studentRepository.Create(mapStudent);
         }
+
+
+        public async Task DeleteAsync(int id)
+        {
+            await _studentRepository.Delete(await _studentRepository.Get(id));
+        }
     }
 }
