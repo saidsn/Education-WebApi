@@ -46,7 +46,7 @@ namespace ServiceLayer.Services.Implementations
         {
             if (courseCreateDto.AuthorIds != null && courseCreateDto.AuthorIds.Any())
             {
-                var authors = await _authorRepository.FindAll(a => courseCreateDto.AuthorIds.Contains(a.Id));
+                var authors = await _authorRepository.FindAllExpression(a => courseCreateDto.AuthorIds.Contains(a.Id));
 
                 var mapCourse = _mapper.Map<Course>(courseCreateDto);
 
@@ -77,7 +77,7 @@ namespace ServiceLayer.Services.Implementations
         {
             if (courseUpdateDto.AuthorIds != null && courseUpdateDto.AuthorIds.Any())
             {
-                var authors = await _authorRepository.FindAll(a => courseUpdateDto.AuthorIds.Contains(a.Id));
+                var authors = await _authorRepository.FindAllExpression(a => courseUpdateDto.AuthorIds.Contains(a.Id));
 
                 var dbCourse = await _courseRepository.GetWithAuthorsAndStudentsAsync(id);
 
@@ -103,6 +103,20 @@ namespace ServiceLayer.Services.Implementations
             {
                 throw new Exception("You must select at least one author.");
             }
+        }
+
+
+        public async Task<List<CourseListDto>> SearchAsync(string searchText)
+        {
+            //var courses = await _courseRepository.GetAllWithAuthorsAndStudentsAsync();
+
+            //foreach (var course in courses)
+            //{
+            //    var searchData = await _courseRepository.FindAllExpression(course => course.Title.Contains(searchText));
+            //}
+            var searchData = await _courseRepository.FindAllExpression(course => course.Title.Contains(searchText));
+
+            return _mapper.Map<List<CourseListDto>>(searchData);
         }
 
 

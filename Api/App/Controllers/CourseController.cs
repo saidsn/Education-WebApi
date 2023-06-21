@@ -77,6 +77,13 @@ namespace App.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> Search([Required] string search)
+        {
+            return Ok(await _courseService.SearchAsync(search));
+        }
+
+
         [HttpDelete]
         public async Task<IActionResult> Delete([Required] int id)
         {

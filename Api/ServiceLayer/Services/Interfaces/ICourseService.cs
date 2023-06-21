@@ -8,6 +8,7 @@ namespace ServiceLayer.Services.Interfaces
         Task<List<CourseListDto>> GetAllAsync();
         Task CreateAsync(CourseCreateDto courseCreateDto);
         Task UpdateAsync(int id, CourseUpdateDto courseUpdateDto);
+        Task<List<CourseListDto>> SearchAsync(string searchtext);
         Task DeleteAsync(int id);
         Task SoftDeleteAsync(int id);
     }
