@@ -50,6 +50,21 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
+        public async Task UpdateAsync(int id, StudentUpdateDto studentUpdateDto)
+        {
+            var dbStudent = await _studentRepository.GetWithCoursesAsync(id);
+
+            dbStudent.Id = id;
+            dbStudent.CourseId = studentUpdateDto.CourseId;
+
+            var mapStudent = _mapper.Map(studentUpdateDto, dbStudent);
+
+            mapStudent.Image = await studentUpdateDto.Photo.GetBytes();
+
+            await _studentRepository.Update(mapStudent);
+        }
+
+
         public async Task DeleteAsync(int id)
         {
             await _studentRepository.Delete(await _studentRepository.Get(id));
