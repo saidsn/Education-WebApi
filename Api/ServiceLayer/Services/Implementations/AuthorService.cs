@@ -45,7 +45,7 @@ namespace ServiceLayer.Services.Implementations
         {
             if (authorCreateDto.CourseIds != null && authorCreateDto.CourseIds.Any())
             {
-                var courses = await _authorRepository.FindAllByExpression(c => authorCreateDto.CourseIds.Contains(c.Id));
+                var courses = await _authorRepository.FindAll(c => authorCreateDto.CourseIds.Contains(c.Id));
 
                 var mapAuthor = _mapper.Map<Author>(authorCreateDto);
 
@@ -76,7 +76,7 @@ namespace ServiceLayer.Services.Implementations
         {
             if (authorUpdateDto.CourseIds != null && authorUpdateDto.CourseIds.Any())
             {
-                var courses = await _courseRepository.FindAllByExpression(c => authorUpdateDto.CourseIds.Contains(c.Id));
+                var courses = await _courseRepository.FindAll(c => authorUpdateDto.CourseIds.Contains(c.Id));
 
                 var dbAuthor = await _authorRepository.GetWithCoursesAsync(id);
 
@@ -109,6 +109,12 @@ namespace ServiceLayer.Services.Implementations
         public async Task DeleteAsync(int id)
         {
             await _authorRepository.Delete(await _authorRepository.Get(id));
+        }
+
+
+        public async Task SoftDeleteAsync(int id)
+        {
+            await _authorRepository.SoftDelete(await _authorRepository.Get(id));
         }
     }
 }

@@ -44,5 +44,11 @@ namespace ServiceLayer.Services.Implementations
 
             await _contactRepository.Update(dbContact);
         }
+
+
+        public async Task SoftDeleteAsync(int id)
+        {
+            await _contactRepository.SoftDelete(await _contactRepository.Get(id));
+        }
     }
 }

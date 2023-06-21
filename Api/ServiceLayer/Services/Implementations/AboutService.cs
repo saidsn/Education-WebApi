@@ -42,6 +42,12 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
+        public async Task SoftDeleteAsync(int id)
+        {
+            await _aboutRepository.SoftDelete(await _aboutRepository.Get(id));
+        }
+
+
         public async Task<List<AboutListDto>> GetAllAsync()
         {
             return _mapper.Map<List<AboutListDto>>(await _aboutRepository.GetAll());

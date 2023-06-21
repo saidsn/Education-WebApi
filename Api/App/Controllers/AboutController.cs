@@ -27,6 +27,7 @@ namespace App.Controllers
             }
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -57,6 +58,7 @@ namespace App.Controllers
             }
         }
 
+
         [HttpDelete]
         public async Task<IActionResult> Delete([Required] int id)
         {
@@ -72,6 +74,21 @@ namespace App.Controllers
             }
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> SoftDelete([Required] int id)
+        {
+            try
+            {
+                await _aboutService.SoftDeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
 
 
         [HttpPut, Route("{id}")]

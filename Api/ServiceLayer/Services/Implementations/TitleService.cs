@@ -57,5 +57,11 @@ namespace ServiceLayer.Services.Implementations
         {
             await _titleRepository.Delete(await _titleRepository.Get(id));
         }
+
+
+        public async Task SoftDeleteAsync(int id)
+        {
+            await _titleRepository.SoftDelete(await _titleRepository.Get(id));
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace ServiceLayer.Services.Interfaces
         Task<List<ContactListDto>> GetAllAsync();
         Task CreateAsync(ContactCreateDto contactCreateDto);
         Task UpdateAsync(int id, ContactUpdateDto contactUpdateDto);
+        Task SoftDeleteAsync(int id);
     }
 }

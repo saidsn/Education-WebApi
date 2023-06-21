@@ -9,8 +9,9 @@ namespace RepositoryLayer.Repositories.Interfaces
         Task<List<T>> GetAll();
         Task Create(T entity);
         Task Delete(T entity);
+        Task SoftDelete(T entity);
         Task Update(T entity);
-        Task<List<T>> FindAllByExpression(Expression<Func<T, bool>> expression);
+        Task<List<T>> FindAll(Expression<Func<T, bool>> expression);
         Task<bool> IsExsist(Expression<Func<T, bool>> expression);
         Task DeleteList(List<T> entities);
     }

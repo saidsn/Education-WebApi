@@ -9,5 +9,6 @@ namespace ServiceLayer.Services.Interfaces
         Task CreateAsync(HeaderCreateDto headerCreateDto);
         Task UpdateAsync(int id, HeaderUpdateDto headerUpdateDto);
         Task DeleteAsync(int id);
+        Task SoftDeleteAsync(int id);
     }
 }

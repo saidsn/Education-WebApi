@@ -40,7 +40,6 @@ namespace App.Controllers
             }
             catch (Exception)
             {
-
                 return NotFound("No records found!");
             }
         }
@@ -84,6 +83,22 @@ namespace App.Controllers
             try
             {
                 await _studentService.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SoftDelete([Required] int id)
+        {
+            try
+            {
+                await _studentService.SoftDeleteAsync(id);
 
                 return Ok();
             }

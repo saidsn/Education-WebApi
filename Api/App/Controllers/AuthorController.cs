@@ -90,5 +90,21 @@ namespace App.Controllers
                 return NotFound();
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SoftDelete([Required] int id)
+        {
+            try
+            {
+                await _authorService.SoftDeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
     }
 }

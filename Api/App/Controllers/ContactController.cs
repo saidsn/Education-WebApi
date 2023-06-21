@@ -90,5 +90,21 @@ namespace App.Controllers
                 return BadRequest(new { ErrorMessage = "Not Updated" });
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SoftDelete([Required] int id)
+        {
+            try
+            {
+                await _contactService.SoftDeleteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
     }
 }

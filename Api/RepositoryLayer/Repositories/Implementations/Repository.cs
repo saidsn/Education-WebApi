@@ -45,6 +45,15 @@ namespace RepositoryLayer.Repositories.Implementations
             await _context.SaveChangesAsync();
         }
 
+        public async Task SoftDelete(T entity)
+        {
+            T? model = await _entities.FirstOrDefaultAsync(e => e.Id == entity.Id) ?? throw new NullReferenceException();
+
+            model.SoftDeleted = true;
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task Update(T entity)
         {
             if (entity == null) throw new ArgumentNullException();
@@ -59,7 +68,7 @@ namespace RepositoryLayer.Repositories.Implementations
             return await _entities.AnyAsync(expression);
         }
 
-        public async Task<List<T>> FindAllByExpression(Expression<Func<T, bool>> expression)
+        public async Task<List<T>> FindAll(Expression<Func<T, bool>> expression)
         {
             return await _entities.Where(expression).AsNoTracking().ToListAsync();
         }
@@ -75,5 +84,7 @@ namespace RepositoryLayer.Repositories.Implementations
                 await _context.SaveChangesAsync();
             }
         }
+
+
     }
 }
