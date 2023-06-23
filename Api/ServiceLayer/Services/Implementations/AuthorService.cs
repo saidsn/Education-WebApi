@@ -106,6 +106,14 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
+        public async Task<List<AuthorListDto>> SearchAsync(string searchText)
+        {
+            var searchAutor = await _authorRepository.FindAllExpression(a => a.Name.Contains(searchText));
+
+            return _mapper.Map<List<AuthorListDto>>(searchAutor);
+        }
+
+
         public async Task DeleteAsync(int id)
         {
             await _authorRepository.Delete(await _authorRepository.Get(id));

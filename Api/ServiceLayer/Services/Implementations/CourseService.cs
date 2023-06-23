@@ -108,15 +108,8 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<List<CourseListDto>> SearchAsync(string searchText)
         {
-            //var courses = await _courseRepository.GetAllWithAuthorsAndStudentsAsync();
-
-            //foreach (var course in courses)
-            //{
-            //    var searchData = await _courseRepository.FindAllExpression(course => course.Title.Contains(searchText));
-            //}
-            var searchData = await _courseRepository.FindAllExpression(course => course.Title.Contains(searchText));
-
-            return _mapper.Map<List<CourseListDto>>(searchData);
+            var searchCourse = await _courseRepository.FindAllExpression(c => c.Title.Contains(searchText));
+            return _mapper.Map<List<CourseListDto>>(searchCourse);
         }
 
 
@@ -124,6 +117,7 @@ namespace ServiceLayer.Services.Implementations
         {
             await _courseRepository.Delete(await _courseRepository.Get(id));
         }
+
 
         public async Task SoftDeleteAsync(int id)
         {
