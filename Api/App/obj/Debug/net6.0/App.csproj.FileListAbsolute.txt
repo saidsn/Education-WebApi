@@ -78,3 +78,4 @@ C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\obj\Debug\n
 C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\obj\Debug\net6.0\App.pdb
 C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\obj\Debug\net6.0\App.genruntimeconfig.cache
 C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\obj\Debug\net6.0\ref\App.dll
+C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
