@@ -65,6 +65,14 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
+        public async Task<List<StudentListDto>> SearchAsync(string searchText)
+        {
+            var serachStudent = await _studentRepository.FindAllExpression(s => s.FullName.Contains(searchText));
+
+            return _mapper.Map<List<StudentListDto>>(serachStudent);
+        }
+
+
         public async Task DeleteAsync(int id)
         {
             await _studentRepository.Delete(await _studentRepository.Get(id));
