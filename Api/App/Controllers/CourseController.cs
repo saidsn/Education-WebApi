@@ -78,9 +78,16 @@ namespace App.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Search([Required] string search)
+        public async Task<IActionResult> Search(string? search)
         {
-            return Ok(await _courseService.SearchAsync(search));
+            try
+            {
+                return Ok(await _courseService.SearchAsync(search));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
 

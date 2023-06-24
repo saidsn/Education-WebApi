@@ -106,10 +106,20 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
-        public async Task<List<CourseListDto>> SearchAsync(string searchText)
+        public async Task<List<CourseListDto>> SearchAsync(string? searchText)
         {
-            var searchCourse = await _courseRepository.FindAllExpression(c => c.Title.Contains(searchText));
-            return _mapper.Map<List<CourseListDto>>(searchCourse);
+            List<Course> searchCourses = new();
+
+            if (searchText != null)
+            {
+                searchCourses = await _courseRepository.FindAllExpression(c => c.Title.Contains(searchText));
+            }
+            else
+            {
+                searchCourses = await _courseRepository.GetAll();
+            }
+
+            return _mapper.Map<List<CourseListDto>>(searchCourses);
         }
 
 

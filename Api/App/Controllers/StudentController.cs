@@ -77,8 +77,8 @@ namespace App.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Search([Required] string search)
+        [HttpGet]
+        public async Task<IActionResult> Search(string? search)
         {
             try
             {
