@@ -28,7 +28,7 @@ namespace App.Controllers
                     return new ApiResponse
                     {
                         Errors = validationResult.Errors.Select(m => m.ErrorMessage).ToList(),
-                        StatusMessage = "Faild"
+                        StatusMessage = "Failed"
                     };
                 }
 

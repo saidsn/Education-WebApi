@@ -26,27 +26,20 @@ namespace ServiceLayer.Services.Implementations
         {
             var user = _mapper.Map<AppUser>(registerDto);
 
-            await _userManager.CreateAsync(user, registerDto.Password);
+            IdentityResult result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            if (!result.Succeeded)
+            {
+                ApiResponse response = new()
+                {
+                    Errors = result.Errors.Select(m => m.Description).ToList(),
+                    StatusMessage = "Failed"
+                };
+
+                return response;
+            }
 
             return new ApiResponse { Errors = null, StatusMessage = "Success" };
-
-
-            //var user = _mapper.Map<AppUser>(registerDto);
-
-            //IdentityResult result = await _userManager.CreateAsync(user, registerDto.Password);
-
-            //if (!result.Succeeded)
-            //{
-            //    ApiResponse response = new()
-            //    {
-            //        Errors = result.Errors.Select(m => m.Description).ToList(),
-            //        StatusMessage = "Faild"
-            //    };
-
-            //    return response;
-            //}
-
-            //return new ApiResponse { Errors = null, StatusMessage = "Success" };
         }
 
 

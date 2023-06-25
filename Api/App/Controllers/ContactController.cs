@@ -48,16 +48,17 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ContactCreateDto contactCreateDto)
         {
-            ContactCreateDtoValidator validator = new();
-            var validationResult = validator.Validate(contactCreateDto);
-
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(new { ErrorMessage = "Error! Please enter valid data." });
-            }
-
             try
             {
+                ContactCreateDtoValidator validator = new();
+
+                var validationResult = validator.Validate(contactCreateDto);
+
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(new { ErrorMessage = "Error! Please enter valid data." });
+                }
+
                 await _contactService.CreateAsync(contactCreateDto);
 
                 return Ok();
