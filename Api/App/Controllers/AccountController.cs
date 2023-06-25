@@ -19,7 +19,7 @@ namespace App.Controllers
         {
             try
             {
-                RegisterDtoValidator validator = new RegisterDtoValidator();
+                RegisterDtoValidator validator = new();
 
                 var validationResult = validator.Validate(registerDto);
 
