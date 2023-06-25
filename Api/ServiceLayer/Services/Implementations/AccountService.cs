@@ -10,14 +10,17 @@ namespace ServiceLayer.Services.Implementations
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
         public AccountService(UserManager<AppUser> userManager,
                               RoleManager<IdentityRole> roleManager,
+                              ITokenService tokenService,
                               IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _tokenService = tokenService;
             _mapper = mapper;
         }
 
@@ -25,6 +28,8 @@ namespace ServiceLayer.Services.Implementations
         public async Task<ApiResponse> RegisterAsync(RegisterDto registerDto)
         {
             var user = _mapper.Map<AppUser>(registerDto);
+
+            if (user == null) throw new NullReferenceException();
 
             IdentityResult result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -43,12 +48,18 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
-        //public Task<string?> LoginAsync(LoginDto loginDto)
-        //{
-        //    var mapUser = _mapper.Map<AppUser>(loginDto);
+        public async Task<string?> LoginAsync(LoginDto loginDto)
+        {
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
-        //    if (mapUser == null)
-        //}
+            if (!await _userManager.CheckPasswordAsync(user, loginDto.Password)) return null;
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            string token = _tokenService.GenerateJwtToken(user.Email, user.UserName, (List<string>)roles);
+
+            return token;
+        }
     }
 }
 

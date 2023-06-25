@@ -40,5 +40,19 @@ namespace App.Controllers
                 return BadRequest(new ApiResponse { Errors = new List<string> { ex.Message } });
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Login([FromForm] LoginDto loginDto)
+        {
+            try
+            {
+                return Ok(await _accountService.LoginAsync(loginDto));
+            }
+            catch (Exception)
+            {
+                return BadRequest("UserName or Password wrong.");
+            }
+        }
     }
 }
