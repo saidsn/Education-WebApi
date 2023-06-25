@@ -15,7 +15,7 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiResponse> Register([FromForm] RegisterDto registerDto)
+        public async Task<IActionResult> Register([FromForm] RegisterDto registerDto)
         {
             try
             {
@@ -25,18 +25,19 @@ namespace App.Controllers
 
                 if (!validationResult.IsValid)
                 {
-                    return new ApiResponse
+                    var response = new ApiResponse
                     {
                         Errors = validationResult.Errors.Select(m => m.ErrorMessage).ToList(),
                         StatusMessage = "Failed"
                     };
+                    return BadRequest(response);
                 }
 
-                return await _accountService.RegisterAsync(registerDto);
+                return Ok(await _accountService.RegisterAsync(registerDto));
             }
             catch (Exception ex)
             {
-                return new ApiResponse { Errors = new List<string> { ex.Message } };
+                return BadRequest(new ApiResponse { Errors = new List<string> { ex.Message } });
             }
         }
     }

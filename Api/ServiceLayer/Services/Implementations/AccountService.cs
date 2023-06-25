@@ -43,10 +43,12 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
-        public Task LoginAsync(LoginDto loginDto)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<string?> LoginAsync(LoginDto loginDto)
+        //{
+        //    var mapUser = _mapper.Map<AppUser>(loginDto);
+
+        //    if (mapUser == null)
+        //}
     }
 }
 

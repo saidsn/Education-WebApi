@@ -1,14 +1,18 @@
 using DomainLayer.Entities;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer.Data;
 using RepositoryLayer.Repositories.Implementations;
 using RepositoryLayer.Repositories.Interfaces;
 using ServiceLayer.Mappings;
 using ServiceLayer.Services.Implementations;
 using ServiceLayer.Services.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +51,28 @@ builder.Services.Configure<IdentityOptions>(opt =>
     opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     opt.Lockout.AllowedForNewUsers = true;
 });
+
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(cfg =>
+    {
+        cfg.RequireHttpsMetadata = false;
+        cfg.SaveToken = true;
+        cfg.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtKey"])),
+            ClockSkew = TimeSpan.Zero // remove delay of token when expire
+        };
+    });
+
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
