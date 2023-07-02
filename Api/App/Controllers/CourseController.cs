@@ -34,9 +34,8 @@ namespace App.Controllers
         {
             try
             {
-                var result = await _courseService.GetAllAsync();
-
-                return Ok(result);
+                var course = await _courseService.GetAllAsync();
+                return Ok(course);
             }
             catch (Exception)
             {

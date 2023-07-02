@@ -1,6 +1,7 @@
 ﻿using DomainLayer.Common;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Data;
+using RepositoryLayer.Helpers;
 using RepositoryLayer.Repositories.Interfaces;
 using System.Linq.Expressions;
 
@@ -24,7 +25,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
         public async Task<List<T>> GetAll()
         {
-            return await _entities.Where(m => !m.isDeleted).ToListAsync();
+            return await _entities.Where(m => !m.SoftDeleted).ToListAsync();
         }
 
         public async Task Create(T entity)
@@ -85,6 +86,9 @@ namespace RepositoryLayer.Repositories.Implementations
             }
         }
 
-
+        public async Task<List<T>> GetAllWithIncludes(params Expression<Func<T, object>>[] includes)
+        {
+            return await _entities.IncludeMultiple(includes).Where(c => !c.SoftDeleted).ToListAsync();
+        }
     }
 }
