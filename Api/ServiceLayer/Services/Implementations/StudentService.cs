@@ -26,7 +26,7 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<StudentDto> GetAsync(int id)
         {
-            return _mapper.Map<StudentDto>(await _studentRepository.GetWithCoursesAsync(id));
+            return _mapper.Map<StudentDto>(await _studentRepository.GetWithIncludes(id, "Course"));
         }
 
 
@@ -73,14 +73,10 @@ namespace ServiceLayer.Services.Implementations
         {
             List<Student> searchStudents = new();
 
-            if (searchText != null)
-            {
-                searchStudents = await _studentRepository.FindAllExpression(s => s.FullName.Contains(searchText));
-            }
-            else
-            {
-                searchStudents = await _studentRepository.GetAll();
-            }
+            searchStudents = searchText != null
+                ? await _studentRepository.FindAllExpression(s => s.FullName.Contains(searchText))
+                : await _studentRepository.GetAll();
+
             return _mapper.Map<List<StudentListDto>>(searchStudents);
         }
 

@@ -24,7 +24,7 @@ namespace App.Controllers
             }
             catch (Exception)
             {
-                return NotFound("Please enter a valid Id!");
+                return NotFound($"No records found. Id: {id}");
             }
         }
 

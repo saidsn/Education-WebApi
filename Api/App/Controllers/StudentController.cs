@@ -20,13 +20,11 @@ namespace App.Controllers
         {
             try
             {
-                var data = await _studentService.GetAsync(id);
-
-                return Ok(data);
+                return Ok(await _studentService.GetAsync(id));
             }
             catch (Exception)
             {
-                return NotFound("Please enter a valid Id!");
+                return NotFound($"No records found. Id: {id}");
             }
         }
 

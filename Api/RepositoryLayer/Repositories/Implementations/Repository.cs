@@ -112,7 +112,11 @@ namespace RepositoryLayer.Repositories.Implementations
 
         public async Task<T> GetWithIncludes(int id, params string[] includes)
         {
-            IQueryable<T> query = _entities.Where(e => e.Id == id && !e.SoftDeleted).AsQueryable();
+            var entity = await _entities.FirstOrDefaultAsync(e => e.Id == id && !e.SoftDeleted);
+
+            if (entity == null) throw new NullReferenceException();
+
+            var query = _entities.AsQueryable();
 
             if (includes != null)
             {
@@ -122,7 +126,7 @@ namespace RepositoryLayer.Repositories.Implementations
                 }
             }
 
-            return await query.FirstOrDefaultAsync();
+            return await query.FirstOrDefaultAsync(e => e.Id == id && !e.SoftDeleted);
         }
 
 

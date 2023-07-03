@@ -30,7 +30,7 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<CourseDto> GetAsync(int id)
         {
-            return _mapper.Map<CourseDto>(await _courseRepository.GetWithAuthorsAndStudentsAsync(id));
+            return _mapper.Map<CourseDto>(await _courseRepository.GetWithIncludes(id, "Students", "CourseAuthors.Author"));
         }
 
 
