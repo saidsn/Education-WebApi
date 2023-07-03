@@ -35,11 +35,11 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<List<AuthorListDto>> GetAllAsync()
         {
-            var authors = await _authorRepository.GetAllWithIncludes("CourseAuthors.Author");
+            var authors = await _authorRepository.GetAllWithIncludes("CourseAuthors.Course");
 
-            if (authors == null) throw new NullReferenceException();
-
-            return _mapper.Map<List<AuthorListDto>>(authors);
+            return authors != null
+                ? _mapper.Map<List<AuthorListDto>>(authors)
+                : throw new NullReferenceException();
         }
 
 
@@ -112,14 +112,9 @@ namespace ServiceLayer.Services.Implementations
         {
             List<Author> searchAuthors = new();
 
-            if (searchText != null)
-            {
-                searchAuthors = await _authorRepository.FindAllExpression(a => a.Name.Contains(searchText));
-            }
-            else
-            {
-                searchAuthors = await _authorRepository.GetAll();
-            }
+            searchAuthors = searchText != null
+                ? await _authorRepository.FindAllExpression(a => a.Name.Contains(searchText))
+                : await _authorRepository.GetAll();
 
             return _mapper.Map<List<AuthorListDto>>(searchAuthors);
         }

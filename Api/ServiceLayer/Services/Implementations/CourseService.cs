@@ -38,11 +38,9 @@ namespace ServiceLayer.Services.Implementations
         {
             var courses = await _courseRepository.GetAllWithIncludes("Students", "CourseAuthors.Author");
 
-            if (courses == null) throw new NullReferenceException();
-
-            var mappedCourses = _mapper.Map<List<CourseListDto>>(courses);
-
-            return mappedCourses;
+            return courses != null
+                ? _mapper.Map<List<CourseListDto>>(courses)
+                : throw new NullReferenceException();
         }
 
 
@@ -114,14 +112,9 @@ namespace ServiceLayer.Services.Implementations
         {
             List<Course> searchCourses = new();
 
-            if (searchText != null)
-            {
-                searchCourses = await _courseRepository.FindAllExpression(c => c.Title.Contains(searchText));
-            }
-            else
-            {
-                searchCourses = await _courseRepository.GetAll();
-            }
+            searchCourses = searchText != null
+                ? await _courseRepository.FindAllExpression(c => c.Title.Contains(searchText))
+                : await _courseRepository.GetAll();
 
             return _mapper.Map<List<CourseListDto>>(searchCourses);
         }
