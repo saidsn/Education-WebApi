@@ -10,13 +10,11 @@ namespace RepositoryLayer.Repositories.Implementations
     {
         private readonly AppDbContext _context;
         private readonly DbSet<Course> _course;
-        private readonly DbSet<CourseAuthor> _courseAuthors;
 
         public CourseRepository(AppDbContext context) : base(context)
         {
             _context = context;
             _course = _context.Set<Course>();
-            _courseAuthors = _context.Set<CourseAuthor>();
         }
 
         public async Task<Course> GetWithAuthorsAndStudentsAsync(int id)
@@ -30,17 +28,6 @@ namespace RepositoryLayer.Repositories.Implementations
               .FirstOrDefaultAsync(c => c.Id == id) ?? throw new NullReferenceException();
 
             return course;
-        }
-
-        public async Task<List<Course>> GetAllWithAuthorsAndStudentsAsync()
-        {
-            var courses = await _course
-                 .Where(c => !c.isDeleted)
-                 .Include("Students")
-                 .Include("CourseAuthors")
-                 .Include("CourseAuthors.Author")
-                 .ToListAsync();
-            return courses;
         }
     }
 }

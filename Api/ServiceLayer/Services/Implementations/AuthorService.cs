@@ -35,7 +35,9 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<List<AuthorListDto>> GetAllAsync()
         {
-            var authors = await _authorRepository.GetAllWithCoursesAsync();
+            var authors = await _authorRepository.GetAllWithIncludes("CourseAuthors.Author");
+
+            if (authors == null) throw new NullReferenceException();
 
             return _mapper.Map<List<AuthorListDto>>(authors);
         }

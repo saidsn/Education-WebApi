@@ -87,7 +87,7 @@ namespace ServiceLayer.Mappings
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(s => Convert.ToBase64String(s.Image)))
                 .ReverseMap();
             CreateMap<Course, CourseListDto>()
-                //.ForMember(dest => dest.AuthorName, opt => opt.MapFrom(c => c.CourseAuthors.Where(ca => ca.CourseId == c.Id).Select(ca => ca.Author.Name)))
+                .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(c => c.CourseAuthors.Where(ca => ca.CourseId == c.Id).Select(ca => ca.Author.Name)))
                 .ForMember(dest => dest.StudentFullName, opt => opt.MapFrom(c => c.Students.Select(s => s.FullName)))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(c => Convert.ToBase64String(c.Image)))
                 .ReverseMap();

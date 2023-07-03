@@ -36,33 +36,14 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<List<CourseListDto>> GetAllAsync()
         {
-            var courses = await _courseRepository.GetAllWithIncludes(g => g.Students, g => g.CourseAuthors);
+            var courses = await _courseRepository.GetAllWithIncludes("Students", "CourseAuthors.Author");
+
+            if (courses == null) throw new NullReferenceException();
 
             var mappedCourses = _mapper.Map<List<CourseListDto>>(courses);
 
-            foreach (var data in mappedCourses)
-            {
-                var course = courses.Where(g => g.Id == data.Id).FirstOrDefault();
-
-                foreach (var courseAuthor in course.CourseAuthors)
-                {
-                    data.AuthorIds.Add(courseAuthor.Author.Id);
-                }
-            }
-
             return mappedCourses;
         }
-
-
-
-        //public async Task<List<CourseListDto>> GetAllAsync()
-        //{
-        //    var courses = await _courseRepository.GetAllWithAuthorsAndStudentsAsync();
-
-        //    var mappedCourses = _mapper.Map<List<CourseListDto>>(courses);
-
-        //    return mappedCourses;
-        //}
 
 
         public async Task CreateAsync(CourseCreateDto courseCreateDto)
