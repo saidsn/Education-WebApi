@@ -10,7 +10,7 @@
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public List<int> AuthorIds { get; set; } = new List<int>();
-        //public List<string>? AuthorName { get; set; }
+        //public List<string>? AuthorName { get; set; } = new List<string>();
         public List<string>? StudentFullName { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace ServiceLayer.Services.Implementations
 
                 foreach (var courseAuthor in course.CourseAuthors)
                 {
-                    data.AuthorIds.Add(courseAuthor.AuthorId);
+                    data.AuthorIds.Add(courseAuthor.Author.Id);
                 }
             }
 
