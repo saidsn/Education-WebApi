@@ -32,7 +32,11 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<List<StudentListDto>> GetAllAsync()
         {
-            return _mapper.Map<List<StudentListDto>>(await _studentRepository.GetAllWithCoursesAsync());
+            var students = await _studentRepository.GetAllWithIncludes("Course");
+
+            return students != null
+                ? _mapper.Map<List<StudentListDto>>(students)
+                : throw new NullReferenceException();
         }
 
 

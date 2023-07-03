@@ -18,7 +18,6 @@ namespace ServiceLayer.Services.Implementations
             IAuthorRepository authorRepository,
             ICourseRepository courseRepository,
             IMapper mapper)
-
         {
             _courseAuthorRepository = courseAuthorRepository;
             _authorRepository = authorRepository;
@@ -29,7 +28,7 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task<AuthorDto> GetAsync(int id)
         {
-            return _mapper.Map<AuthorDto>(await _authorRepository.GetWithCoursesAsync(id));
+            return _mapper.Map<AuthorDto>(await _authorRepository.GetWithIncludes(id, "CourseAuthors.Course"));
         }
 
 

@@ -78,7 +78,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
         public async Task<List<T>> FindAllExpression(Expression<Func<T, bool>> expression)
         {
-            return await _entities.Where(expression).AsNoTracking().ToListAsync();
+            return await _entities.Where(a => !a.SoftDeleted).Where(expression).AsNoTracking().ToListAsync();
         }
 
 
@@ -97,7 +97,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
         public async Task<List<T>> GetAllWithIncludes(params string[] includes)
         {
-            var query = _entities.Where(c => !c.SoftDeleted).AsQueryable();
+            var query = _entities.Where(e => !e.SoftDeleted).AsQueryable();
 
             if (includes != null)
             {
@@ -107,13 +107,37 @@ namespace RepositoryLayer.Repositories.Implementations
                 }
             }
             return await query.ToListAsync();
-
         }
 
 
-        //public async Task<List<T>> GetAllWithIncludes(params Expression<Func<T, object>>[] includes)
-        //{
-        //    return await _entities.IncludeMultiple(includes).Where(c => !c.SoftDeleted).ToListAsync();
-        //}
+        public async Task<T> GetWithIncludes(int id, params string[] includes)
+        {
+            IQueryable<T> query = _entities.Where(e => e.Id == id && !e.SoftDeleted).AsQueryable();
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            try
+            {
+                return (await _context.SaveChangesAsync()) > 0;
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
+        }
     }
 }

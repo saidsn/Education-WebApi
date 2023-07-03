@@ -25,16 +25,5 @@ namespace RepositoryLayer.Repositories.Implementations
 
             return student;
         }
-
-
-        public async Task<List<Student>> GetAllWithCoursesAsync()
-        {
-            var students = await _student
-                .Where(a => !a.isDeleted)
-                .Include("Course")
-                .ToListAsync();
-
-            return students;
-        }
     }
 }
