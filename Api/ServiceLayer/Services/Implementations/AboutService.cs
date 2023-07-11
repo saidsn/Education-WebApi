@@ -68,7 +68,7 @@ namespace ServiceLayer.Services.Implementations
 
             mapAbout.Image = await aboutUpdateDto.Photo.GetBytes();
 
-            await _aboutRepository.Update(dbAbout);
+            await _aboutRepository.Update(mapAbout);
         }
     }
 }

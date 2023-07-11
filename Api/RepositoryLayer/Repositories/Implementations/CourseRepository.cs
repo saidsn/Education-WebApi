@@ -16,18 +16,5 @@ namespace RepositoryLayer.Repositories.Implementations
             _context = context;
             _course = _context.Set<Course>();
         }
-
-        public async Task<Course> GetWithAuthorsAndStudentsAsync(int id)
-        {
-            var course = await _course
-              .Where(a => !a.isDeleted)
-              .Include("Students")
-              .AsNoTracking()
-              .Include("CourseAuthors")
-              .Include("CourseAuthors.Author")
-              .FirstOrDefaultAsync(c => c.Id == id) ?? throw new NullReferenceException();
-
-            return course;
-        }
     }
 }

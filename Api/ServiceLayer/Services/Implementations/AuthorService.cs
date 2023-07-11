@@ -79,7 +79,7 @@ namespace ServiceLayer.Services.Implementations
             {
                 var courses = await _courseRepository.FindAllExpression(c => authorUpdateDto.CourseIds.Contains(c.Id));
 
-                var dbAuthor = await _authorRepository.GetWithCoursesAsync(id);
+                var dbAuthor = await _authorRepository.GetWithIncludes(id);
 
                 await _courseAuthorRepository.DeleteList(dbAuthor.CourseAuthors.ToList());
 

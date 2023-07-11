@@ -6,5 +6,6 @@ namespace ServiceLayer.Services.Interfaces
     {
         Task<ApiResponse> RegisterAsync(RegisterDto registerDto);
         Task<string?> LoginAsync(LoginDto loginDto);
+        Task CreateRole();
     }
 }

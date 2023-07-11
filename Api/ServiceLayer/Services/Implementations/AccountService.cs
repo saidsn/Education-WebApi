@@ -60,6 +60,11 @@ namespace ServiceLayer.Services.Implementations
 
             return token;
         }
+
+        public async Task CreateRoleAsync(RoleDto roleDto)
+        {
+            await _roleManager.CreateAsync(new IdentityRole { Name = roleDto.RoleName });
+        }
     }
 }
 

@@ -47,9 +47,9 @@ namespace ServiceLayer.Services.Implementations
         {
             var dbTitle = await _titleRepository.Get(id);
 
-            var mapData = _mapper.Map(titleUpdateDto, dbTitle);
+            _mapper.Map(titleUpdateDto, dbTitle);
 
-            await _titleRepository.Update(mapData);
+            await _titleRepository.Update(dbTitle);
         }
 
 

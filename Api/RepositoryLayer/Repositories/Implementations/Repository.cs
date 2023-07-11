@@ -36,7 +36,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
             await _entities.AddAsync(entity);
 
-            await _context.SaveChangesAsync();
+            await SaveAsync();
         }
 
 
@@ -46,7 +46,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
             _entities.Remove(entity);
 
-            await _context.SaveChangesAsync();
+            await SaveAsync();
         }
 
 
@@ -56,7 +56,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
             model.SoftDeleted = true;
 
-            await _context.SaveChangesAsync();
+            await SaveAsync();
         }
 
 
@@ -90,7 +90,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
                 _entities.Remove(entity);
 
-                await _context.SaveChangesAsync();
+                await SaveAsync();
             }
         }
 
@@ -131,7 +131,7 @@ namespace RepositoryLayer.Repositories.Implementations
 
 
 
-        public async Task<bool> SaveChangesAsync()
+        public async Task<bool> SaveAsync()
         {
             try
             {

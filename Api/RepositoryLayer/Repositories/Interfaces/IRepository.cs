@@ -16,6 +16,6 @@ namespace RepositoryLayer.Repositories.Interfaces
         Task<bool> IsExsist(Expression<Func<T, bool>> expression);
         Task<List<T>> GetAllWithIncludes(params string[] includes);
         Task<T> GetWithIncludes(int id, params string[] includes);
-        Task<bool> SaveChangesAsync();
+        Task<bool> SaveAsync();
     }
 }

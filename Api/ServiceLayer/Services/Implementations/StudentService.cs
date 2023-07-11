@@ -56,7 +56,7 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task UpdateAsync(int id, StudentUpdateDto studentUpdateDto)
         {
-            var dbStudent = await _studentRepository.GetWithCoursesAsync(id);
+            var dbStudent = await _studentRepository.GetWithIncludes(id);
 
             dbStudent.Id = id;
             dbStudent.CourseId = studentUpdateDto.CourseId;

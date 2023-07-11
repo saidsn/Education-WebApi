@@ -14,16 +14,5 @@ namespace RepositoryLayer.Repositories.Implementations
             _context = context;
             _student = _context.Set<Student>();
         }
-
-
-        public async Task<Student> GetWithCoursesAsync(int id)
-        {
-            var student = await _student
-                .Where(a => !a.isDeleted)
-                .Include("Course")
-                .FirstOrDefaultAsync(s => s.Id == id) ?? throw new NullReferenceException();
-
-            return student;
-        }
     }
 }
