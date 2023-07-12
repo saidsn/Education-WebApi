@@ -54,5 +54,22 @@ namespace App.Controllers
                 return BadRequest("UserName or Password wrong.");
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(RoleDto role)
+        {
+            try
+            {
+                await _accountService.CreateRoleAsync(role);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { ErrorMessage = "Not Created" });
+            }
+
+        }
     }
 }

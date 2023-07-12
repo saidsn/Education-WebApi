@@ -44,6 +44,10 @@ namespace ServiceLayer.Services.Implementations
                 return response;
             }
 
+            var dbUser = await _userManager.FindByEmailAsync(registerDto.Email);
+
+            await _userManager.AddToRoleAsync(dbUser, "Member");
+
             return new ApiResponse { Errors = null, StatusMessage = "Success" };
         }
 
