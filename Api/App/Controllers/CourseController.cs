@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DTO_s.Course;
 using ServiceLayer.Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +14,7 @@ namespace App.Controllers
             _courseService = courseService;
         }
 
-        [Authorize(Roles = "Member")]
+        //[Authorize(Roles = "Member")]
         [HttpGet]
         public async Task<IActionResult> GetById([Required] int id)
         {
@@ -29,7 +28,7 @@ namespace App.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

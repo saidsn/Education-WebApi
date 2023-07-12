@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "EaUC/8Von80E+jSRNMWT1cr71qrjU3XMklF4Vts2GxU=",
+  "Hash": "i0x0b69C+2S6j6SiDjTmumeUhvFXtDtTH+MFB2JKQEw=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "App\\wwwroot",
+      "Source": "App",
+      "ContentRoot": "C:\\Users\\OMEN\\Desktop\\Programming\\CODE\\API-React\\Api-Project\\Api\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

@@ -115,17 +115,15 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "mycors",
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:3000")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
 
-                      });
 });
-
-
 
 var app = builder.Build();
 
@@ -135,11 +133,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("mycors");
+app.UseCors();
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

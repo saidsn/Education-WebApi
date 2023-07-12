@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DomainLayer.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DTO_s.Account;
 using ServiceLayer.Services.Interfaces;
 using ServiceLayer.Validations.Account;
@@ -8,10 +10,16 @@ namespace App.Controllers
     public class AccountController : AppController
     {
         private readonly IAccountService _accountService;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IEmailService _emailService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService,
+            UserManager<AppUser> userManager,
+            IEmailService emailService)
         {
             _accountService = accountService;
+            _userManager = userManager;
+            _emailService = emailService;
         }
 
         [HttpPost]
@@ -33,12 +41,35 @@ namespace App.Controllers
                     return BadRequest(response);
                 }
 
-                return Ok(await _accountService.RegisterAsync(registerDto));
+                await _accountService.RegisterAsync(registerDto);
+
+                var appUser = await _userManager.FindByEmailAsync(registerDto.Email);
+
+                var token = _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+
+                var link = Url.Action(nameof(ConfirmEmail), "Account", new { userId = appUser.Id, token }, Request.Scheme, Request.Host.ToString());
+
+                if (link == null) throw new NullReferenceException(nameof(link));
+
+                //burda qaldi
+
+                return Ok();
             }
             catch (Exception ex)
             {
                 return BadRequest(new ApiResponse { Errors = new List<string> { ex.Message } });
             }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null) return BadRequest();
+
+            await _accountService.ConfirmEmailAsync(userId, token);
+
+            return Redirect("http://localhost:3000/");
         }
 
 

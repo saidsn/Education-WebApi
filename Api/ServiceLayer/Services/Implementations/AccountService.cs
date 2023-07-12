@@ -11,16 +11,20 @@ namespace ServiceLayer.Services.Implementations
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ITokenService _tokenService;
+        private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
 
         public AccountService(UserManager<AppUser> userManager,
                               RoleManager<IdentityRole> roleManager,
                               ITokenService tokenService,
+                              IEmailService emailService,
                               IMapper mapper)
+
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _tokenService = tokenService;
+            _emailService = emailService;
             _mapper = mapper;
         }
 
@@ -52,6 +56,12 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
+        public async Task ConfirmEmailAsync(string userId, string token)
+        {
+            await _emailService.ConfirmEmail(userId, token);
+        }
+
+
         public async Task<string?> LoginAsync(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
@@ -69,6 +79,8 @@ namespace ServiceLayer.Services.Implementations
         {
             await _roleManager.CreateAsync(new IdentityRole { Name = roleDto.RoleName });
         }
+
+
     }
 }
 
