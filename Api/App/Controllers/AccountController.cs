@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DTO_s.Account;
 using ServiceLayer.Services.Interfaces;
 using ServiceLayer.Validations.Account;
+using System.Data;
 
 namespace App.Controllers
 {
@@ -21,6 +22,7 @@ namespace App.Controllers
             _userManager = userManager;
             _emailService = emailService;
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Register([FromForm] RegisterDto registerDto)
@@ -43,15 +45,15 @@ namespace App.Controllers
 
                 await _accountService.RegisterAsync(registerDto);
 
-                var appUser = await _userManager.FindByEmailAsync(registerDto.Email);
+                var user = await _userManager.FindByEmailAsync(registerDto.Email);
 
-                var token = _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+                var token = _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                var link = Url.Action(nameof(ConfirmEmail), "Account", new { userId = appUser.Id, token }, Request.Scheme, Request.Host.ToString());
+                var link = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token }, Request.Scheme, Request.Host.ToString());
 
                 if (link == null) throw new NullReferenceException(nameof(link));
 
-                //burda qaldi
+                _emailService.Register(registerDto, link);
 
                 return Ok();
             }
@@ -62,14 +64,29 @@ namespace App.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> VerifyEmail()
+        {
+            return Redirect("http://localhost:3000/");
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
-            if (userId == null || token == null) return BadRequest();
+            try
+            {
+                if (userId == null || token == null) return BadRequest();
 
-            await _accountService.ConfirmEmailAsync(userId, token);
+                await _accountService.ConfirmEmailAsync(userId, token);
 
-            return Redirect("http://localhost:3000/");
+                return Redirect("http://localhost:3000/Login");
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException("An invalid condition has occurred.");
+            }
+
         }
 
 
@@ -86,7 +103,7 @@ namespace App.Controllers
             }
         }
 
-
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateRole(RoleDto role)
         {
@@ -100,7 +117,6 @@ namespace App.Controllers
             {
                 return BadRequest(new { ErrorMessage = "Not Created" });
             }
-
         }
     }
 }

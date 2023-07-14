@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "i0x0b69C+2S6j6SiDjTmumeUhvFXtDtTH+MFB2JKQEw=",
+  "Hash": "Agm3Eic6Fesb1XovMsB0h+RhgDXwEjSQBj6Pdfz/GJ0=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -15,5 +15,23 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\OMEN\\Desktop\\Programming\\CODE\\API-React\\Api-Project\\Api\\App\\wwwroot\\Templates\\verify.html",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\OMEN\\Desktop\\Programming\\CODE\\API-React\\Api-Project\\Api\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "Templates/verify.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Templates\\verify.html"
+    }
+  ]
 }

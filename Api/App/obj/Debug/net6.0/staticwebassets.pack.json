@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\OMEN\\Desktop\\Programming\\CODE\\API-React\\Api-Project\\Api\\App\\wwwroot\\Templates\\verify.html",
+      "PackagePath": "staticwebassets\\Templates\\verify.html"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.App.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.App.props",
+      "PackagePath": "build\\App.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.App.props",
+      "PackagePath": "buildMultiTargeting\\App.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.App.props",
+      "PackagePath": "buildTransitive\\App.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -19,7 +19,6 @@ namespace ServiceLayer.Services.Implementations
                               ITokenService tokenService,
                               IEmailService emailService,
                               IMapper mapper)
-
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -48,9 +47,7 @@ namespace ServiceLayer.Services.Implementations
                 return response;
             }
 
-            var dbUser = await _userManager.FindByEmailAsync(registerDto.Email);
-
-            await _userManager.AddToRoleAsync(dbUser, "Member");
+            await _userManager.AddToRoleAsync(user, "Member");
 
             return new ApiResponse { Errors = null, StatusMessage = "Success" };
         }
@@ -75,12 +72,11 @@ namespace ServiceLayer.Services.Implementations
             return token;
         }
 
+
         public async Task CreateRoleAsync(RoleDto roleDto)
         {
             await _roleManager.CreateAsync(new IdentityRole { Name = roleDto.RoleName });
         }
-
-
     }
 }
 

@@ -112,6 +112,9 @@ builder.Services.AddScoped<IStudentService, StudentService>();
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IFileService, FileService>();
+
 
 builder.Services.AddCors(options =>
 {

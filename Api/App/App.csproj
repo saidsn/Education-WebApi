@@ -24,8 +24,4 @@
     <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Templates\" />
-  </ItemGroup>
-
 </Project>
