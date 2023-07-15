@@ -47,7 +47,7 @@ namespace ServiceLayer.Services.Implementations
                 return response;
             }
 
-            await _userManager.AddToRoleAsync(user, "Member");
+            await _userManager.AddToRoleAsync(user, "Admin");
 
             return new ApiResponse { Errors = null, StatusMessage = "Success" };
         }

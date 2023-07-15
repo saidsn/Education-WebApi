@@ -64,13 +64,6 @@ namespace App.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> VerifyEmail()
-        {
-            return Redirect("http://localhost:3000/");
-        }
-
-
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
