@@ -55,7 +55,13 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task ConfirmEmailAsync(string userId, string token)
         {
-            await _emailService.ConfirmEmail(userId, token);
+            if (userId == null && token == null) throw new ArgumentNullException();
+
+            AppUser user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null) throw new NullReferenceException();
+
+            await _userManager.ConfirmEmailAsync(user, token);
         }
 
 
@@ -76,6 +82,16 @@ namespace ServiceLayer.Services.Implementations
         public async Task CreateRoleAsync(RoleDto roleDto)
         {
             await _roleManager.CreateAsync(new IdentityRole { Name = roleDto.RoleName });
+        }
+
+
+        public async Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        {
+            var user = await _userManager.FindByIdAsync(resetPasswordDto.Email);
+
+            if (user == null) throw new NullReferenceException();
+
+            await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.newPassword);
         }
     }
 }

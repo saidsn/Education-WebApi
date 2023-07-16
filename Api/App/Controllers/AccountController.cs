@@ -49,7 +49,8 @@ namespace App.Controllers
 
                 var token = _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                var link = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token }, Request.Scheme, Request.Host.ToString());
+                var link = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token },
+                    Request.Scheme, Request.Host.ToString());
 
                 if (link == null) throw new NullReferenceException(nameof(link));
 
@@ -79,7 +80,6 @@ namespace App.Controllers
             {
                 throw new InvalidOperationException("An invalid condition has occurred.");
             }
-
         }
 
 
@@ -95,6 +95,43 @@ namespace App.Controllers
                 return BadRequest("UserName or Password wrong.");
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword([FromForm] ForgotPasswordDto forgotPasswordDto)
+        {
+            try
+            {
+                var exsistUser = await _userManager.FindByEmailAsync(forgotPasswordDto.Email);
+
+                if (exsistUser == null) return NotFound("User not found");
+
+                var token = await _userManager.GeneratePasswordResetTokenAsync(exsistUser);
+
+                var link = Url.Action(nameof(ResetPassword), "Account", new { userId = exsistUser.Id, token },
+                    Request.Scheme, Request.Host.ToString());
+
+                if (link == null) throw new NullReferenceException(nameof(link));
+
+                _emailService.ForgotPassword(exsistUser, link, forgotPasswordDto);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordDto resetPasswordDto)
+        {
+            await _accountService.ResetPasswordAsync(resetPasswordDto);
+
+            return Ok();
+        }
+
 
         //[Authorize(Roles = "Admin")]
         [HttpPost]

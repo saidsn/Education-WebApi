@@ -60,17 +60,6 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
-        //public async Task ConfirmEmail(string userId, string token)
-        //{
-        //    if (userId == null && token == null) throw new ArgumentNullException();
-
-        //    AppUser user = await _userManager.FindByIdAsync(userId);
-
-        //    if (user == null) throw new NullReferenceException();
-
-        //    await _userManager.ConfirmEmailAsync(user, token);
-        //}
-
         public void ForgotPassword(AppUser user, string link, ForgotPasswordDto forgotPasswordDto)
         {
             // create message
@@ -80,7 +69,7 @@ namespace ServiceLayer.Services.Implementations
 
             message.To.Add(MailboxAddress.Parse(forgotPasswordDto.Email));
 
-            message.Subject = "Confirm Email";
+            message.Subject = "Reset Password";
 
             string emailBody = string.Empty;
             string path = "wwwroot/templates/confirm.html";
