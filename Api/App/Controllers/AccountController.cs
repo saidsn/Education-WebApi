@@ -47,7 +47,7 @@ namespace App.Controllers
 
                 var user = await _userManager.FindByEmailAsync(registerDto.Email);
 
-                var token = _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                 var link = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, token },
                     Request.Scheme, Request.Host.ToString());
