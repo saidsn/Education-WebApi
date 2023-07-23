@@ -89,3 +89,5 @@ C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\bin\Debug\n
 C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\bin\Debug\net6.0\Scrutor.dll
 C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\bin\Debug\net6.0\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\bin\Debug\net6.0\Microsoft.Owin.dll
+C:\Users\OMEN\Desktop\Programming\CODE\API-React\Api-Project\Api\App\bin\Debug\net6.0\Owin.dll

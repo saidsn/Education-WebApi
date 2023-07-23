@@ -76,7 +76,7 @@ namespace ServiceLayer.Services.Implementations
 
             emailBody = _fileService.ReadFile(path, emailBody);
 
-            emailBody = emailBody.Replace("{{link}}", link).Replace("{{FullName}}", user.Email);
+            emailBody = emailBody.Replace("{{link}}", link).Replace("{{FullName}}", user.FullName);
 
             message.Body = new TextPart(TextFormat.Html) { Text = emailBody };
 

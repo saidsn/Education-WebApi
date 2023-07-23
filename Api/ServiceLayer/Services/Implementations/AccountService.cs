@@ -47,7 +47,7 @@ namespace ServiceLayer.Services.Implementations
                 return response;
             }
 
-            await _userManager.AddToRoleAsync(user, "Admin");
+            await _userManager.AddToRoleAsync(user, "Member");
 
             return new ApiResponse { Errors = null, StatusMessage = "Success" };
         }
@@ -87,11 +87,11 @@ namespace ServiceLayer.Services.Implementations
 
         public async Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
         {
-            var user = await _userManager.FindByIdAsync(resetPasswordDto.Email);
+            var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
 
             if (user == null) throw new NullReferenceException();
 
-            await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.newPassword);
+            await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.NewPassword);
         }
     }
 }

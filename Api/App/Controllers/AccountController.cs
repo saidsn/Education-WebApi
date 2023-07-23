@@ -1,10 +1,14 @@
 ﻿using DomainLayer.Entities;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Owin.Security;
 using ServiceLayer.DTO_s.Account;
 using ServiceLayer.Services.Interfaces;
 using ServiceLayer.Validations.Account;
 using System.Data;
+using System.Web;
 
 namespace App.Controllers
 {
@@ -16,7 +20,8 @@ namespace App.Controllers
 
         public AccountController(IAccountService accountService,
             UserManager<AppUser> userManager,
-            IEmailService emailService)
+            IEmailService emailService,
+            IAuthenticationManager authenticationManager)
         {
             _accountService = accountService;
             _userManager = userManager;
@@ -68,18 +73,11 @@ namespace App.Controllers
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
-            try
-            {
-                if (userId == null || token == null) return BadRequest();
+            if (userId == null || token == null) return BadRequest();
 
-                await _accountService.ConfirmEmailAsync(userId, token);
+            await _accountService.ConfirmEmailAsync(userId, token);
 
-                return Redirect("http://localhost:3000/Login");
-            }
-            catch (Exception)
-            {
-                throw new InvalidOperationException("An invalid condition has occurred.");
-            }
+            return Redirect("http://localhost:3000/Login");
         }
 
 
@@ -108,8 +106,8 @@ namespace App.Controllers
 
                 var token = await _userManager.GeneratePasswordResetTokenAsync(exsistUser);
 
-                var link = Url.Action(nameof(ResetPassword), "Account", new { userId = exsistUser.Id, token },
-                    Request.Scheme, Request.Host.ToString());
+
+                var link = $"http://localhost:3000/ResetPassword?email={exsistUser.Email}&token={HttpUtility.UrlEncode(token)}";
 
                 if (link == null) throw new NullReferenceException(nameof(link));
 
@@ -129,11 +127,19 @@ namespace App.Controllers
         {
             await _accountService.ResetPasswordAsync(resetPasswordDto);
 
+            return Redirect("http://localhost:3000/Login");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+
             return Ok();
         }
 
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateRole(RoleDto role)
         {
