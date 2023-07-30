@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Owin.Security;
 using ServiceLayer.DTO_s.Account;
 using ServiceLayer.Services.Interfaces;
 using ServiceLayer.Validations.Account;
@@ -20,8 +19,7 @@ namespace App.Controllers
 
         public AccountController(IAccountService accountService,
             UserManager<AppUser> userManager,
-            IEmailService emailService,
-            IAuthenticationManager authenticationManager)
+            IEmailService emailService)
         {
             _accountService = accountService;
             _userManager = userManager;
@@ -125,9 +123,30 @@ namespace App.Controllers
         [HttpPost]
         public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordDto resetPasswordDto)
         {
-            await _accountService.ResetPasswordAsync(resetPasswordDto);
+            try
+            {
+                ResetPasswordValidator validator = new();
 
-            return Redirect("http://localhost:3000/Login");
+                var validationResult = validator.Validate(resetPasswordDto);
+
+                if (!validationResult.IsValid)
+                {
+                    var response = new ApiResponse
+                    {
+                        Errors = validationResult.Errors.Select(m => m.ErrorMessage).ToList(),
+                        StatusMessage = "Failed"
+                    };
+                    return BadRequest(response);
+                }
+
+                await _accountService.ResetPasswordAsync(resetPasswordDto);
+
+                return Redirect("http://localhost:3000/Login");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse { Errors = new List<string> { ex.Message } });
+            }
         }
 
         [HttpPost]

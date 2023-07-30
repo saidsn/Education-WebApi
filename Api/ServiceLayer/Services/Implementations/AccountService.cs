@@ -38,16 +38,14 @@ namespace ServiceLayer.Services.Implementations
 
             if (!result.Succeeded)
             {
-                ApiResponse response = new()
+                return new ApiResponse
                 {
                     Errors = result.Errors.Select(m => m.Description).ToList(),
                     StatusMessage = "Failed"
                 };
-
-                return response;
             }
 
-            await _userManager.AddToRoleAsync(user, "Member");
+            await _userManager.AddToRoleAsync(user, "Admin");
 
             return new ApiResponse { Errors = null, StatusMessage = "Success" };
         }
@@ -85,13 +83,24 @@ namespace ServiceLayer.Services.Implementations
         }
 
 
-        public async Task ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        public async Task<ApiResponse> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
         {
-            var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
+            var existUser = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
 
-            if (user == null) throw new NullReferenceException();
+            if (existUser == null) throw new NullReferenceException();
 
-            await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.NewPassword);
+            if (await _userManager.CheckPasswordAsync(existUser, resetPasswordDto.NewPassword))
+            {
+                return new ApiResponse
+                {
+                    Errors = new List<string> { "Your password already exists!" },
+                    StatusMessage = "Failed"
+                };
+            }
+
+            await _userManager.ResetPasswordAsync(existUser, resetPasswordDto.Token, resetPasswordDto.NewPassword);
+
+            return new ApiResponse { Errors = null, StatusMessage = "Success" };
         }
     }
 }

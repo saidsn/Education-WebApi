@@ -77,10 +77,6 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
-            "Microsoft.Owin": {
-              "target": "Package",
-              "version": "[4.2.2, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"

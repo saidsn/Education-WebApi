@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KT90m1K0cBG8MGLVQLcNioJWlo7LCs4/9bp0yxUkT8MFNPjkAsJhgLj1lzJPj8WJwRtkqQmhe6k1kiWUxCOVuQ==",
+  "dgSpecHash": "LA+tlyynXTeh8mCmDcbfDA+2/J1JrxCsBsc91LYnhaARZb5RxWJneEaaZJFErEZrB9iUIrlGYXJRrzXpiBF5sw==",
   "success": true,
   "projectFilePath": "C:\\Users\\OMEN\\Desktop\\Programming\\CODE\\API-React\\Api-Project\\Api\\App\\App.csproj",
   "expectedPackageFiles": [
@@ -49,13 +49,11 @@
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
-    "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.owin\\4.2.2\\microsoft.owin.4.2.2.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\mimekit\\3.4.2\\mimekit.3.4.2.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
-    "C:\\Users\\OMEN\\.nuget\\packages\\owin\\1.0.0\\owin.1.0.0.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\scrutor\\3.0.1\\scrutor.3.0.1.nupkg.sha512",
@@ -109,26 +107,5 @@
     "C:\\Users\\OMEN\\.nuget\\packages\\system.threading.tasks\\4.0.11\\system.threading.tasks.4.0.11.nupkg.sha512",
     "C:\\Users\\OMEN\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Microsoft.Owin 4.2.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Microsoft.Owin",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Owin 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Owin",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }
