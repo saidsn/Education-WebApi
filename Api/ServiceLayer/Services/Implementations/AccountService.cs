@@ -9,22 +9,24 @@ namespace ServiceLayer.Services.Implementations
     public class AccountService : IAccountService
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ITokenService _tokenService;
-        private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
 
         public AccountService(UserManager<AppUser> userManager,
+                              SignInManager<AppUser> signInManager,
                               RoleManager<IdentityRole> roleManager,
                               ITokenService tokenService,
-                              IEmailService emailService,
                               IMapper mapper)
+
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _roleManager = roleManager;
             _tokenService = tokenService;
-            _emailService = emailService;
             _mapper = mapper;
+            _signInManager = signInManager;
         }
 
 
@@ -101,6 +103,35 @@ namespace ServiceLayer.Services.Implementations
             await _userManager.ResetPasswordAsync(existUser, resetPasswordDto.Token, resetPasswordDto.NewPassword);
 
             return new ApiResponse { Errors = null, StatusMessage = "Success" };
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
+        public async Task<UserDto> GetUserByIdAsync(string id)
+        {
+            if (id == null) throw new ArgumentNullException("id");
+
+            var exsistUser = await _userManager.FindByIdAsync(id);
+
+            if (exsistUser == null) throw new NullReferenceException();
+
+            IList<string> userRoles = await _userManager.GetRolesAsync(exsistUser);
+
+            var mappedData = _mapper.Map<UserDto>(exsistUser);
+
+            List<string> roleNames = new();
+
+            foreach (var role in userRoles)
+            {
+                roleNames.Add(role);
+            }
+
+            mappedData.RoleNames = roleNames;
+
+            return mappedData;
         }
     }
 }

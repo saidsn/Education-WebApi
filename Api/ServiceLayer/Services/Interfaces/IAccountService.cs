@@ -8,6 +8,8 @@ namespace ServiceLayer.Services.Interfaces
         Task ConfirmEmailAsync(string userId, string token);
         Task<string?> LoginAsync(LoginDto loginDto);
         Task<ApiResponse> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
+        Task LogoutAsync();
         Task CreateRoleAsync(RoleDto roleDto);
+        Task<UserDto> GetUserByIdAsync(string id);
     }
 }

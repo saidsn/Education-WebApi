@@ -1,11 +1,11 @@
 ﻿using DomainLayer.Entities;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DTO_s.Account;
 using ServiceLayer.Services.Interfaces;
 using ServiceLayer.Validations.Account;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Web;
 
@@ -149,12 +149,27 @@ namespace App.Controllers
             }
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
+            await _accountService.LogoutAsync();
 
             return Ok();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserById([Required] string id)
+        {
+            try
+            {
+                return Ok(await _accountService.GetUserByIdAsync(id));
+            }
+            catch (Exception)
+            {
+                return NotFound("User not Found");
+            }
         }
 
 
